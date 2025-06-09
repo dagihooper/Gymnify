@@ -1,0 +1,16 @@
+<!-- templates/403.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Access Denied</title>
+</head>
+<body>
+    <h1>403 Forbidden</h1>
+    <p>Sorry, you don't have permission to access this page.</p>
+    {% if reason %}
+        <p>Reason: {{ reason }}</p>
+    {% endif %}
+    <a href="{% url 'login' %}">click here </a>
+</body>
+</html>

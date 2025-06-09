@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gymnify</title>
+  <link rel="stylesheet" href="../../static/css/output.css">
+</head>
+<body class="flex justify-center items-center min-h-screen font-poppins">
+
+  <main class="w-full max-w-3xl p-6 max-md:mb-56 flex justify-center">
+    {% if messages %}
+    <div id="message-container" class="absolute top-4 left-8 w-[21rem] max-w-[80%] font-lato text-white">
+        {% for message in messages %}
+        <div class="flex items-center justify-between p-4 mb-4 rounded-md {% if message.tags == 'success' %}bg-green-500{% elif message.tags == 'error' %}bg-red-500{% else %}bg-gray-500{% endif %}">
+            <p class="w-full">{{ message }}</p>
+            <button class="text-white" onclick="this.parentElement.remove();">✖</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form action="/insertion" method="POST" class="flex flex-col gap-6 bg-white rounded-lg shadow-lg p-10 max-md:p-4 w-full max-w-md">
+      {% csrf_token %}
+
+      <header class="flex gap-4 mb-3 flex-col max-md:mb-10">
+        <img width="100" src="../../static/assets/logo/logo.png" alt="Gymnify Logo">
+        <p class="text-xl font-poppins text-black">Hey 🖐️
+          <span class="block mt-4 font-bold font-poppins text-2xl">{{first_name|capfirst}}{{first_nameGoggle}} {{last_nameGoggle}} {{last_name|capfirst}}</span> </p>
+      </header>
+
+       {% if not gym_house %}
+
+      <div class="mb-4 w-max">
+        <label for="gym_house" class="block font-medium text-gray-700">Select Gym:</label>
+        <select id="gym_house" name="gym_house" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" required>
+          {% for gymer in gymers %}
+          <option value="{{ gymer.name }}">{{ gymer.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      {% endif %}
+
+      <div>
+        <h1 class="text-2xl max-sm:text-xl  text-gray-500">Enter your phone number</h1>
+        <div class="flex items-center mt-6">
+          <span class="text-lg">+251</span>
+          <input type="tel" name="phone_number" placeholder="Enter your phone number" pattern="[0-9]{9}" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
+        </div>
+      </div>
+
+      <button type="submit" class="w-full mt-6 p-4 hover:bg-blue-500 text-white font-semibold rounded-lg bg-green-500 transition duration-300">Send SMS</button>
+    </form>
+  </main>
+
+</body>
+</html>

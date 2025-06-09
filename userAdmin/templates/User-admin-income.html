@@ -1,0 +1,199 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../static/css/output.css">
+  <title>Gymnify</title>
+</head>
+<body class="m-0 p-0 border-none outline-none box-border font-poppins bg-[#FAFBFF] overflow-x-auto">
+
+<main class="flex gap-2 w-full ">
+
+  <div id="sideBar" class="sidebar visible sticky top-0 left-0 bottom-0 max-side-bar:min-w-[110px] side-bar:min-w-[240px] h-screen px-7 max-side-bar:px-5 text-white overflow-hidden bg-white-gray bg-white max-sm:hidden">
+    <div class="text-lg text-black font-bold pl-[26px] max-side-bar:pl-9 py-4  absolute space-x-6 w-full top-0 left-0">
+      <div class="flex items-center  space-x-10"><img  width = "27" height="17" src="../../static/assets/logo/random-1.png" alt="">
+        <span class="max-side-bar:hidden">Gymnify.</span>
+      </div>
+    </div>
+    <div class="logo h-40 p-4 ">
+
+    </div>
+
+    <ul class="h-[88%] relative list-none p-0">
+      <li  class="p-4 my-2 rounded-md hover:bg-slate-200 hover:text-light-gray transition-all duration-700  cursor-pointer text-light-gray"> 
+        <a href="user-admin-dashboard" class="text-sm flex items-center justify-center gap-6">
+          <img width="27" height="27" class="opacity-50" src="../../static/assets/logo/dashboard.png">
+          <span class="overflow-hidden max-side-bar:hidden">Dashboard</span>
+        </a>
+      </li>
+
+      <li class="p-4 my-2 rounded-md hover:bg-slate-200 transition-all duration-700 text-white cursor-pointer bg-blue-violet "> 
+        <a href="/user-admin-income" class="text-sm flex items-center gap-6">
+          <img width ="27" height="27" class="opacity-50" src="../../static/assets/logo/income.png">
+          <span class="overflow-hidden max-side-bar:hidden">Income</span>
+        </a>
+      </li>
+     
+      <div class="profile grid grid-cols-2  absolute bottom-28 left-2  w-full text-sm -space-x-3">
+        <div class="bg-soft-teal h-12 w-12 mt-1 rounded-full text-white">
+
+        </div>
+
+        <div class="grid grid-rows-2 -space-y-2 max-side-bar:hidden">
+          <div class=" text-black">
+            Gymnify
+          </div>
+          <div class=" text-light-gray">
+            Managment System
+          </div>
+        </div>
+      </div>
+    </ul>
+  </div>
+
+   <!-- /* ---------------------------*/ -->
+
+
+ <div class="main-content flex-1 relative bg-none w-full p-4 overflow-scroll ">
+
+  <div class="header--wrapper flex justify-between items-center flex-wrap bg-white shadow-lg  rounded-lg border-black border-opacity-10 border px-2.5 py-7 mb-4 max-scroll:min-w-[510px]">
+    <div class="header-title ">
+      <h2 class="text-2xl text-soft-teal">Dashboard</h2>
+    </div>
+ 
+
+    <div id="hamBurger" onclick="sideBarToggle()"><img width="27" height="27" src="../../static/assets/logo/visible.png" alt="" srcset=""></div>
+      <div class="user--info flex items-center space-x-14 max-md:space-x-8 pr-4 cursor-pointer"> 
+      <img width="27" height="27" src="../../static/assets/logo/notification.png" class="opacity-50" alt="">
+      <img width="27" height="27" src="../../static/assets/logo/random.png" class="opacity-50" alt="">
+    </div>
+  </div>
+
+     <!-- /* ---------------------------*/ -->
+
+
+  <div class="grid grid-cols-3 gap-4 bg-white shadow-lg rounded-xl px-1 py-6 max-card:grid-cols-2 mb-4  max-md:place-items-center max-scroll:min-w-[510px] ">
+  
+    <div class="grid grid-cols-2  place-items-center">
+  
+      <div class="bg-green-100 p-4 rounded-full">
+        <img src="../../static/assets/logo/balance.svg" alt="icon" width="27" height="27">
+      </div>
+      <div class="flex flex-col items-start justify-center">
+      <p class="text-gray-500 mt-2 text-sm">Total Balance</p>
+      <h2 class="text-2xl font-bold">{{total_balance}}</h2>
+      <p class="text-sm flex items-center gap-1">
+        <span><img src="../../static/assets/logo/arrow-up.svg" alt=""></span> <span class="text-green-500">8%</span> this month
+      </p>
+    </div>
+    </div>
+  
+    <div class="grid grid-cols-2 place-items-center md:">
+      <div class="bg-green-100 p-4 rounded-full">
+        <img src="../../static/assets/logo/wallet.svg" alt="icon" width="27" height="27">
+      </div>
+  
+      <div class="flex flex-col items-start justify-center">
+      <p class="text-gray-500 mt-2 text-sm">Monthly Income</p>
+      <h2 class="text-2xl font-bold">{{total_monthly_income}}</h2>
+      <p class="text-sm flex items-center gap-1">
+        <span><img src="../../static/assets/logo/arrow-down.svg" alt=""></span>  <span class="text-red-700">1%</span> this month
+      </p>
+  
+    </div>
+    </div>
+  
+    <div class="grid grid-cols-2 place-items-center md:-space-x-5">
+      <div class="bg-green-100 p-4 rounded-full">
+        <img src="../../static/assets/logo/dollar-sign.svg" alt="icon" width="27" height="27">
+      </div>
+  
+      <div class="flex flex-col items-start justify-center">
+      <p class="text-gray-500 mt-2 text-sm">      
+        Paying clients
+      </p>
+      <h2 class="text-2xl font-bold">{{total_active_users}}</h2>
+      <p class="text-white text-sm flex items-center gap-1">
+        <span class="text-white">▼</span> 1% this month
+      </p>
+  
+    </div>
+    </div>
+  
+   
+  
+  </div>
+
+     <!-- /* ---------------------------*/ -->
+
+
+  <div class="p-6 bg-white shadow-lg rounded-lg overflow-x-auto lg:overflow-x-scroll max-scroll:min-w-[510px]">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl max-md:text-sm font-semibold">Transaction History</h2>
+        
+    </div>
+    <div class="">
+        <table class="w-full min-w-[1000px]  border-separate border-spacing-y-4 border-none text-left text-sm">
+            <thead>
+                <tr>
+                    <th class="p-3 text-light-gray opacity-50 font-normal relative">Gym House<button class="absolute"><img src="../../static/assets/logo/sort-by.svg" ></button></th>
+                    <th class="p-3 text-light-gray opacity-50 font-normal relative ">Service type<button class="absolute"><img src="../../static/assets/logo/sort-by.svg" ></button> </th>
+                    <th class="p-3 text-light-gray opacity-50 font-normal ">Validity</th>
+                    <th class="p-3 text-light-gray opacity-50 font-normal ">Date</th>
+                    <th class="p-3 text-light-gray opacity-50 font-normal relative ">Birr <button class="absolute"><img src="../../static/assets/logo/sort-by.svg" ></button></th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+
+              {% for gymer in gymers %}
+              {% if gymer.paymentsList %}
+                <tr class="border-t bg-white shadow-sm">
+                    <td class="p-3">{{gymer.name}}</td>
+                    <td class="p-3">{{gymer.service_type}}</td>
+                    <td class="p-3 text-active-text">Done</td>
+
+                    <td class="p-3">
+                      {% if payments %}
+                      <ul>
+                          {% for payment in gymer.paymentsList %}
+                          <li class="before:content-['✔️'] before:mr-2 before:text-[10px]">{{gymer.date }}</li>
+                          {% endfor %}
+                      </ul>
+                      {% else %}
+                      No Payments Found
+                      {% endif %}</td>
+
+                    <td class="p-3">{{gymer.price}} birr</td>
+                   
+                </tr>
+                  {% endif %}
+                  {% endfor %}
+                
+            </tbody>
+        </table>
+    </div>
+    <div class="flex justify-between items-center mt-4 text-sm text-gray-500">
+        <span>Showing data 1 to 8 of (total entries) entries</span>
+        <div class="flex gap-1">
+            <button class="border px-2 py-1 rounded">&lt;</button>
+            <button class="bg-blue-500 text-white px-2 py-1 rounded">1</button>
+            <button class="border px-2 py-1 rounded">2</button>
+            <button class="border px-2 py-1 rounded">...</button>
+            <button class="border px-2 py-1 rounded">40</button>
+            <button class="border px-2 py-1 rounded">&gt;</button>
+        </div>
+    </div>
+</div>
+
+ </div>
+
+ 
+
+
+</main>
+
+
+<script src="../../static/js/user-admin.js"></script>
+</body>
+</html>

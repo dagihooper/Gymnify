@@ -1,0 +1,19 @@
+{
+  "name": "vote_app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tailwindcss -i static/css/input.css -o static/css/output.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.14"
+  }
+}

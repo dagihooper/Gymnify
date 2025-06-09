@@ -1,0 +1,192 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gmnify</title>
+  <link rel="stylesheet" href="../../static/css/output.css">
+</head>
+<body class="margin-0 p-0 overflow-x-hidden">
+
+
+  {% if messages %}
+  <div id="message-container" class="absolute font-lato shadow-md text-white  max-w-[80%] w-[21rem] max-md:min-w-[80%] top-4 left-8 mt-8">
+      {% for message in messages %}
+      <div class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} padding-x py-5 rounded-md flex flex-row justify-center items-center gap-4">
+          <p class="w-full">{{ message }}</p>
+          <button class="top-1 right-2 text-white" onclick="this.parentElement.remove();">✖</button>
+  
+      </div>
+      {% endfor %}
+  </div>
+  {% endif %}
+
+  <main class="max-md:mb-[24rem] w-full">
+  <header class="flex flex-row w-full items-center justify-between padding-x mt-2 shadow-lg mb-10 rounded-md min-w-[600px]">
+    <div>
+      <a href="{% url 'home' %}"><img width="100" height="50" src="../../static/assets/logo/logo.png" alt=""></a>
+    </div>
+
+    <div id="profile" class="rounded-full cursor-pointer w-12 h-12 bg-gray-400 flex items-center justify-center text-white font-poppins relative group overflow-hidden">
+      {% if profile_photo %}  
+        <div class="absolute inset-0 flex justify-center items-center w-full h-full">
+          <img class="object-cover object-center w-full h-full"  src="../../static/profile_photos/{{profile_photo}}" alt="">
+
+        </div>
+      {%else%}
+            <p>{{first_name|slice:":1"}}{{last_name|slice:":1"}}</p>
+      {%endif%}
+
+            <div class="absolute shadow-lg hidden group-hover:flex duration-1000 transition-all  top-10  flex-col justify-center items-center p-8 space-y-8 rounded-lg  ">
+
+              <div class="flex flex-row justify-center items-center space-x-2">
+                <img width="20" height="20" src="../../static/assets/logo/profile.png" alt="">
+                <a href="{% url 'profilepage' %}" class="font-lato text-xl text-blue-400 hover:text-blue-300">
+                  profile
+                </a>
+            </div>
+            <div class="flex flex-row justify-center items-center space-x-2">
+                <img width="20" height="20" src="../../static/assets/logo/logout.png" alt="">
+                <a href="{% url 'logout' %}" class="font-lato text-xl text-blue-400 hover:text-blue-300">
+                  logout
+                </a>
+            </div>
+
+            </div>
+
+
+    </div>
+
+   
+
+</header>
+
+{% csrf_token %}
+
+
+<div class = "flex flex-col gap-16 justify-start items-start min-h-screen w-full  text-slate-gray p-24 max-md:p-12 max-md:min-w-[600px]">
+  <div class="flex flex-row  max-md:py-6 max-md:space-y-8 items-center justify-between px-8 w-full min-h-40 shadow-lg">
+
+    <div id="profileDiv" class="rounded-full relative cursor-pointer min-w-28 min-h-28 bg-gray-400 flex items-center justify-center flex-col space-y-4 text-white font-poppins overflow-hidden group bg-cover bg-center bg-no-repeat">
+      <div class="absolute inset-0 flex justify-center items-center w-full h-full">
+        <img id="previewImage"  class="object-cover object-center w-full h-full" 
+             src="{% if profile_photo %}../../static/profile_photos/{{ profile_photo }}{% else %}../../static/assets/images/guest.png{% endif %}" 
+             alt="Profile Photo">
+      </div>
+      <div>
+        <div id="profileDivText" class="flex justify-center items-center font-montserrat text-md w-full absolute bottom-0 bg-gray-200 left-0 text-center group-hover:opacity-80 opacity-0 transition-opacity duration-1000">
+          <img id="previewImage" width="20" height="20" src="../../static/assets/logo/camera-white.png" alt="Profile Photo">
+        </div>
+      </div>
+      <input type="file" id="profilePhotoInput" class="hidden">
+    </div>
+  
+    <div class="font-montserrat text-2xl flex-1 text-right max-md:text-center">
+      {{first_name}} {{last_name}}
+    </div>
+  
+  </div>
+  
+
+  <form class="grid grid-cols-1 pt-8 justify-between padding-x space-x-8 rounded-lg bg-white shadow-lg w-full min-h-40" method="POST" action="/profilepage/" autocomplete="on">
+    
+    <div class="font-palanquin text-4xl max-md:text-2xl text-black mb-10">Additional Information</div>
+
+ <div class="grid grid-cols-2 gap-x-36 max-md:gap-x-20 max-md:grid-cols-1 ">
+
+    <div class="mb-4">
+      <label for="email" class="block text-gray-700 text-sm font-medium mb-1">Email</label>
+      <input type="email" name="email" min="14" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" value="{{email}}" required placeholder="Enter your email">
+  </div>
+    <div class="mb-4">
+      <label for="age" class="block text-gray-700 text-sm font-medium mb-1">Age</label>
+      <input type="number" name="age" min="14" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" value="{{age}}" required placeholder="Enter your age">
+  </div>
+  <div class="mb-4">
+      <label for="weight" class="block text-gray-700 text-sm font-medium mb-1">Weight (in kg)</label>
+      <input type="number" min="30" name="weight" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" value="{{weight}}" required placeholder="Enter your weight">
+  </div>
+  <div class="mb-4">
+      <label for="height" class="block text-gray-700 text-sm font-medium mb-1">height (in meter)</label>
+      <input type="number" min="1" name="height" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" value="{{height}}" required placeholder="Enter your height">
+  </div>
+
+    <div class="mb-4">
+        <label for="gender" class="block text-gray-700 text-sm font-medium mb-1">Gender</label>
+        <select type="text" name="gender" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus focus:ring-green-200" required>
+          <option value="male" name="male">Male</option>
+          <option value="female" name="female">Female</option>
+        </select>
+    </div>
+    <div class="mb-4">
+        <label for="exercise_day" class="block text-gray-700 text-sm font-medium mb-1">Exercise Days Per Week</label>
+        <input type="number" name="exercise_day" min="1" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" value="{{exercise_day}}" required placeholder="Enter the number of days">
+    </div>
+
+    <div class="mb-4">
+        <label for="health_status" class="block text-gray-700 text-sm font-medium mb-1">Health Status</label>
+        <input type="text" name="health_status" min="1" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" required value="{%if health_status%}{{health_status}}{%else%}{%endif%}" placeholder="Enter your health status">
+    </div>
+    <div class="mb-4">
+        <label for="exercise_type" class="block text-gray-700 text-sm font-medium mb-1">Exercise type</label>
+        <input type="text" name="exercise_type" min="1" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" required value="{% if exercise_type %}{{ exercise_type }}{% else %}{% endif %}" placeholder="Enter your exercise type">
+    </div>
+   
+    <div class="mb-4">
+        <label for="blood_type" class="block text-gray-700 text-sm font-medium mb-1">Blood Type</label>
+        <input type="text" name="blood_type" min="1" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" required value="{%if blood_type%}{{blood_type}}{%else%}{%endif%}" placeholder="Enter your blood type">
+    </div>
+
+    <div class="mb-4">
+        <label for="exercise_time_per_day" class="block text-gray-700 text-sm font-medium mb-1">Exercise Time Per Day</label>
+        <input type="text" name="exercise_time_per_day" min="1" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"  value="{%if exercise_time_per_day%}{{exercise_time_per_day}}{%else%}{%endif%}" placeholder="Enter the exercise time per day">
+    </div>
+
+    <div class="mb-4">
+        <label for="fitness_goal" class="block text-gray-700 text-sm font-medium mb-1">Fitness Goal</label>
+        <input type="text" name="fitness_goal" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"  value="{%if fitness_goal%}{{fitness_goal}}{%else%}{%endif%}" placeholder="Enter your fitness goal">
+    </div>
+    <div class="mb-4">
+        <label for="notificationTime" class="block text-gray-700 text-sm font-medium mb-1">Notification Time</label>
+        <input type="time" name="notificationTime" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"  value="{%if notificationTime%}{{notificationTime}}{%else%}{%endif%}" placeholder="Enter the notification time">
+    </div>
+    <div class="mb-4">
+        <label for="enteringTime" class="block text-gray-700 text-sm font-medium mb-1">Entering Time</label>
+        <input type="time" name="enteringTime" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"  value="{%if enteringTime%}{{enteringTime}}{%else%}{%endif%}" placeholder="Enter your entering time">
+    </div>
+    <div class="mb-4">
+        <label for="totalTimeSpendOnGym" class="block text-gray-700 text-sm font-medium mb-1">Total Time Spend on Gym</label>
+        <input type="time" name="totalTimeSpendOnGym" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"  value="{%if totalTimeSpendOnGym%}{{totalTimeSpendOnGym}}{%else%}{%endif%}" placeholder="Enter your average total time in Gym.">
+    </div>
+    <div class="mb-4">
+      <label for="activityLevel" class="block text-gray-700 text-sm font-medium mb-1">Activity Level</label>
+       <select id="activityLevel" name="activityLevel" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
+                <option value="sedentary_level">Sedentary Level</option>
+                <option value="lightly_active">Lightly Active</option>
+                <option value="moderately_active">Moderately Active</option>
+              <option value="very_active">Very Active</option>
+            </select>
+    </div>
+
+   
+  </div>
+
+  <div class="flex items-end justify-between mt-15 mb-8 border-t-2 border-solid text-black font-palanquin pt-4 padding-x ">
+    <div>
+      <button id="refreshPage" class="flex w-full gap-2"><img width="20" height="20" src="../../static/assets/logo/refresh.png" alt="">Refresh</button>
+    </div>
+    <div>
+      <button type="submit" class="flex w-full gap-2"> <img width="20" height="20" src="../../static/assets/logo/update.png" alt="">Update</button>
+    </div>
+
+  </div>
+  
+
+</form>
+ </div>
+
+
+  </main>
+
+  <script src="../../static/js/register.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+from django.contrib import admin
+from django.urls import path, include
+from userAdmin import views
+urlpatterns = [
+    path('user-admin-dashboard', views.user_admin_dashboard, name = 'user_admin_dashboard'),
+    path('user-admin-income', views.user_admin_income, name = 'user_admin_income'),
+    path('toggle-status/', views.toggle_status, name = 'toggle_status'),
+    path('message', views.message, name = 'message'),
+    path('delete-notification', views.delete_notification, name = "delete_notification")
+]

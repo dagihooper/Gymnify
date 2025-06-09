@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trial_validation</title>
+  <link rel="stylesheet" href="../../static/css/output.css">
+</head>
+<body>
+  <form action="" method="POST" class="flex items-center  justify-center gap-4 mb-6 h-full w-full shadow-lg border bg-black" >
+    {% csrf_token %}
+    <div >
+    <input type="text" maxlength="1" class="w-12 h-12 border-2 border-gray-300 text-center text-2xl rounded-md focus:border-blue-500 focus:outline-none otp-input " />
+    <input type="text" maxlength="1" class="w-12 h-12 border-2 border-gray-300 text-center text-2xl rounded-md focus:border-blue-500 focus:outline-none otp-input" />
+    <input type="text" maxlength="1" class="w-12 h-12 border-2 border-gray-300 text-center text-2xl rounded-md focus:border-blue-500 focus:outline-none otp-input" />
+    <input type="text" maxlength="1" class="w-12 h-12 border-2 border-gray-300 text-center text-2xl rounded-md focus:border-blue-500 focus:outline-none otp-input" />
+  </div>
+  <button type="submit" class="bg-white text-black w-20 h-20 p-4">Submit</button>
+</form>
+
+</body>
+
+<script>
+document.querySelectorAll('.otp-input').forEach((input, index, inputs) => {
+  input.addEventListener('input', function (e) {
+    // Move to the next input field if the current one is filled
+    if (this.value.length === 1 && index < inputs.length - 1) {
+      inputs[index + 1].focus();
+    }
+
+    // Check if all OTP inputs are filled and submit OTP if so
+    if (index === inputs.length - 1 && Array.from(inputs).every(input => input.value.length === 1)) {
+      submitOTP();
+    }
+  });
+
+  input.addEventListener('keydown', function (e) {
+    // Move to the previous input field on backspace if the current input is empty
+    if (e.key === 'Backspace' && this.value === '' && index > 0) {
+      inputs[index - 1].focus();
+    }
+  });
+});
+
+// Function to handle OTP submission
+function submitOTP() {
+  const otp = Array.from(document.querySelectorAll('.otp-input')).map(input => input.value).join('');
+  
+  // Get the CSRF token from the page
+  const csrfToken = document.querySelector('[name="csrfmiddlewaretoken"]').value;
+
+  // Create a form and append the OTP and CSRF token to it
+  const otpForm = document.createElement('form');
+  otpForm.action = '';  // Adjust the endpoint where OTP is validated
+  otpForm.method = 'POST';
+
+  // Create the OTP input field
+  const otpInput = document.createElement('input');
+  otpInput.type = 'hidden';
+  otpInput.name = 'otp';
+  otpInput.value = otp;
+
+  // Create the CSRF token input field
+  const csrfInput = document.createElement('input');
+  csrfInput.type = 'hidden';
+  csrfInput.name = 'csrfmiddlewaretoken';
+  csrfInput.value = csrfToken;
+
+  // Append OTP and CSRF token to the form
+  otpForm.appendChild(otpInput);
+  otpForm.appendChild(csrfInput);
+  
+  // Append the form to the document and submit it
+  document.body.appendChild(otpForm);
+  otpForm.submit();  // Submit the form
+}
+
+</script>
+</html>

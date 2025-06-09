@@ -1,0 +1,108 @@
+<html lang="en" class="overflow-auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gymnify</title>
+  <link rel="stylesheet" href="../../static/css/output.css">
+</head>
+<body>
+
+  <main class="max-md:mb-[20rem]">
+
+    {% if messages %}
+<div id="message-container" class="absolute font-lato shadow-md text-white  max-w-[80%] w-[21rem] max-md:min-w-[80%] top-4 left-8 mt-8">
+    {% for message in messages %}
+    <div class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} padding-x py-5 rounded-md flex flex-row justify-center items-center gap-4">
+        <p class="w-full">{{ message }}</p>
+        <button class="top-1 right-2 text-white" onclick="this.parentElement.remove();">✖</button>
+
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+    <section class="px-2 max-container min-h-screen w-full">
+       <div class="flex flex-1 flex-row items-center justify-around max-md:justify-center">
+
+        <div class="min-h-screen">
+          <img width="450" height="350" src="../../static/assets/images/Untitled design (2).png" alt="" class="object-contain max-md:hidden" >
+        </div>
+
+        <div class="shadow-md w-1/2 py-8 max-md:w-full min-h-screen">
+          <header class="flex flex-row items-center justify-between mb-10 pr-8">
+            <div>
+              <img width="100" height="50" src="../../static/assets/logo/logo.png" alt="">
+            </div>
+
+              <h2 class="font-montserrat text-3xl max-md:text-2xl font-bold leading-normal ">Your Goal, <span class="block">Our Mission</span></h2>
+
+          
+          </header>
+          <div class="flex flex-col justify-center items-start pl-20 max-md:items-center max-md:pl-0 ">
+              <div>
+              <h2 class="font-lato text-xl">Get started now! <span class="text-blue-500 text-md font-poppins inline">sign up to Gmnify</span></h2>
+              <p class="text-gray-600 font-poppins mt-4">
+                Already have an account? <a href="/login" class="text-blue-500 font-medium">Login</a>
+              </p>
+              </div>
+              
+            <form action="/register" method="POST" autocomplete="on" id="form_registration"
+            class="flex flex-col gap-2 font-poppins">
+
+                  {% csrf_token %}
+
+               <div class="flex flex-row  space-x-6 bg-[EDEDED]  font-poppins p-5 rounded-xl max-w-sm mt-8 cursor-pointer">
+                <img width="20" height="50" src="../../static/assets/logo/goggle.svg" alt="">
+                {% load socialaccount %} 
+                <a href="{% provider_login_url 'google' %}?next=/home">Continue with Google</a>
+
+               </div>
+               ______or_______
+
+               <div class="mb-4">
+                <label for="gym_house" class="block text-gray-700 text-sm font-medium mb-1">Select Gym:</label>
+                <select id="gym_house" name="gym_house" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" required>
+                  {% for gymer in gymers %}
+                <option value="{{ gymer.name }}">{{ gymer.name }}</option>
+            {% endfor %}
+            </select>
+            </div>
+
+                <div class="mb-4">
+                    <label for="username" class="block text-gray-700 text-sm font-medium mb-1">Username</label>
+                    <input type="text" name="username" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" required placeholder="Enter your username">
+                </div>
+                <div class="mb-4">
+                    <label for="first_name" class="block text-gray-700 text-sm font-medium mb-1">First Name</label>
+                    <input type="text" name="first_name" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" required placeholder="Enter your first name">
+                </div>
+                <div class="mb-4">
+                    <label for="last_name" class="block text-gray-700 text-sm font-medium mb-1">Last Name</label>
+                    <input type="text" name="last_name" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" required placeholder="Enter your last name">
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="block text-gray-700 text-sm font-medium mb-1">Password</label>
+                    <input type="password" name="password" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" required placeholder="Enter your Password">
+                </div>
+                <div class="mb-4">
+                    <label for="confirm_password" class="block text-gray-700 text-sm font-medium mb-1">Confirm Password</label>
+                    <input type="password" name="confirm_password" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" required placeholder="confirm password">
+                </div>
+            
+              <button type="submit" class="p-4 bg-blue-500  rounded-xl hover:bg-green-500 duration-700 hover:duration-700 font-poppins hover:text-white">Sign Up</button>
+          
+            </form>
+          </div>
+            </div>
+
+          
+        </div>
+
+       </div>
+
+    </section>
+  </main>
+
+<script src="../../static/js/register.js"></script>
+</body>
+</html>

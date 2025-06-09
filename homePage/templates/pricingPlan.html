@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gymnify</title>
+  <link rel="stylesheet" href="../../static/css/output.css">
+</head>
+<body class="md:p-10 font-poppins overflow-auto">
+
+  {% if messages %}
+  <div id="message-container" class="absolute font-lato  text-white  max-w-[80%] w-[25rem] max-md:min-w-[80%] top-4 left-8 mb-6 mt-8">
+      {% for message in messages %}
+      <div class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} padding-x py-5 rounded-md flex flex-row justify-center items-center gap-4 mb-6">
+          <p class="w-full">{{ message }}</p>
+          <button class="top-1 right-2 text-white" onclick="this.parentElement.remove();">✖</button>
+  
+      </div>
+      {% endfor %}
+  </div>
+  {% endif %}
+
+  <header class="hidden flex-row w-full items-center justify-between p-2 max-md:flex ">
+    <div>
+      <img width="100" height="50" src="../../static/assets/logo/logo.png" alt="">
+    </div>
+</header>
+
+  <div class="text-center mb-10 relative h-full -z-10 {% if messages %} max-md:mt-20 {% endif %}">
+    <h1 class="text-2xl max-sm:text-xl font-bold text-gray-800">{{gym_house_name|capfirst}} Gym Price Plan</h1>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-md:mb-[20rem] p-10">
+    {% if has_any_plan %}
+   {% for plan_name, plan_details in  member_ship.items %}
+   {% if plan_details.1 %}
+
+    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-400">
+      <h2 class="text-xl  text-gray-400">{{plan_name|capfirst}}</h2>
+      <p class="text-2xl font-bold text-gray-800 mt-4 " id="price-{{ plan_name }}">{{plan_details.1}} birr <span class="text-lg text-gray-600">/month</span></p>
+      <div class="mt-6">
+        <select class="w-full p-2 border border-gray-300 rounded-md" data-plan="{{plan_name}}">
+          <option value="1">1 Month</option>
+          <option value="2">2 Months</option>
+          <option value="3">3 Months</option>
+          <option value="6">6 Months</option>
+          <option value="12">1 Year</option>
+        </select>
+      </div>
+      <ul class="mt-6 space-y-2">
+        {% for service in plan_details.services %}
+        <li class="flex items-center text-gray-600">
+          <span class="mr-2">✔</span>{{ service }}
+        </li>
+        {% endfow %}
+      <button id="btn_buy" class="w-full mt-6 p-3 bg-green-400 text-white rounded-lg flex items-center justify-center">
+        Buy Plan <span class="ml-2">➡️</span>
+      </button>
+    </div>
+
+    {% endif %}
+
+
+    {% endfor %}
+    {% else %}
+      <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-400 text-center">
+        <h2 class="text-xl text-gray-400">There is no plan for this Gym</h2>
+        <p class="text-2xl font-bold text-gray-800 mt-4">-- Birr<span class="text-lg text-gray-600">/month</span></p>
+      </div>
+    {% endif %}
+  </div>
+
+<div id="pricing_plan_data" data-plans='{{ member_ship|escapejs }}'></div>
+
+<script src="../../static/js/register.js"></script>
+
+<script>
+  const rawData = document.getElementById('pricing_plan_data').dataset.plans;
+  pricingPlanData = rawData.replace(/\\u0027/g, `"`);
+
+  document.querySelectorAll('select').forEach(selectElement => {
+      selectElement.addEventListener('change', function() {
+          const selectedDuration = this.value;
+          const planName = this.dataset.plan;
+          const planDetails = JSON.parse(pricingPlanData);
+          const priceElement = document.getElementById(`price-${planName}`);
+          priceElement.textContent = `${planDetails[planName][selectedDuration]} birr /month`;
+      });
+  });
+
+  function getCSRFToken() {
+    let csrfToken = null;
+    const csrfCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('csrftoken='));
+    if (csrfCookie) {
+        csrfToken = csrfCookie.split('=')[1];
+    }
+    return csrfToken;
+}
+
+  document.querySelectorAll('#btn_buy').forEach(button => {
+      button.addEventListener('click', function(event) {
+          const card = this.closest('.bg-white');
+          const planName = card.querySelector('select').dataset.plan;
+          const selectedDuration = card.querySelector('select').value;
+          const priceElement = card.querySelector(`#price-${planName}`);
+          const price = priceElement ? priceElement.textContent : 'N/A';
+          const price_number = price.match(/\d+/)[0];
+
+          const data = {
+              plan_name: planName,
+              selected_duration: selectedDuration,
+              price: price_number
+          };
+
+          fetch('submitpricingplan', {
+              method: 'POST',
+              headers: { 
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': getCSRFToken() 
+
+              },
+
+              body: JSON.stringify(data)
+          })
+          .then(data => {
+            window.location.href = '/home'
+      })
+          .catch((error) => {
+              console.error('Error:', error);
+              alert('There was an error submitting the data.');
+          });
+      });
+  });
+</script>
+
+</body>
+</html>

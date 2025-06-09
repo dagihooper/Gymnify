@@ -1,0 +1,189 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Gmnify</title>
+  <link rel="stylesheet" href="../../static/css/output.css">
+</head>
+<body>
+
+  
+  {% if messages %}
+<div id="message-container" class="absolute font-lato shadow-md text-white  max-w-[80%] w-[25rem] max-md:min-w-[80%] top-4 left-8">
+    {% for message in messages %}
+    <div class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} padding-x py-5 rounded-md flex flex-row justify-center items-center gap-4">
+        <p class="w-full">{{ message }}</p>
+        <button class="top-1 right-2 text-white" onclick="this.parentElement.remove();">✖</button>
+
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="qr-code bg-white shadow-md shadow-amber-200 p-4 max-md:p-2 rounded-md md:w-50 md:h-50 fixed bottom-4 left-8 z-50 cursor-pointer " id="qr_code">
+<img width="30" height="30" src="../../static/assets/logo/qr-code.png" alt="" srcset="">
+</div>
+
+<div class="overlay fixed top-0 left-0 w-full h-full bg-black/50 hidden z-10 "></div>
+
+<div class="qr_displayer font-poppins hidden w-full max-h-full fixed left-[50%] top-[50%] z-40 md:w-[668px] translate-x-[-50%] translate-y-[-50%] gap-4 border shadow-lg flex-col p-6 overflow-hidden bg-white items-center justify-center rounded-lg" id="qr_displayer">
+<img class="cursor-pointer" width="20" height="20" src="../../static/assets/logo/remove.png" onclick="removeOLPE()" >
+
+<h1 class="text-active-text font-bold text-xl">Checking you into the Gym</h1>
+<p>Please use this QR code to check yourself to your Gym.</p>
+<img src="../../static/assets/images/Screenshot 2025-05-27 222316.png" alt="" srcset="">
+
+</div>
+
+  <main>
+
+
+    <div id="warning-page" class="absolute font-lato -z-10 text-black  max-w-[50%] max-md:min-w-[80%] top-4 left-8">
+      <div class="padding-x py-5 rounded-md flex flex-row justify-center items-center space-x-4 hover:shadow-md cursor-pointer {% if days_left >= 6 %} bg-yellow-300 {% else %} bg-red-400 {% endif %} ">
+          <p class="w-full">
+            
+            {% if days_left > 0 %}
+            Your membership expires in {{days_left}} days.
+            {% elif days_left == 0 %}
+            Your membership is expired. Pay now 
+            {% else %}
+            Your membership is already expired, Pay now.
+            {% endif %}
+          
+          </p>
+          <button class="top-1 right-2 text-white" onclick="this.parentElement.remove();">✖</button>
+  
+      </div>
+  </div>
+
+    <div id="circle-warning" class="fixed font-lato -z-10 w-24 h-24 flex justify-center items-center  text-black rounded-full top-[20rem] right-5{% if days_left >= 6 %} bg-yellow-300 {% else %} bg-red-400 {% endif %} ">
+      <div>
+        <p class="w-full"> 
+           {% if days_left > 0 %}
+            {{days_left}} days left
+           {% elif days_left == 0 %}
+             Expired
+           {% else %}
+             Expired
+           {% endif %}
+          </p>
+      </div>
+           
+  </div>
+
+  <header class="flex flex-row w-full items-center justify-between padding-x mt-16 max-sm:mt-28 top-[53%] ">
+      <div>
+        <img width="100" height="50" src="../../static/assets/logo/logo.png" alt="">
+      </div>
+     <div class="group cursor-pointer">
+      <div id="profile" class="rounded-full cursor-pointer w-12 h-12 bg-gray-400 flex items-center justify-center text-white font-poppins relative overflow-hidden">
+        {% if profile_photo %}  
+          <div class="absolute inset-0 flex justify-center items-center w-full h-full">
+            <img class="object-cover object-center w-full h-full"  src="../../static/profile_photos/{{profile_photo}}" alt="">
+
+          </div>
+       
+      {%else%}
+        <p>{{ first_name|slice:":1"  }}{{last_name|slice:":1"}}</p>
+      {%endif%}
+    </div>
+
+              <div class="absolute shadow-lg hidden group-hover:flex duration-1000 transition-all  top-30  flex-col justify-center items-center p-8 space-y-8 rounded-lg right-0  ">
+
+                <div class="flex flex-row justify-center items-center space-x-2">
+                  <img width="20" height="20" src="../../static/assets/logo/profile.png" alt="">
+                  <a href="{% url 'profilepage' %}" class="font-lato text-xl text-blue-400 hover:text-blue-300">
+                    Profile
+                  </a>
+              </div>
+              <div class="flex flex-row justify-center items-center space-x-2">
+                  <img width="20" height="20" src="../../static/assets/logo/logout.png" alt="">
+                  <a href="{% url 'logout' %}" class="font-lato text-xl text-blue-400 hover:text-blue-300">
+                    Logout
+                  </a>
+              </div>
+
+              </div>
+
+
+      </div>
+
+     
+
+  </header>
+
+  <section id="home" class="max-container padding-x w-full flex items-center justify-center mt-10 text-2xl">
+
+     <div class="shadow-blue-200 shadow-md rounded-md p-10 max-md:w-full text-center">
+      <p class="font-montserrat max-sm:text-2xl">Welcome back, <span class="text-blue-500 font-bold max-md:block max-sm:text-2xl">{{first_name}} {{last_name}}</span></p>
+     </div>   
+  </section>
+
+  <section class="max-container padding-x w-full mt-32">
+
+  <div class="grid grid-cols-2  max-custom:grid-cols-1 gap-7 place-items-center">
+
+    <div class="shadow-lg shadow-slate-gray group p-6 py-10 bg-gray-800 text-white rounded-md max-w-md w-full h-[17rem]  text-xl leading-normal  hover:scale-105 cursor-pointer hover:duration-700 duration-700 ">
+      <h2 class="text-center font-montserrat text-2xl mb-4 group-hover:text-blue-300  text-blue-500 font-bold">Package</h2>
+       <p class="font-lato">{{gym_house_name}} Gym</p>
+       <br>
+      <p class="font-poppins">Your membership level is <span class="font-bold  text-green-400">{{plan_name}}.</span> <span class="inline"><br><span class="text-blue-400">Price: </span>{{price}} birr</span> for <span class="text-green-400">{{package_length}}</span> period</p>
+    </div>
+
+    <div class="shadow-lg shadow-slate-gray group p-6 py-10 bg-gray-800 text-white rounded-md max-w-md w-full h-[17rem] text-xl leading-normal  hover:scale-105 cursor-pointer hover:duration-700 duration-700">
+      <h2 class="text-center font-montserrat text-2xl mb-4 group-hover:text-blue-300 text-blue-500 font-bold">Date</h2>
+
+      <p class="font-poppins">Registration <span class="">Date:</span> <span class="block"><span class="font-bold text-green-400 ml-2">{{registeredDate}} -- {% if days_of_registration == 1 %} {{days_of_registration}} day ago {% else %} {{days_of_registration}} days ago {%endif%}</span></p>
+
+      <p class="font-poppins">Next payment date: <span class="block font-semibold ml-2 text-green-400">{{next_payment_date}} G.C</span></p>
+    </div>
+
+    <div class="shadow-lg shadow-slate-gray group p-6 py-10 bg-gray-800 text-white rounded-md max-w-md w-full h-[17rem] text-xl leading-normal  hover:scale-105 cursor-pointer hover:duration-700 duration-700">
+      <h2 class="text-center font-montserrat text-2xl mb-4 group-hover:text-blue-300 text-blue-500 font-bold">Nurtition Tips</h2>
+
+      <p class="font-poppins">Start your day with  <span class="text-green-400"> high-protein </span>abreakfast to boost energy and keep cravings away. Drink water throughout the day!</p>
+    </div>
+    <div class="shadow-lg shadow-slate-gray group p-6 py-10 bg-gray-800 text-white rounded-md max-w-md w-full h-[17rem] text-xl leading-normal  hover:scale-105 cursor-pointer hover:duration-700 duration-700">
+      <h2 class="text-center font-montserrat text-2xl mb-4 group-hover:text-blue-300 text-blue-500 font-bold">Workouts to try</h2>
+
+      <p class="font-poppins">Full body workout<span class="text-green-400"> <a href="https://youtu.be/npofZutKsfA?si=EB-5Ity2e9h9OTkd" target="_blank">click here.</a></p>
+      <p class="font-poppins">Upper body workout <span class="text-green-400"> <a href="https://youtu.be/3IQVNjWH60A?si=3iDiXKjNSEs2pi8r" target="_blank"> click here</a></p>
+      <p class="font-poppins">Lower body workout <span class="text-green-400"><a href="https://youtu.be/8zWDuWKdBZU?si=EgYD0oHx866_bvbb" target="_blank">click here</a></p>
+    </div>
+
+   </div>
+  </section>
+
+
+  <section class="p-10 max-sm:p-1 max-container w-full bg-gray-300 mt-32">
+
+ <h1 class="text-center text-4xl max-md:text-3xl max-sm:text-2xl text-green-500 font-montserrat opacity-80 ">Quote of the day</h1>
+ <p class="text-center text-2xl max-md:text-xl max-sm:text-sm text-white mt-8 font-lato">“Sore? Tired? Out of breath? Good… it’s working!”</p>
+
+  </section>
+
+  <section class="padding-x max-container w-full mt-32 max-sm:mt-16 -z-30">
+  <div class="flex justify-center flex-col space-y-8 ">
+    <h1 class="text-3xl font-montserrat font-bold">Contact Support</h1>
+    <p class="text-xl text-slate-gray ">You can contact us using: </p>
+    <p class="text-2xl font-poppins">Phone Number: <span class="text-green-500">{{ gym_house_phone }}</span></p>
+    <p class="text-2xl font-poppins">Email: <span class="text-green-500">{{ gym_house_email }}</span></p>
+
+  </div>
+  </section>
+
+  <footer class="mt-12 rounded-sm max-md:mb-[0vh] bg-black w-full max-container padding-x py-6 z-40">
+    <div class="text-white font-montserrat flex flex-row justify-between text-xl mb-8">
+      <h1>Gymnify</h1>
+      <a href="#home">Home</a>
+    </div>
+      <p class="font-poppins text-xl max-sm:text-sm text-slate-gray text-center">Copyright@2024. All right reserved. Gymnify</p>
+  </footer>
+  
+</main>
+  
+  <script src="../../static/js/register.js"></script>
+  <script src="../../static/js/home.js"></script>
+</body>
+</html>
