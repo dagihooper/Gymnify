@@ -13,11 +13,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 
+from decouple import config
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = ['.railway.app']
-
+SECRET_KEY = config('SECRET_KEY')
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost,gymnify.com').split(',')
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 MEDIA_URL = '/media/'
@@ -27,7 +26,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "static/profile_photos")
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w2mny)k(wa3f9y)2nc)n0&i9(3%*7%zi$wmzja!x^noiwxe92x'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -120,10 +119,13 @@ WSGI_APPLICATION = 'Gymnify.wsgi.application'
 # }
 
 import dj_database_url
+
+
 DATABASES = {
     'default': dj_database_url.config(
-        default="mysql://root:xWIjeGQlOhfTWTeSYIWOqpQbfHIZdBZr@tramway.proxy.rlwy.net:52610/railway",
-        conn_max_age=600
+        default="postgresql://dagmawi:GGLOYlSJGYj79pDGq0BRCA@gymnify-12431.j77.aws-ap-south-1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full",
+        conn_max_age=600,
+        ssl_require=True,
     )
 }
 
