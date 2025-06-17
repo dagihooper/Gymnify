@@ -117,6 +117,7 @@ WSGI_APPLICATION = 'Gymnify.wsgi.application'
 #     }
 # }
 
+
 import dj_database_url
 
 DATABASES = {
