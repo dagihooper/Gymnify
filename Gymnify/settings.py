@@ -120,12 +120,10 @@ WSGI_APPLICATION = 'Gymnify.wsgi.application'
 
 import dj_database_url
 
-
 DATABASES = {
     'default': dj_database_url.config(
-        default="postgresql://dagmawi:GGLOYlSJGYj79pDGq0BRCA@gymnify-12431.j77.aws-ap-south-1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full",
-        conn_max_age=600,
-        ssl_require=True,
+        default=config('DATABASE_URL'),
+        conn_max_age=600
     )
 }
 
