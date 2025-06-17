@@ -31,7 +31,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "static/profile_photos")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 AUTHENTICATION_BACKENDS = (
