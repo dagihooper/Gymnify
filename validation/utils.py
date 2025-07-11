@@ -5,12 +5,12 @@ def send_verification_code():
   
     session = requests.Session()
     base_url = 'https://api.afromessage.com/api/challenge'
-    token = 'eyJhbGciOiJIUzI1NiJ9.eyJpZGVudGlmaWVyIjoiMEFKejNPVzRHcjlhdThXeVpta0Fvd002bk1JWldYT3UiLCJleHAiOjE5MDAzNDQ2MzksImlhdCI6MTc0MjU3ODIzOSwianRpIjoiMjQ5MWNiYjktYWZjNy00YjU0LWE2NTYtZDg3MWNiYTE0NjQzIn0.yb7MRuEXD5frdYLbahG5EwFvLwY8NlkoyiRr5TljJ0o'
+    token = 'eyJhbGciOiJIUzI1NiJ9.eyJpZGVudGlmaWVyIjoidkc4ZUZacm55eW1xbDVMQ3VSVEZwRmlRZUxhNmhxVnoiLCJleHAiOjE5MTAwMTI4NTUsImlhdCI6MTc1MjI0NjQ1NSwianRpIjoiN2ZkZmUyZWMtMGUwYS00YTNiLWIyNjgtYTYzZDk1NmE1YWU4In0.cx3izFES9LXG_LfSOf0jCa0USP9zl1iacbrAL29Sr44'
     headers = {'Authorization': 'Bearer ' + token}
     callback = 'validation'
     from_id = 'e80ad9d8-adf3-463f-80f4-7c4b39f7f164'
     sender = ''
-    recipient = '+251973927576'  
+    recipient = '+251970758542'  
     prefix = f"Here is your verification code from Gymnify:"
     postfix = "Don't share your code with anyone."
     sb = 2  
