@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="../../static/css/output.css">
 </head>
 <body>
-
+{% load django_browser_reload %}
+{% django_browser_reload_script %}
   
   {% if messages %}
 <div id="message-container" class="absolute font-lato shadow-md text-white  max-w-[80%] w-[25rem] max-md:min-w-[80%] top-4 left-8">
@@ -21,7 +22,7 @@
 </div>
 {% endif %}
 
-<div class="qr-code bg-white shadow-md shadow-amber-200 p-4 max-md:p-2 rounded-md md:w-50 md:h-50 fixed bottom-4 left-8 z-50 cursor-pointer " id="qr_code">
+<div class="qr-code  bg-white shadow-md shadow-amber-200 p-4 max-md:p-2 rounded-md md:w-50 md:h-50 fixed bottom-4 left-8 z-50 cursor-pointer " id="qr_code">
 <img width="30" height="30" src="../../static/assets/logo/qr-code.png" alt="" srcset="">
 </div>
 

@@ -5,9 +5,10 @@
   <title>Gmnify</title>
   <link rel="stylesheet" href="../../static/css/output.css">
 </head>
-<body class="margin-0 p-0 overflow-x-hidden">
+<body>
 
-
+{% load django_browser_reload %}
+{% django_browser_reload_script %}
   {% if messages %}
   <div id="message-container" class="absolute font-lato shadow-md text-white  max-w-[80%] w-[21rem] max-md:min-w-[80%] top-4 left-8 mt-8">
       {% for message in messages %}
@@ -20,13 +21,13 @@
   </div>
   {% endif %}
 
-  <main class="max-md:mb-[24rem] w-full">
-  <header class="flex flex-row w-full items-center justify-between padding-x mt-2 shadow-lg mb-10 rounded-md min-w-[600px]">
+  <main class="w-full overflow-y-auto md:w-[600px] shadow-lg max-h-full fixed left-1/2 top-1/2 z-40  translate-x-[-50%] translate-y-[-50%] ">
+  <header class="flex flex-row w-full items-center justify-between padding-x mt-2  mb-10 rounded-md">
     <div>
       <a href="{% url 'home' %}"><img width="100" height="50" src="../../static/assets/logo/logo.png" alt=""></a>
     </div>
 
-    <div id="profile" class="rounded-full cursor-pointer w-12 h-12 bg-gray-400 flex items-center justify-center text-white font-poppins relative group overflow-hidden">
+    <div id="profile" class="rounded-full border cursor-pointer w-12 h-12 bg-gray-400 flex items-center justify-center text-white font-poppins relative group overflow-hidden">
       {% if profile_photo %}  
         <div class="absolute inset-0 flex justify-center items-center w-full h-full">
           <img class="object-cover object-center w-full h-full"  src="../../static/profile_photos/{{profile_photo}}" alt="">
@@ -63,24 +64,24 @@
 {% csrf_token %}
 
 
-<div class = "flex flex-col gap-16 justify-start items-start min-h-screen w-full  text-slate-gray p-24 max-md:p-12 max-md:min-w-[600px]">
-  <div class="flex flex-row  max-md:py-6 max-md:space-y-8 items-center justify-between px-8 w-full min-h-40 shadow-lg">
+<div class = "flex flex-col gap-16 justify-start items-start w-full  text-slate-gray py-4 ">
+  <div class="flex flex-col items-center justify-center w-full gap-8">
 
-    <div id="profileDiv" class="rounded-full relative cursor-pointer min-w-28 min-h-28 bg-gray-400 flex items-center justify-center flex-col space-y-4 text-white font-poppins overflow-hidden group bg-cover bg-center bg-no-repeat">
+    <div id="profileDiv" class="rounded-full border relative cursor-pointer min-w-20 min-h-20 bg-gray-400 flex items-center justify-center flex-col space-y-4 text-white font-poppins overflow-hidden group bg-cover bg-center bg-no-repeat">
       <div class="absolute inset-0 flex justify-center items-center w-full h-full">
         <img id="previewImage"  class="object-cover object-center w-full h-full" 
              src="{% if profile_photo %}../../static/profile_photos/{{ profile_photo }}{% else %}../../static/assets/images/guest.png{% endif %}" 
              alt="Profile Photo">
       </div>
       <div>
-        <div id="profileDivText" class="flex justify-center items-center font-montserrat text-md w-full absolute bottom-0 bg-gray-200 left-0 text-center group-hover:opacity-80 opacity-0 transition-opacity duration-1000">
+        <div id="profileDivText" class="flex justify-center font-bold items-center font-montserrat text-md w-full absolute bottom-0 bg-gray-200 left-0 text-center group-hover:opacity-80 opacity-0 transition-opacity duration-1000">
           <img id="previewImage" width="20" height="20" src="../../static/assets/logo/camera-white.png" alt="Profile Photo">
         </div>
       </div>
       <input type="file" id="profilePhotoInput" class="hidden">
     </div>
   
-    <div class="font-montserrat text-2xl flex-1 text-right max-md:text-center">
+    <div class="font-montserrat text-3xl  flex-1 text-right max-md:text-center">
       {{first_name}} {{last_name}}
     </div>
   
@@ -89,7 +90,7 @@
 
   <form class="grid grid-cols-1 pt-8 justify-between padding-x space-x-8 rounded-lg bg-white shadow-lg w-full min-h-40" method="POST" action="/profilepage/" autocomplete="on">
     
-    <div class="font-palanquin text-4xl max-md:text-2xl text-black mb-10">Additional Information</div>
+    <div class="font-palanquin text-4xl max-md:text-2xl text-active-text font-bold mb-10">Additional Information</div>
 
  <div class="grid grid-cols-2 gap-x-36 max-md:gap-x-20 max-md:grid-cols-1 ">
 

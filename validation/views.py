@@ -148,7 +148,7 @@ def validation(request):
       base_url = 'https://api.afromessage.com/api/verify'
       token = 'eyJhbGciOiJIUzI1NiJ9.eyJpZGVudGlmaWVyIjoidkc4ZUZacm55eW1xbDVMQ3VSVEZwRmlRZUxhNmhxVnoiLCJleHAiOjE5MTAwMTI4NTUsImlhdCI6MTc1MjI0NjQ1NSwianRpIjoiN2ZkZmUyZWMtMGUwYS00YTNiLWIyNjgtYTYzZDk1NmE1YWU4In0.cx3izFES9LXG_LfSOf0jCa0USP9zl1iacbrAL29Sr44'
       headers = {'Authorization': 'Bearer ' + token}
-      to = '+251970758542'
+      to = '+251963719303'
       code = entered_otp
 
       url = '%s?to=%s&code=%s' % (base_url, to, code)

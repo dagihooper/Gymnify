@@ -25,7 +25,7 @@ def send_verification_code():
     callback = 'validation'
     from_id = 'e80ad9d8-adf3-463f-80f4-7c4b39f7f164'
     sender = ''
-    recipient = '+2519707585429'  
+    recipient = '+251963719303'  
     prefix = f"Here is your verification code for password reset from Gymnify:"
     postfix = "Don't share your code with anyone."
     sb = 2  

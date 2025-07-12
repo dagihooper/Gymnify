@@ -6,9 +6,12 @@
   <title>Gymnify</title>
   <link rel="stylesheet" href="../../static/css/output.css">
 </head>
-<body class="flex justify-center items-center min-h-screen font-poppins">
 
-  <main class="w-full max-w-3xl p-6 max-md:mb-56 flex justify-center">
+{% load django_browser_reload %}
+{% django_browser_reload_script %}
+<body>
+
+  <main class="max-h-full fixed left-[50%] top-[50%] z-40 w-full sm:w-[500px] translate-x-[-50%] translate-y-[-50%]">
     {% if messages %}
     <div id="message-container" class="absolute top-4 left-8 w-[21rem] max-w-[80%] font-lato text-white">
         {% for message in messages %}
@@ -20,11 +23,11 @@
     </div>
     {% endif %}
 
-    <form action="/insertion" method="POST" class="flex flex-col gap-6 bg-white rounded-lg shadow-lg p-10 max-md:p-4 w-full max-w-md">
+    <form action="/insertion" method="POST" class="rounded-lg shadow-lg border flex flex-col px-4 py-8 gap-4">
       {% csrf_token %}
 
-      <header class="flex gap-4 mb-3 flex-col max-md:mb-10">
-        <img width="100" src="../../static/assets/logo/logo.png" alt="Gymnify Logo">
+      <header class="flex gap-4 mb-3 flex-col  mt-8">
+        <img width="100" src="../../static/assets/logo/logo.png" alt="Gymnify">
         <p class="text-xl font-poppins text-black">Hey 🖐️
           <span class="block mt-4 font-bold font-poppins text-2xl">{{first_name|capfirst}}{{first_nameGoggle}} {{last_nameGoggle}} {{last_name|capfirst}}</span> </p>
       </header>
@@ -50,7 +53,7 @@
         </div>
       </div>
 
-      <button type="submit" class="w-full mt-6 p-4 hover:bg-blue-500 text-white font-semibold rounded-lg bg-green-500 transition duration-300">Send SMS</button>
+              <button type="submit" class="p-4 w-full bg-blue-500  rounded-xl hover:bg-green-500 duration-700 hover:duration-700 font-poppins hover:text-white">Send SMS</button>
     </form>
   </main>
 
