@@ -7,6 +7,7 @@ urlpatterns = [
     path('', include('validation.urls')),
     path('', include('userMember.urls')),
     path('', include('userAdmin.urls')),
+    path('', include('exercises.urls')),
     path('accounts/', include('allauth.urls')), 
     
 

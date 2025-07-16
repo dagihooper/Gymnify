@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'userAdmin',
     'userMember.apps.UsermemberConfig',
     'validation',
+    'exercises',
     'homePage',
     'allauth',
     'allauth.account',

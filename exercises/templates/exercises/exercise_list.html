@@ -1,0 +1,42 @@
+<!-- templates/exercises/exercise_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Exercises</title>
+  <link rel="stylesheet" href="../../../static/css/output.css">
+</head>
+<body class="bg-gray-100 p-6">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6">All Exercises</h1>
+    <a href="{% url 'add_exercise' %}" class="mb-4 inline-block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Add New Exercise</a>
+    <table class="min-w-full bg-white shadow rounded-lg overflow-hidden">
+      <thead class="bg-gray-200 text-gray-700">
+        <tr>
+          <th class="py-2 px-4 text-left">Name</th>
+          <th class="py-2 px-4 text-left">Category</th>
+          <th class="py-2 px-4 text-left">Calories</th>
+          <th class="py-2 px-4 text-left">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y">
+        {% for exercise in exercises %}
+        <tr>
+          <td class="py-2 px-4">{{ exercise.name }}</td>
+          <td class="py-2 px-4">{{ exercise.category }}</td>
+          <td class="py-2 px-4">{{ exercise.caloriesPerRep }}</td>
+          <td class="py-2 px-4">
+            <a href="{% url 'edit_exercise' exercise.id %}" class="text-blue-500 hover:underline mr-2">Edit</a>
+            <a href="{% url 'delete_exercise' exercise.id %}" class="text-red-500 hover:underline">Delete</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4" class="py-4 px-4 text-center text-gray-500">No exercises found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
