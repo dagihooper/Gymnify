@@ -191,7 +191,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-SITE_ID = 1
+SITE_ID = 2
 CSRF_FAILURE_VIEW = 'validation.views.custom_403_view'
 SOCIALACCOUNT_LOGIN_ON_GET=True
 LOGIN_REDIRECT_URL = '/insertion' 
