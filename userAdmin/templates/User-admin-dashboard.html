@@ -11,7 +11,7 @@
 
   <div id="sideBar" class="sidebar visible sticky top-0 left-0 bottom-0 max-side-bar:min-w-[110px] side-bar:min-w-[240px] h-screen px-7 max-side-bar:px-5 text-white overflow-hidden bg-white-gray bg-white max-sm:hidden">
     <div class="text-lg text-black font-bold pl-[26px] max-side-bar:pl-9 py-4  absolute space-x-6 w-full top-0 left-0">
-      <div class="flex items-center  space-x-10"><img  width = "27" height="17" src="../../static/assets/logo/random-1.png" alt="">
+      <div class="flex items-center  space-x-10"><img class="h-12 w-auto" src="../../static/assets/logo/logo.svg" alt="">
         <span class="max-side-bar:hidden">Gymnify.</span>
       </div>
     </div>
@@ -68,13 +68,14 @@
         <div class="relative"> 
   <!-- Notification Icon -->
   <img id="notButton"  width="27" height="27" src="../../static/assets/logo/notification.png" class="opacity-50 cursor-pointer" alt="">
+    {% if notifications %}
 
-  <div id="notContent" class="grid grid-cols-1 items-start justify-center gap-8 shadow-lg p-6 border border-solid border-black rounded-md border-opacity-35 absolute -right-28 top-20 z-10 bg-white
+  <div id="notContent" class="grid grid-cols-1 items-start justify-center gap-8 shadow-lg p-6 border border-solid border-black rounded-md border-opacity-35 absolute -right-28 top-20 -z-10 bg-white
               opacity-0 scale-95  
-              transition-all duration-500 ease-in-out w-[590px] h-[378px] overflow-y-scroll">
-
+              transition-all duration-500 ease-in-out w-[590px] h-[378px] overflow-y-auto">
     {% for notification in notifications %}
     <div class="text-active-text text-opacity-90 hover:bg-gray-200 w-full p-6 transition-colors duration-300 hover:text-black border border-opacity-10 border-black relative" >
+   
       <h1 class="font-bold mb-3">🔔 {{notification.type}}</h1>
       <p><span class="font-bold">Company:</span> {{notification.company}}</p>
       <p><span class="font-bold">Package:</span> {{notification.package}}</p>
@@ -92,10 +93,20 @@
       <p class="italic text-slate-gray ml-2">[{{notification.date}}]</p>
       <button class="absolute top-20 right-[1.6rem] text-black z-50 hover:text-red-400" onclick="this.parentElement.remove();">✖</button>
       <button  class="absolute top-32 right-5 text-black z-50 hover:text-red-400"><img width="25" height="25" src="../../static/assets/logo/delete.png" data-id = "{{notification.id}}" data-company = "{{notification.company}}" onclick="deleteNotification(this)"></button>
-
-    </div>
+        </div>
 
     {% endfor %}
+
+    {% else %}
+     <div id="notContent" class="grid grid-cols-1 items-start justify-center gap-8 shadow-lg p-6 border border-solid border-black rounded-md border-opacity-35 absolute -right-28 top-20 -z-10 bg-white
+              opacity-0 scale-95  
+              transition-all duration-500 ease-in-out w-[590px]">
+          <p><span class="font-bold mr-2">No notifications at the moment.</span>Notifications will be recieved when the expiry date is approaching, specifically when there are<br> -> 90, <br>  -> 75, <br> -> 50, <br> -> 35, <br>-> 20, <br> -> 5 or <br> -> 3 days left. </p>
+
+    {% endif %}
+
+      
+
   
   </div>
 </div>
@@ -163,7 +174,7 @@
      <!-- /* ---------------------------*/ -->
 
 
-  <div class="p-6 bg-white shadow-lg rounded-lg overflow-x-auto lg:overflow-x-scroll max-scroll:min-w-[510px] relative z-50">
+  <div class="p-6 bg-white shadow-lg rounded-lg overflow-x-auto lg:overflow-x-scroll max-scroll:min-w-[510px] relative z-40">
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl max-md:text-sm font-semibold">All Customers</h2>
         <div class="flex gap-4">
@@ -288,6 +299,8 @@ function toggleStatus(gymerId) {
 
   notificationButton.addEventListener('click', () => {
     notificationContent.classList.toggle('opacity-100')
+    notificationContent.classList.toggle('z-50')
+
     console.log('Hello Wolrd')
 
   })

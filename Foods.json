@@ -1,0 +1,212 @@
+{
+  "day1": {
+    "breakFast": {
+      "lowBudget": [
+        {
+          "foodName": "Banana",
+          "macrosPerScalingType": {
+            "protein": 3.2,
+            "carbs": 20.1,
+            "fats": 0.4,
+            "calories": 96
+          },
+          "micronutrientsPerScalingType": {
+            "iron": 2.1,
+            "calcium": 40,
+            "thiamine": 0.2
+          },
+          "period": ["breakFast", "lunch"],
+          "scalingType": "count",
+          "combineWith": ["milk", "white bread"],
+          "notCombineWith": ["lemon"],
+          "popularity": "95%",
+          "availability": "90%",
+          "ingredients": ["single"],
+          "description": "Rich in potassium and easy to digest",
+          "foodType": "natural fruit",
+          "forGoalOf": ["maintenace", "muscle gain"],
+          "halal": true,
+          "fasting": true,
+          "minMaxPortion": [1, 3]
+        }
+        
+      ],
+      "midLowBudget": [
+        
+        {
+          "foodName": "Smoothie Bowl",
+          "macrosPerScalingType": {
+            "protein": 8.0,
+            "carbs": 45.0,
+            "fats": 5.0,
+            "calories": 250
+          },
+          "micronutrientsPerScalingType": {
+            "iron": 1.5,
+            "calcium": 100,
+            "thiamine": 0.4
+          },
+          "period": ["breakFast"],
+          "scalingType": "bowl",
+          "combineWith": ["granola", "nuts"],
+          "notCombineWith": [],
+          "popularity": "75%",
+          "availability": "70%",
+          "ingredients": ["banana", "berries", "yogurt", "milk"],
+          "description": "Refreshing and nutrient-dense breakfast",
+          "foodType": "mixed",
+          "forGoalOf": ["maintenace", "weight loss"],
+          "halal": true,
+          "fasting": false,
+          "minMaxPortion": [1, 2]
+        }
+        
+      ],
+      "midBudget": [
+        {
+          "foodName": "Smoked Salmon Bagel",
+          "macrosPerScalingType": {
+            "protein": 20.0,
+            "carbs": 45.0,
+            "fats": 12.0,
+            "calories": 350
+          },
+          "micronutrientsPerScalingType": {
+            "iron": 1.5,
+            "calcium": 50,
+            "thiamine": 0.4
+          },
+          "period": ["breakFast", "lunch"],
+          "scalingType": "bagel",
+          "combineWith": ["cream cheese", "capers"],
+          "notCombineWith": [],
+          "popularity": "70%",
+          "availability": "65%",
+          "ingredients": ["bagel", "smoked salmon", "cream cheese", "red onion"],
+          "description": "Rich in omega-3 fatty acids",
+          "foodType": "seafood",
+          "forGoalOf": ["maintenace", "muscle gain"],
+          "halal": false,
+          "fasting": false,
+          "minMaxPortion": [1, 2]
+        },
+        {
+          "foodName": "Chia Pudding",
+          "macrosPerScalingType": {
+            "protein": 8.0,
+            "carbs": 30.0,
+            "fats": 15.0,
+            "calories": 280
+          },
+          "micronutrientsPerScalingType": {
+            "iron": 2.0,
+            "calcium": 200,
+            "thiamine": 0.3
+          },
+          "period": ["breakFast", "snack"],
+          "scalingType": "bowl",
+          "combineWith": ["berries", "nuts"],
+          "notCombineWith": [],
+          "popularity": "75%",
+          "availability": "70%",
+          "ingredients": ["chia seeds", "almond milk", "honey"],
+          "description": "High fiber and omega-3 content",
+          "foodType": "vegan",
+          "forGoalOf": ["weight loss", "maintenace"],
+          "halal": true,
+          "fasting": true,
+          "minMaxPortion": [1, 2]
+        }
+        
+      ],
+      "midHighBudget": [
+        {
+          "foodName": "Eggs Benedict",
+          "macrosPerScalingType": {
+            "protein": 25.0,
+            "carbs": 30.0,
+            "fats": 25.0,
+            "calories": 420
+          },
+          "micronutrientsPerScalingType": {
+            "iron": 2.5,
+            "calcium": 180,
+            "thiamine": 0.5
+          },
+          "period": ["breakFast", "brunch"],
+          "scalingType": "plate",
+          "combineWith": ["asparagus", "smoked salmon"],
+          "notCombineWith": [],
+          "popularity": "70%",
+          "availability": "60%",
+          "ingredients": ["english muffin", "poached eggs", "ham", "hollandaise sauce"],
+          "description": "Decadent breakfast classic",
+          "foodType": "animal product",
+          "forGoalOf": ["maintenace", "muscle gain"],
+          "halal": false,
+          "fasting": false,
+          "minMaxPortion": [1, 2]
+        }
+        
+      ],
+      "highBudget": [
+        {
+          "foodName": "Lobster Omelette",
+          "macrosPerScalingType": {
+            "protein": 30.0,
+            "carbs": 5.0,
+            "fats": 22.0,
+            "calories": 350
+          },
+          "micronutrientsPerScalingType": {
+            "iron": 3.0,
+            "calcium": 200,
+            "thiamine": 0.5
+          },
+          "period": ["breakFast", "brunch"],
+          "scalingType": "omelette",
+          "combineWith": ["asparagus", "hollandaise"],
+          "notCombineWith": [],
+          "popularity": "60%",
+          "availability": "50%",
+          "ingredients": ["lobster", "eggs", "cream", "chives"],
+          "description": "Luxury breakfast with high-quality protein",
+          "foodType": "seafood",
+          "forGoalOf": ["muscle gain", "maintenace"],
+          "halal": true,
+          "fasting": false,
+          "minMaxPortion": [1, 2]
+        },
+       
+        {
+          "foodName": "Kobe Beef Breakfast Sausage",
+          "macrosPerScalingType": {
+            "protein": 25.0,
+            "carbs": 2.0,
+            "fats": 30.0,
+            "calories": 380
+          },
+          "micronutrientsPerScalingType": {
+            "iron": 3.5,
+            "calcium": 50,
+            "thiamine": 0.6
+          },
+          "period": ["breakFast"],
+          "scalingType": "serving",
+          "combineWith": ["eggs", "hash browns"],
+          "notCombineWith": [],
+          "popularity": "65%",
+          "availability": "55%",
+          "ingredients": ["kobe beef", "spices"],
+          "description": "Premium quality breakfast meat",
+          "foodType": "animal product",
+          "forGoalOf": ["muscle gain"],
+          "halal": false,
+          "fasting": false,
+          "minMaxPortion": [1, 3]
+        }
+      ]
+    }
+    
+  }
+}

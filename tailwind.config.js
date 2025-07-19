@@ -2,14 +2,17 @@
 
 module.exports = {
   content: [
-    'userMember/templates/**/*.html',
-    'userAdmin/templates/**/*.html',
-    'vote/template/**/*.js',
-    'validation/templates/**/*.html',
-    'homePage/templates/**/*.html',
-    'validation/template/**/*.js',
-    
-  ],
+  'userMember/templates/**/*.html',
+  './userAdmin/templates/**/*.html',
+  './vote/templates/**/*.js',
+  './validation/templates/**/*.html',
+  './homePage/templates/**/*.html',
+  './validation/templates/**/*.js',
+  './exercises/templates/**/*.html',
+
+
+],
+
   theme: {
     fontSize: {
       xs: ['12px', '16px'],

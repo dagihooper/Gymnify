@@ -4,18 +4,37 @@
 <head>
   <meta charset="UTF-8">
   <title>All Exercises</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="../../../static/css/output.css">
 </head>
-<body class="bg-gray-100 p-6">
-  <div class="max-w-6xl mx-auto">
-    <h1 class="text-3xl font-bold mb-6">All Exercises</h1>
-    <a href="{% url 'add_exercise' %}" class="mb-4 inline-block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Add New Exercise</a>
-    <table class="min-w-full bg-white shadow rounded-lg overflow-hidden">
+
+{% load django_browser_reload %}
+{% django_browser_reload_script %}
+
+
+<body class="bg-gray-100 py-6 px-1 overflow-x-hidden overflow-y-auto font-poppins">
+
+  {% if messages %}
+<div id="message-container" class="absolute font-lato shadow-md text-white   w-[360px] -top-1 right-8 mt-8">
+    {% for message in messages %}
+    <div class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} padding-x py-5 rounded-md flex flex-row justify-center items-center gap-4">
+        <p class="w-full">{{ message }}</p>
+        <button class="top-1 right-2 text-white" onclick="this.parentElement.remove();">✖</button>
+
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+    <div class="flex flex-col gap-2">
+    <h1 class="font-bold mb-6 ml-2 text-3xl">All Exercises</h1>
+    <table class="text-sm mb-8 min-w-full bg-white shadow rounded-lg overflow-hidden">
       <thead class="bg-gray-200 text-gray-700">
         <tr>
           <th class="py-2 px-4 text-left">Name</th>
           <th class="py-2 px-4 text-left">Category</th>
-          <th class="py-2 px-4 text-left">Calories</th>
+          <th class="py-2 px-4 text-left">Calories(per rep)</th>
           <th class="py-2 px-4 text-left">Actions</th>
         </tr>
       </thead>
@@ -38,5 +57,8 @@
       </tbody>
     </table>
   </div>
+
+      <a href="{% url 'add_exercise' %}" class="text-sm px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">Add New Exercise</a>
+
 </body>
 </html>

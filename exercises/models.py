@@ -19,6 +19,10 @@ class Alternative(models.Model):
     description = models.TextField()
     equipment = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.name  # ✅ This makes it display properly in admin/forms etc.
+
+
 
 class Exercise(models.Model):
     CATEGORY_CHOICES = [

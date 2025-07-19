@@ -52,11 +52,13 @@ INSTALLED_APPS = [
     'userMember.apps.UsermemberConfig',
     'validation',
     'exercises',
+    'mealplanner',
     'homePage',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+     'widget_tweaks'
    
 ]
 

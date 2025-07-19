@@ -11,7 +11,8 @@
 
   <div id="sideBar" class="sidebar visible sticky top-0 left-0 bottom-0 max-side-bar:min-w-[110px] side-bar:min-w-[240px] h-screen px-7 max-side-bar:px-5 text-white overflow-hidden bg-white-gray bg-white max-sm:hidden">
     <div class="text-lg text-black font-bold pl-[26px] max-side-bar:pl-9 py-4  absolute space-x-6 w-full top-0 left-0">
-      <div class="flex items-center  space-x-10"><img  width = "27" height="17" src="../../static/assets/logo/random-1.png" alt="">
+      <div class="flex items-center  space-x-10"><img class="h-12 w-auto" src="../../static/assets/logo/logo.svg" alt="">
+
         <span class="max-side-bar:hidden">Gymnify.</span>
       </div>
     </div>
@@ -54,11 +55,11 @@
    <!-- /* ---------------------------*/ -->
 
 
- <div class="main-content flex-1 relative bg-none w-full p-4 overflow-scroll ">
+ <div class="main-content flex-1 relative bg-none w-full p-4 overflow-auto ">
 
   <div class="header--wrapper flex justify-between items-center flex-wrap bg-white shadow-lg  rounded-lg border-black border-opacity-10 border px-2.5 py-7 mb-4 max-scroll:min-w-[510px]">
     <div class="header-title ">
-      <h2 class="text-2xl text-soft-teal">Dashboard</h2>
+      <h2 class="text-2xl text-soft-teal">Income</h2>
     </div>
  
 
@@ -81,7 +82,7 @@
       </div>
       <div class="flex flex-col items-start justify-center">
       <p class="text-gray-500 mt-2 text-sm">Total Balance</p>
-      <h2 class="text-2xl font-bold">{{total_balance}}</h2>
+      <h2 class="text-2xl font-bold">{{total_balance}} Birr</h2>
       <p class="text-sm flex items-center gap-1">
         <span><img src="../../static/assets/logo/arrow-up.svg" alt=""></span> <span class="text-green-500">8%</span> this month
       </p>
@@ -95,7 +96,7 @@
   
       <div class="flex flex-col items-start justify-center">
       <p class="text-gray-500 mt-2 text-sm">Monthly Income</p>
-      <h2 class="text-2xl font-bold">{{total_monthly_income}}</h2>
+      <h2 class="text-2xl font-bold">{{total_monthly_income}} Birr</h2>
       <p class="text-sm flex items-center gap-1">
         <span><img src="../../static/assets/logo/arrow-down.svg" alt=""></span>  <span class="text-red-700">1%</span> this month
       </p>

@@ -1,0 +1,924 @@
+{
+  "chest": [
+    {
+      "name": "Push Ups",
+      "caloriesPerRep": 0.5,
+      "image": "assets",
+      "video": "assets/exercise_1.mp4",
+      "description": "A classic bodyweight exercise that targets the chest, shoulders, and triceps.",
+      "timeTaken": "none",
+      "requireKG": "none",
+      "effectiveness": 80,
+      "activityLevels": {
+        "beginner": { "reps": 10, "sets": 3 },
+        "intermediate": { "reps": 15, "sets": 4 },
+        "advanced": { "reps": 20, "sets": 5 }
+      },
+      "equipment": false,
+      "primaryMuscles": ["chest"],
+      "secondaryMuscles": ["shoulders", "triceps"],
+      "alternatives": [
+        {
+          "name": "Diamond Push Ups",
+          "caloriesPerRep": 0.6,
+          "description": "Close-hand push-ups emphasizing triceps and inner chest.",
+          "equipment": false
+        },
+        {
+          "name": "Incline Push Ups",
+          "caloriesPerRep": 0.4,
+          "description": "Easier variation with hands elevated (e.g., on a bench).",
+          "equipment": false
+        },
+        {
+          "name": "Plyometric Push Ups",
+          "caloriesPerRep": 0.8,
+          "description": "Explosive push-ups for power development.",
+          "equipment": false
+        }
+      ]
+    },
+    {
+      "name": "Dumbbell Bench Press",
+      "caloriesPerRep": 1.2,
+      "image": "assets/images/dumbbell_bench.jpg",
+      "video": "assets/exercise_2.mp4",
+      "description": "A fundamental chest exercise using dumbbells for balanced muscle development.",
+      "timeTaken": "none",
+      "requireKG": {
+        "Fir": "6-10",
+        "Sec": "10-14",
+        "Thr": "15-16",
+        "Fou": "15-16",
+        "Fiv": "15-16"
+      },
+      "effectiveness": 90,
+      "activityLevels": {
+        "beginner": { "reps": 8, "sets": 3 },
+        "intermediate": { "reps": 10, "sets": 4 },
+        "advanced": { "reps": 12, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["chest"],
+      "secondaryMuscles": ["shoulders", "triceps"],
+      "alternatives": [
+        {
+          "name": "Barbell Bench Press",
+          "caloriesPerRep": 1.3,
+          "description": "Classic heavy lift for maximal chest strength.",
+          "equipment": true
+        },
+        {
+          "name": "Floor Press",
+          "caloriesPerRep": 1.1,
+          "description": "Limited ROM variation to focus on lockout strength.",
+          "equipment": true
+        },
+        {
+          "name": "Machine Chest Press",
+          "caloriesPerRep": 1.0,
+          "description": "Stable alternative for beginners or rehab.",
+          "equipment": true
+        }
+      ]
+    },
+    {
+      "name": "Incline Dumbbell Press",
+      "caloriesPerRep": 1.3,
+      "image": "assets/images/incline_press.jpg",
+      "video": "assets/exercise_2.mp4",
+      "description": "Targets the upper chest muscles with an inclined bench position.",
+      "timeTaken": "none",
+      "requireKG": {
+        "Fir": "10-15",
+        "Sec": "12-18",
+        "Thr": "20-25",
+        "Fou": "20-25",
+        "Fiv": "25-30"
+      },
+      "effectiveness": 85,
+      "activityLevels": {
+        "beginner": { "reps": 8, "sets": 3 },
+        "intermediate": { "reps": 10, "sets": 4 },
+        "advanced": { "reps": 12, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["chest"],
+      "secondaryMuscles": ["shoulders", "triceps"],
+      "alternatives": [
+        {
+          "name": "Incline Barbell Press",
+          "caloriesPerRep": 1.4,
+          "description": "Heavy-load alternative for upper chest.",
+          "equipment": true
+        },
+        {
+          "name": "Landmine Press",
+          "caloriesPerRep": 1.1,
+          "description": "Unique angle for shoulder-friendly pressing.",
+          "equipment": true
+        },
+        {
+          "name": "Low-to-High Cable Fly",
+          "caloriesPerRep": 0.9,
+          "description": "Isolates upper chest with constant tension.",
+          "equipment": true
+        }
+      ]
+    }
+  ],
+  "back": [
+    {
+      "name": "Pull Ups",
+      "caloriesPerRep": 1.0,
+      "image": "assets/images/pullup.jpg",
+      "video": "assets/exercise_3.mp4",
+      "description": "An excellent bodyweight exercise for developing upper back strength.",
+      "timeTaken": "none",
+      "requireKG": "none",
+      "effectiveness": 85,
+      "activityLevels": {
+        "beginner": { "reps": 5, "sets": 3 },
+        "intermediate": { "reps": 8, "sets": 4 },
+        "advanced": { "reps": 12, "sets": 5 }
+      },
+      "equipment": false,
+      "primaryMuscles": ["back"],
+      "secondaryMuscles": ["biceps", "shoulders"],
+      "alternatives": [
+        {
+          "name": "Chin Ups",
+          "caloriesPerRep": 1.0,
+          "description": "Underhand grip to emphasize biceps more.",
+          "equipment": false
+        },
+        {
+          "name": "Assisted Pull-Ups (Bands/Machine)",
+          "caloriesPerRep": 0.8,
+          "description": "Easier variation for beginners.",
+          "equipment": true
+        },
+        {
+          "name": "Australian Pull-Ups",
+          "caloriesPerRep": 0.7,
+          "description": "Bodyweight row alternative with feet on ground.",
+          "equipment": false
+        }
+      ]
+    },
+    {
+      "name": "Bent Over Rows",
+      "caloriesPerRep": 1.1,
+      "image": "assets/images/bent_over_rows.jpg",
+      "video": "assets/exercise_4.mp4",
+      "description": "Targets the middle back muscles with optional weights for resistance.",
+      "timeTaken": "none",
+      "requireKG": {
+        "Fir": "10-20",
+        "Sec": "20-25",
+        "Thr": "30-40",
+        "Fou": "30-40",
+        "Fiv": "30-40"
+      },
+      "effectiveness": 88,
+      "activityLevels": {
+        "beginner": { "reps": 8, "sets": 3 },
+        "intermediate": { "reps": 10, "sets": 4 },
+        "advanced": { "reps": 12, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["back"],
+      "secondaryMuscles": ["biceps", "shoulders"],
+      "alternatives": [
+        {
+          "name": "Seated Cable Rows",
+          "caloriesPerRep": 1.0,
+          "description": "Stable machine alternative for controlled reps.",
+          "equipment": true
+        },
+        {
+          "name": "T-Bar Rows",
+          "caloriesPerRep": 1.2,
+          "description": "Heavy-load row variation with a barbell.",
+          "equipment": true
+        },
+        {
+          "name": "Inverted Rows",
+          "caloriesPerRep": 0.9,
+          "description": "Bodyweight row using a bar or TRX straps.",
+          "equipment": false
+        }
+      ]
+    },
+    {
+      "name": "Lat Pulldown",
+      "caloriesPerRep": 0.9,
+      "image": "assets/images/lat_pulldown.jpg",
+      "video": "assets/exercise_1.mp4",
+      "description": "Machine exercise that targets the latissimus dorsi muscles.",
+      "timeTaken": "none",
+      "requireKG": {
+        "Fir": "10-20",
+        "Sec": "20-30",
+        "Thr": "30-40",
+        "Fou": "40-50",
+        "Fiv": "50-60"
+      },
+      "effectiveness": 82,
+      "activityLevels": {
+        "beginner": { "reps": 10, "sets": 3 },
+        "intermediate": { "reps": 12, "sets": 4 },
+        "advanced": { "reps": 15, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["back"],
+      "secondaryMuscles": ["biceps", "shoulders"],
+      "alternatives": [
+        {
+          "name": "Straight-Arm Pulldown",
+          "caloriesPerRep": 0.7,
+          "description": "Isolates lats without bicep involvement.",
+          "equipment": true
+        },
+        {
+          "name": "Single-Arm Pulldown",
+          "caloriesPerRep": 0.8,
+          "description": "Unilateral variation to correct imbalances.",
+          "equipment": true
+        },
+        {
+          "name": "Wide-Grip Pull-Up",
+          "caloriesPerRep": 1.1,
+          "description": "Bodyweight alternative for advanced lifters.",
+          "equipment": false
+        }
+      ]
+    }
+  ],
+  "shoulders": [
+    {
+      "name": "Dumbbell Shoulder Press",
+      "caloriesPerRep": 1.0,
+      "image": "assets/images/shoulder_press.jpg",
+      "video": "assets/exercise_2.mp4",
+      "description": "Targets the deltoid muscles for shoulder strength and development.",
+      "timeTaken": "none",
+      "requireKG": {
+        "Fir": "10-20",
+        "Sec": "20-30",
+        "Thr": "30-40",
+        "Fou": "40-50",
+        "Fiv": "50-60"
+      },
+      "effectiveness": 85,
+      "activityLevels": {
+        "beginner": { "reps": 8, "sets": 3 },
+        "intermediate": { "reps": 10, "sets": 4 },
+        "advanced": { "reps": 12, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["shoulders"],
+      "secondaryMuscles": ["triceps"],
+      "alternatives": [
+        {
+          "name": "Arnold Press",
+          "caloriesPerRep": 1.1,
+          "description": "Rotational press for full deltoid engagement.",
+          "equipment": true
+        },
+        {
+          "name": "Overhead Barbell Press",
+          "caloriesPerRep": 1.2,
+          "description": "Classic standing press for core stability.",
+          "equipment": true
+        },
+        {
+          "name": "Kettlebell Shoulder Press",
+          "caloriesPerRep": 1.0,
+          "description": "Unstable load for shoulder stability.",
+          "equipment": true
+        }
+      ]
+    },
+    {
+      "name": "Lateral Raises",
+      "caloriesPerRep": 0.8,
+      "image": "assets/images/lateral_raises.jpg",
+      "video": "assets/exercise_3.mp4",
+      "description": "Isolates the lateral deltoids for shoulder width.",
+      "timeTaken": "none",
+      "requireKG": {
+        "Fir": "10-20",
+        "Sec": "20-30",
+        "Thr": "30-40",
+        "Fou": "40-50",
+        "Fiv": "50-60"
+      },
+      "effectiveness": 75,
+      "activityLevels": {
+        "beginner": { "reps": 10, "sets": 3 },
+        "intermediate": { "reps": 12, "sets": 4 },
+        "advanced": { "reps": 15, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["shoulders"],
+      "secondaryMuscles": [],
+      "alternatives": [
+        {
+          "name": "Cable Lateral Raises",
+          "caloriesPerRep": 0.8,
+          "description": "Constant tension throughout the movement.",
+          "equipment": true
+        },
+        {
+          "name": "Leaning Lateral Raises",
+          "caloriesPerRep": 0.9,
+          "description": "Leaning to isolate one side at a time.",
+          "equipment": true
+        },
+        {
+          "name": "Plate Lateral Raises",
+          "caloriesPerRep": 0.7,
+          "description": "Uses a weight plate for variation.",
+          "equipment": true
+        }
+      ]
+    },
+    {
+      "name": "Front Plate Raises",
+      "caloriesPerRep": 0.7,
+      "image": "assets/images/front_raises.jpg",
+      "video": "assets/exercise_4.mp4",
+      "description": "Targets the anterior deltoids using a weight plate.",
+      "timeTaken": "none",
+      "requireKG": {
+        "Fir": "10-20",
+        "Sec": "20-30",
+        "Thr": "30-40",
+        "Fou": "40-50",
+        "Fiv": "50-60"
+      },
+      "effectiveness": 70,
+      "activityLevels": {
+        "beginner": { "reps": 10, "sets": 3 },
+        "intermediate": { "reps": 12, "sets": 4 },
+        "advanced": { "reps": 15, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["shoulders"],
+      "secondaryMuscles": [],
+      "alternatives": [
+        {
+          "name": "Cable Front Raises",
+          "caloriesPerRep": 0.7,
+          "description": "Smooth resistance with cables.",
+          "equipment": true
+        },
+        {
+          "name": "Single-Arm Dumbbell Front Raises",
+          "caloriesPerRep": 0.6,
+          "description": "Unilateral focus for balance.",
+          "equipment": true
+        },
+        {
+          "name": "Barbell Front Raises",
+          "caloriesPerRep": 0.8,
+          "description": "Heavier load for strength progression.",
+          "equipment": true
+        }
+      ]
+    }
+  ],
+  "legs": [
+    {
+      "name": "Squats",
+      "caloriesPerRep": 1.5,
+      "image": "assets/images/squats.jpg",
+      "video": "assets/exercise_1.mp4",
+      "description": "A compound exercise that targets the entire lower body.",
+      "timeTaken": "none",
+      "requireKG": {
+        "Fir": "10-20",
+        "Sec": "20-30",
+        "Thr": "30-40",
+        "Fou": "40-50",
+        "Fiv": "50-60"
+      },
+      "effectiveness": 95,
+      "activityLevels": {
+        "beginner": { "reps": 10, "sets": 3 },
+        "intermediate": { "reps": 12, "sets": 4 },
+        "advanced": { "reps": 15, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["quadriceps", "glutes"],
+      "secondaryMuscles": ["hamstrings", "calves"],
+      "alternatives": [
+        {
+          "name": "Goblet Squats",
+          "caloriesPerRep": 1.3,
+          "description": "Beginner-friendly with a dumbbell/kettlebell.",
+          "equipment": true
+        },
+        {
+          "name": "Bulgarian Split Squats",
+          "caloriesPerRep": 1.4,
+          "description": "Unilateral leg development.",
+          "equipment": true
+        },
+        {
+          "name": "Hack Squats (Machine)",
+          "caloriesPerRep": 1.5,
+          "description": "Reduced spinal load for quad focus.",
+          "equipment": true
+        }
+      ]
+    },
+    {
+      "name": "Lunges",
+      "caloriesPerRep": 1.2,
+      "image": "assets/images/lunges.jpg",
+      "video": "assets/exercise_2.mp4",
+      "description": "Works each leg individually for balanced strength development.",
+      "timeTaken": 15,
+      "requireKG": {
+        "Fir": "10-20",
+        "Sec": "20-30",
+        "Thr": "30-40",
+        "Fou": "40-50",
+        "Fiv": "50-60"
+      },
+      "effectiveness": 85,
+      "activityLevels": {
+        "beginner": { "reps": 8, "sets": 3 },
+        "intermediate": { "reps": 10, "sets": 4 },
+        "advanced": { "reps": 12, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["quadriceps", "glutes"],
+      "secondaryMuscles": ["hamstrings"],
+      "alternatives": [
+        {
+          "name": "Reverse Lunges",
+          "caloriesPerRep": 1.1,
+          "description": "Easier on knees with backward stepping.",
+          "equipment": true
+        },
+        {
+          "name": "Walking Lunges",
+          "caloriesPerRep": 1.3,
+          "description": "Dynamic variation for mobility.",
+          "equipment": true
+        },
+        {
+          "name": "Curtsy Lunges",
+          "caloriesPerRep": 1.2,
+          "description": "Targets glutes and inner thighs.",
+          "equipment": false
+        }
+      ]
+    },
+    {
+      "name": "Deadlifts",
+      "caloriesPerRep": 2.0,
+      "image": "assets/images/deadlifts.jpg",
+      "video": "assets/exercise_4.mp4",
+      "description": "A full-body exercise with emphasis on posterior chain muscles.",
+      "timeTaken": "none",
+      "requireKG": {
+        "Fir": "10-20",
+        "Sec": "20-30",
+        "Thr": "30-40",
+        "Fou": "40-50",
+        "Fiv": "50-60"
+      },
+      "effectiveness": 98,
+      "activityLevels": {
+        "beginner": { "reps": 6, "sets": 3 },
+        "intermediate": { "reps": 8, "sets": 4 },
+        "advanced": { "reps": 10, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["hamstrings", "glutes", "back"],
+      "secondaryMuscles": ["quadriceps", "core"],
+      "alternatives": [
+        {
+          "name": "Romanian Deadlifts",
+          "caloriesPerRep": 1.8,
+          "description": "Focuses on hamstrings with minimal knee bend.",
+          "equipment": true
+        },
+        {
+          "name": "Sumo Deadlifts",
+          "caloriesPerRep": 2.0,
+          "description": "Wider stance for inner thigh/glute emphasis.",
+          "equipment": true
+        },
+        {
+          "name": "Trap Bar Deadlifts",
+          "caloriesPerRep": 1.9,
+          "description": "Reduced spinal shear for beginners.",
+          "equipment": true
+        }
+      ]
+    }
+  ],
+  "arms": [
+    {
+      "name": "Bicep Curls",
+      "caloriesPerRep": 0.7,
+      "image": "assets/images/bicep_curls.jpg",
+      "video": "assets/exercise_1.mp4",
+      "description": "Isolates the biceps for arm strength and size.",
+      "timeTaken": "none",
+      "requireKG": {
+        "Fir": "6-8",
+        "Sec": "8-10",
+        "Thr": "10-15",
+        "Fou": "15-20",
+        "Fiv": "15-20"
+      },
+      "effectiveness": 80,
+      "activityLevels": {
+        "beginner": { "reps": 10, "sets": 3 },
+        "intermediate": { "reps": 12, "sets": 4 },
+        "advanced": { "reps": 15, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["biceps"],
+      "secondaryMuscles": [],
+      "alternatives": [
+        {
+          "name": "Zottman Curls",
+          "caloriesPerRep": 0.7,
+          "description": "Combines bicep and forearm rotation.",
+          "equipment": true
+        },
+        {
+          "name": "Cable Bicep Curls",
+          "caloriesPerRep": 0.7,
+          "description": "Constant tension throughout the movement.",
+          "equipment": true
+        },
+        {
+          "name": "Spider Curls",
+          "caloriesPerRep": 0.8,
+          "description": "Isolates biceps with chest support.",
+          "equipment": true
+        }
+      ]
+    },
+    {
+      "name": "Tricep Dips",
+      "caloriesPerRep": 0.8,
+      "image": "assets/images/tricep_dips.jpg",
+      "video": "assets/exercise_2.mp4",
+      "description": "Targets the triceps using bodyweight or added resistance.",
+      "timeTaken": "none",
+      "requireKG": {
+        "Fir": "10-20",
+        "Sec": "20-30",
+        "Thr": "30-40",
+        "Fou": "40-50",
+        "Fiv": "50-60"
+      },
+      "effectiveness": 85,
+      "activityLevels": {
+        "beginner": { "reps": 8, "sets": 3 },
+        "intermediate": { "reps": 10, "sets": 4 },
+        "advanced": { "reps": 12, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["triceps"],
+      "secondaryMuscles": ["shoulders", "chest"],
+      "alternatives": [
+        {
+          "name": "Bench Dips",
+          "caloriesPerRep": 0.7,
+          "description": "Easier variation using a bench.",
+          "equipment": false
+        },
+        {
+          "name": "Close-Grip Push-Ups",
+          "caloriesPerRep": 0.6,
+          "description": "Bodyweight alternative for triceps.",
+          "equipment": false
+        },
+        {
+          "name": "Overhead Dumbbell Tricep Extension",
+          "caloriesPerRep": 0.8,
+          "description": "Isolates long head of triceps.",
+          "equipment": true
+        }
+      ]
+    },
+    {
+      "name": "Preacher Curls",
+      "caloriesPerRep": 0.6,
+      "image": "assets/images/preacher_curls.jpg",
+      "video": "assets/exercise_3.mp4",
+      "description": "Isolates the biceps with support to prevent cheating.",
+      "timeTaken": "none",
+      "requireKG": {
+        "Fir": "10-20",
+        "Sec": "20-30",
+        "Thr": "30-40",
+        "Fou": "40-50",
+        "Fiv": "50-60"
+      },
+      "effectiveness": 75,
+      "activityLevels": {
+        "beginner": { "reps": 10, "sets": 3 },
+        "intermediate": { "reps": 12, "sets": 4 },
+        "advanced": { "reps": 15, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["biceps"],
+      "secondaryMuscles": [],
+      "alternatives": [
+        {
+          "name": "Incline Dumbbell Curls",
+          "caloriesPerRep": 0.6,
+          "description": "Stretches biceps for greater ROM.",
+          "equipment": true
+        },
+        {
+          "name": "Concentration Curls",
+          "caloriesPerRep": 0.6,
+          "description": "Strict isolation with elbow on thigh.",
+          "equipment": true
+        },
+        {
+          "name": "EZ-Bar Preacher Curls",
+          "caloriesPerRep": 0.7,
+          "description": "Variation with a curved bar for wrist comfort.",
+          "equipment": true
+        }
+      ]
+    }
+  ],
+  "biceps": [
+    {
+      "name": "Hammer Curls",
+      "caloriesPerRep": 0.7,
+      "image": "assets/images/hammer_curls.jpg",
+      "video": "assets/exercise_4.mp4",
+      "description": "Works the biceps and brachialis with a neutral grip.",
+      "timeTaken": "none",
+      "requireKG": {
+        "Fir": "10-20",
+        "Sec": "20-30",
+        "Thr": "30-40",
+        "Fou": "40-50",
+        "Fiv": "50-60"
+      },
+      "effectiveness": 75,
+      "activityLevels": {
+        "beginner": { "reps": 10, "sets": 3 },
+        "intermediate": { "reps": 12, "sets": 4 },
+        "advanced": { "reps": 15, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["biceps"],
+      "secondaryMuscles": ["forearms"],
+      "alternatives": [
+        {
+          "name": "Cross-Body Hammer Curls",
+          "caloriesPerRep": 0.7,
+          "description": "Targets brachialis with diagonal movement.",
+          "equipment": true
+        },
+        {
+          "name": "Rope Hammer Curls",
+          "caloriesPerRep": 0.7,
+          "description": "Cable variation for constant tension.",
+          "equipment": true
+        },
+        {
+          "name": "Reverse Curls",
+          "caloriesPerRep": 0.8,
+          "description": "Overhand grip to emphasize forearms.",
+          "equipment": true
+        }
+      ]
+    },
+    {
+      "name": "Concentration Curls",
+      "caloriesPerRep": 0.6,
+      "image": "assets/images/concentration_curls.jpg",
+      "video": "assets/exercise_1.mp4",
+      "description": "Highly isolates the biceps with strict form.",
+      "timeTaken": 15,
+      "requireKG": {
+        "Fir": "10-20",
+        "Sec": "20-30",
+        "Thr": "30-40",
+        "Fou": "40-50",
+        "Fiv": "50-60"
+      },
+      "effectiveness": 70,
+      "activityLevels": {
+        "beginner": { "reps": 8, "sets": 3 },
+        "intermediate": { "reps": 10, "sets": 4 },
+        "advanced": { "reps": 12, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["biceps"],
+      "secondaryMuscles": [],
+      "alternatives": [
+        {
+          "name": "Seated Dumbbell Curls",
+          "caloriesPerRep": 0.6,
+          "description": "Reduces momentum for stricter reps.",
+          "equipment": true
+        },
+        {
+          "name": "Single-Arm Cable Curls",
+          "caloriesPerRep": 0.6,
+          "description": "Constant tension with cables.",
+          "equipment": true
+        },
+        {
+          "name": "Preacher EZ-Bar Curls",
+          "caloriesPerRep": 0.7,
+          "description": "Supported variation with a barbell.",
+          "equipment": true
+        }
+      ]
+    }
+  ],
+  "triceps": [
+    {
+      "name": "Tricep Rope Pushdown",
+      "caloriesPerRep": 0.6,
+      "image": "assets/images/tricep_pushdown.jpg",
+      "video": "assets/exercise_2.mp4",
+      "description": "Isolates the triceps using a cable machine.",
+      "timeTaken": 15,
+      "requireKG": {
+        "Fir": "10-20",
+        "Sec": "20-30",
+        "Thr": "30-40",
+        "Fou": "40-50",
+        "Fiv": "50-60"
+      },
+      "effectiveness": 80,
+      "activityLevels": {
+        "beginner": { "reps": 10, "sets": 3 },
+        "intermediate": { "reps": 12, "sets": 4 },
+        "advanced": { "reps": 15, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["triceps"],
+      "secondaryMuscles": [],
+      "alternatives": [
+        {
+          "name": "V-Bar Pushdown",
+          "caloriesPerRep": 0.6,
+          "description": "Neutral grip for medial tricep focus.",
+          "equipment": true
+        },
+        {
+          "name": "Overhead Rope Extension",
+          "caloriesPerRep": 0.7,
+          "description": "Targets long head of triceps.",
+          "equipment": true
+        },
+        {
+          "name": "Single-Arm Pushdown",
+          "caloriesPerRep": 0.5,
+          "description": "Unilateral correction for imbalances.",
+          "equipment": true
+        }
+      ]
+    },
+    {
+      "name": "Close Grip Bench Press",
+      "caloriesPerRep": 1.0,
+      "image": "assets/images/close_grip_bench.jpg",
+      "video": "assets/exercise_3.mp4",
+      "description": "Compound movement that emphasizes triceps development.",
+      "timeTaken": "none",
+      "requireKG": {
+        "Fir": "10-20",
+        "Sec": "20-30",
+        "Thr": "30-40",
+        "Fou": "40-50",
+        "Fiv": "50-60"
+      },
+      "effectiveness": 85,
+      "activityLevels": {
+        "beginner": { "reps": 8, "sets": 3 },
+        "intermediate": { "reps": 10, "sets": 4 },
+        "advanced": { "reps": 12, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["triceps"],
+      "secondaryMuscles": ["chest", "shoulders"],
+      "alternatives": [
+        {
+          "name": "Floor Press (Close Grip)",
+          "caloriesPerRep": 1.0,
+          "description": "Reduced ROM for lockout strength.",
+          "equipment": true
+        },
+        {
+          "name": "JM Press",
+          "caloriesPerRep": 1.1,
+          "description": "Hybrid between bench press and skull crushers.",
+          "equipment": true
+        },
+        {
+          "name": "Dumbbell Close Grip Press",
+          "caloriesPerRep": 0.9,
+          "description": "Unilateral stability challenge.",
+          "equipment": true
+        }
+      ]
+    }
+  ],
+  "core": [
+    {
+      "name": "Plank",
+      "caloriesPerRep": 0.2,
+      "image": "assets/images/plank.jpg",
+      "video": "assets/exercise_1.mp4",
+      "description": "Isometric exercise that strengthens the entire core.",
+      "timeTaken": 15,
+      "requireKG": "none",
+      "effectiveness": 90,
+      "activityLevels": {
+        "beginner": { "reps": 30, "sets": 3 },
+        "intermediate": { "reps": 60, "sets": 4 },
+        "advanced": { "reps": 90, "sets": 5 }
+      },
+      "equipment": false,
+      "primaryMuscles": ["abs", "core"],
+      "secondaryMuscles": ["shoulders", "back"],
+      "alternatives": [
+        {
+          "name": "Side Plank",
+          "caloriesPerRep": 0.2,
+          "description": "Targets obliques and lateral core.",
+          "equipment": false
+        },
+        {
+          "name": "Plank with Shoulder Taps",
+          "caloriesPerRep": 0.3,
+          "description": "Adds instability and shoulder engagement.",
+          "equipment": false
+        },
+        {
+          "name": "Forearm Plank (Extended Hold)",
+          "caloriesPerRep": 0.2,
+          "description": "Longer duration for endurance.",
+          "equipment": false
+        }
+      ]
+    },
+    {
+      "name": "Russian Twists",
+      "caloriesPerRep": 0.4,
+      "image": "assets/images/russian_twists.jpg",
+      "video": "assets/exercise_2.mp4",
+      "description": "Targets the obliques with rotational movement.",
+      "timeTaken": "none",
+      "requireKG": {
+        "Fir": "10-20",
+        "Sec": "20-30",
+        "Thr": "30-40",
+        "Fou": "40-50",
+        "Fiv": "50-60"
+      },
+      "effectiveness": 75,
+      "activityLevels": {
+        "beginner": { "reps": 10, "sets": 3 },
+        "intermediate": { "reps": 15, "sets": 4 },
+        "advanced": { "reps": 20, "sets": 5 }
+      },
+      "equipment": true,
+      "primaryMuscles": ["obliques"],
+      "secondaryMuscles": ["abs"],
+      "alternatives": [
+        {
+          "name": "Standing Cable Russian Twists",
+          "caloriesPerRep": 0.5,
+          "description": "Adds resistance with cables.",
+          "equipment": true
+        },
+        {
+          "name": "Bicycle Crunches",
+          "caloriesPerRep": 0.4,
+          "description": "Dynamic oblique and rectus abdominis engagement.",
+          "equipment": false
+        },
+        {
+          "name": "Medicine Ball Russian Twists",
+          "caloriesPerRep": 0.5,
+          "description": "Explosive rotational power.",
+          "equipment": true
+        }
+      ]
+    }
+  ]
+}

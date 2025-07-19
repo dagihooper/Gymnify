@@ -2,6 +2,10 @@
 from django.contrib import admin
 from .models import Exercise, Alternative, ActivityLevel
 
-admin.site.register(Exercise)
+@admin.register(Exercise)
+
+class ExerciseAdmin(admin.ModelAdmin):
+    list_display = ('name', 'category', 'caloriesPerRep')
+
 admin.site.register(Alternative)
 admin.site.register(ActivityLevel)

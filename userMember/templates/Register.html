@@ -49,7 +49,7 @@
               </p>
               </div>
               
-            <form action="/register" method="POST" autocomplete="on" id="form_registration"
+            <form action="{% url 'register' %}" method="POST" autocomplete="on" id="form_registration"
             class="font-poppins">
 
                   {% csrf_token %}
