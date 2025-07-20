@@ -6,8 +6,6 @@ from . import views
 
 urlpatterns = [
     path('home/', views.home_page, name='home'),
-        path("__reload__/", include("django_browser_reload.urls")),
-
     path('pricingplan', views.pricingPlan, name = 'pricingplan'),
     path('profilepage/', views.profilePage, name = 'profilepage'),
     path('submitpricingplan', views.submitPricingPlan, name = 'submitpricingplan')

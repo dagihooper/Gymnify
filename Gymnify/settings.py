@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    "django_browser_reload",
     'userAdmin',
     'userMember.apps.UsermemberConfig',
     'validation',
