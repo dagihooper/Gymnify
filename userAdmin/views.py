@@ -223,7 +223,7 @@ def user_admin_dashboard(request):
         }
         print('down below is notifcation')
         print(context['notifications'])
-    return render(request, 'user-admin-dashboard.html', context)
+    return render(request, 'User-admin-dashboard.html', context)
 
 
 def user_admin_income(request):
@@ -292,7 +292,7 @@ def user_admin_income(request):
     
         
     
-  return render(request, 'user-admin-income.html', context )
+  return render(request, 'User-admin-income.html', context )
 
 
 @csrf_exempt
