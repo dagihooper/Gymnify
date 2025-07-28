@@ -4,6 +4,7 @@ from Gymnify.mongo_utils import get_gymers_collection , get_bills_collection
 from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
 import json
+import re
 from django.http import JsonResponse
 from bson import ObjectId
 from dateutil.relativedelta import relativedelta
@@ -242,13 +243,14 @@ def user_admin_income(request):
   for bill in bills:
             
       if bill:
-            print('here is the bill')
-            print(bill)
-            print('here is the date of payment of the bill')
-            print(bill['date_of_payment']) 
-            # gym_house_name = bill['gym_house_name']
-            price = bill['price_plan']
+            gym_house_name = bill['gym_name']
+            print(gym_house_name)
+            price = int(bill['price_plan'])
             date_of_payment = bill['date_of_payment']
+            payment_date = date_of_payment
+            print(payment_date)
+
+            print(date_of_payment)
             # package_type = bill['package_type']
             # file_image = bill['fileType']
             # file_name  = bill['fileName']
@@ -256,8 +258,7 @@ def user_admin_income(request):
             current_date = datetime.now()
             current_month = current_date.month
             current_year = current_date.year
-            payment_date = datetime.strptime(date_of_payment, '%d, %m, %Y')
-            bills['date'] = datetime.strftime(payment_date, '%B, %m, %d')
+            bill['date'] = payment_date.strftime('%B, %m, %d')
             total_balance = balance + price
 
 
@@ -270,7 +271,7 @@ def user_admin_income(request):
 
              
             if str(bill.get('price_plan')).strip() == '5316':
-              bills['service_type'] = 'Introductory'
+              bill['service_type'] = 'Introductory'
             elif str(bill.get('price_plan')).strip() == '11000':
               bill['service_type'] = 'Standard'
             else :
@@ -324,12 +325,13 @@ def user_admin_income(request):
   #      payments_list,total_balance,total_montly_income = '', 0, 0
        
   context = {
-      'bills': bill,
+      'bills': bills,
       # 'payments': payments_list_coll,
       'total_active_users': gymers_collection.count_documents({'payDone': True}),
       'total_balance': total_balance,
       'total_monthly_income' : total_montly_income,
     }
+  
     
     
         

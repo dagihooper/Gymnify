@@ -151,15 +151,16 @@
                     <th class="p-3 text-light-gray opacity-50 font-normal ">Validity</th>
                     <th class="p-3 text-light-gray opacity-50 font-normal ">Date</th>
                     <th class="p-3 text-light-gray opacity-50 font-normal relative ">Birr <button class="absolute"><img src="../../static/assets/logo/sort-by.svg" ></button></th>
+                    <th class="p-3 text-light-gray opacity-50 font-normal ">Bill</th>
+
                     
                 </tr>
             </thead>
             <tbody>
 
               {% for bill in bills %}
-              <!-- {% if gymer.paymentsList %} -->
                 <tr class="border-t bg-white shadow-sm">
-                    <td class="p-3">{{bill.gym_house_name}}</td>
+                    <td class="p-3">{{bill.gym_name}}</td>
                     <td class="p-3">{{bill.service_type}}</td>
                     <td class="p-3 text-active-text">Done</td>
 
@@ -167,12 +168,15 @@
                       <ul>
                           <li class="before:content-['✔️'] before:mr-2 before:text-[10px]">{{bill.date }}</li>
                       </ul>
-                     }</td>
+                     </td>
 
-                    <td class="p-3">{{bill.price}} birr</td>
-                   
+                    <td class="p-3">{{bill.price_plan}} birr </td>
+                    <td class="p-3"><a href="data:image/png;base64,{{bill.fileData}}" target="_blank">
+  <img src="data:image/png;base64,{{bill.fileData}}" alt="Image" style="width:30px; cursor:pointer;" />
+</a>
+ </td>
+
                 </tr>
-                  {% endif %}
                   {% endfor %}
                 
             </tbody>
