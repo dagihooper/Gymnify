@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'userAdmin',
     'userMember.apps.UsermemberConfig',
     'validation',
-    'exercises',
+    'exercises.apps.ExercisesConfig',
     'mealplanner',
     'homePage',
     'allauth',
@@ -202,3 +202,8 @@ ACCOUNT_LOGIN_ON_ERROR_URL = 'login'
 # ACCOUNT_LOGOUT_REDIRECT_URL = 'home''
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}

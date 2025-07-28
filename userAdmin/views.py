@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from Gymnify.mongo_utils import get_gymers_collection
+from Gymnify.mongo_utils import get_gymers_collection , get_bills_collection
+
 from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -11,7 +12,9 @@ from dateutil.relativedelta import relativedelta
 def user_admin_dashboard(request):
   
     gymers_collection = get_gymers_collection()
+    bills_collection = get_bills_collection()
     gymers = list(gymers_collection.find())
+    bills = list(bills_collection.find())
     total_users = 0
     notification_data = []
 
@@ -44,13 +47,13 @@ def user_admin_dashboard(request):
           #handle the notification stuffs
         
         notifications = list(gymer['adminNotifications'])
+        
 
         if notifications:
 
           for notification in notifications:
             if '_id' not in notification: 
                 notification['_id'] = ObjectId()  
-                print(gymer['adminNotifications'])
                 
                 
               
@@ -77,8 +80,8 @@ def user_admin_dashboard(request):
            
           if days_left in (90, 75, 50, 35, 20, 5, 3 , 2, 1):
 
-            print('days left found in ')
-            print(days_left)
+
+
                 
             existing_notification = gymers_collection.find_one({
                         'name': gymer['name'],
@@ -209,7 +212,6 @@ def user_admin_dashboard(request):
         
          #context
          
-        print('here is the notification data of the page ')
              
         context = {
           'gymers': gymers,
@@ -221,8 +223,7 @@ def user_admin_dashboard(request):
           'days_left': days_left,
           
         }
-        print('down below is notifcation')
-        print(context['notifications'])
+     
     return render(request, 'User-admin-dashboard.html', context)
 
 
@@ -230,69 +231,114 @@ def user_admin_income(request):
   
   gymers_collection = get_gymers_collection()
   gymers = list(gymers_collection.find())
-  
+  bills_collection = get_bills_collection()
+  bills = list(bills_collection.find())
 
   payments_list_coll = []
+  gym_house_name_coll = []
   balance = 0
   montly_income = 0
-  for gymer in gymers:
-    gymer['_id'] = str(gymer['_id'])  
-    
-    if gymer.get('payDone'):
-      gymer['payment_status'] = 'Active' 
-      payments_list = gymer.get('paymentsList', [])
-      print(payments_list)
-      if payments_list:
-          for payment in payments_list:
-            payments_list_coll.append(payment)
-            gymer['date_of_payment'] = payment.get('date_of_payment', 'N/A')
-            gymer['price'] = str(gymer.get('pricePlan')).strip()
-            total_balance = balance + gymer.get('pricePlan', 0)
-            
 
-            #handle the datetime logic
+  for bill in bills:
             
+      if bill:
+            print('here is the bill')
+            print(bill)
+            print('here is the date of payment of the bill')
+            print(bill['date_of_payment']) 
+            # gym_house_name = bill['gym_house_name']
+            price = bill['price_plan']
+            date_of_payment = bill['date_of_payment']
+            # package_type = bill['package_type']
+            # file_image = bill['fileType']
+            # file_name  = bill['fileName']
+
             current_date = datetime.now()
             current_month = current_date.month
             current_year = current_date.year
-            payment_date = datetime.strptime(gymer['date_of_payment'], '%d, %m, %Y')
-            gymer['date'] = datetime.strftime(payment_date, '%B, %m, %d')
+            payment_date = datetime.strptime(date_of_payment, '%d, %m, %Y')
+            bills['date'] = datetime.strftime(payment_date, '%B, %m, %d')
+            total_balance = balance + price
+
+
             if payment_date.month == current_month and payment_date.year == current_year:
-              total_montly_income = montly_income + gymer.get('pricePlan', 0)
+               total_montly_income = montly_income + price
+            
+    
+            else: 
+               payments_list,balance,montly_income = '', 0, 0
+
+             
+            if str(bill.get('price_plan')).strip() == '5316':
+              bills['service_type'] = 'Introductory'
+            elif str(bill.get('price_plan')).strip() == '11000':
+              bill['service_type'] = 'Standard'
+            else :
+              bill['service_type'] = 'Unknown'
+    
+      else: 
+          payments_list,balance,montly_income = '', 0, 0
+  
+  # for gymer in gymers:
+  #   gymer['_id'] = str(gymer['_id'])  
+    
+  #   if gymer.get('payDone'):
+  #     gymer['payment_status'] = 'Active' 
+  #     payments_list = gymer.get('paymentsList', [])
+  #     if payments_list:
+  #         for payment in payments_list:
+  #           payments_list_coll.append(payment)
+  #           # gymer['date_of_payment'] = payment.get('date_of_payment', 'N/A')
+  #           gymer['price'] = str(gymer.get('pricePlan')).strip()
+  #           total_balance = balance + gymer.get('pricePlan', 0)
+            
+
+  #           #handle the datetime logic
+            
+  #           current_date = datetime.now()
+  #           current_month = current_date.month
+  #           current_year = current_date.year
+  #           payment_date = datetime.strptime(gymer['date_of_payment'], '%d, %m, %Y')
+  #           gymer['date'] = datetime.strftime(payment_date, '%B, %m, %d')
+  #           if payment_date.month == current_month and payment_date.year == current_year:
+  #             total_montly_income = montly_income + gymer.get('pricePlan', 0)
             
       
-      else: 
-         payments_list,balance,montly_income = '', 0, 0
+  #     else: 
+  #        payments_list,balance,montly_income = '', 0, 0
  
 
       
 
    
-         #for service type
+  #        #for service type
              
-      if str(gymer.get('pricePlan')).strip() == '5316':
-        gymer['service_type'] = 'Introductory'
-      elif str(gymer.get('pricePlan')).strip() == '11000':
-        gymer['service_type'] = 'Standard'
-      else :
-        gymer['service_type'] = 'Unknown'
+  #     if str(gymer.get('pricePlan')).strip() == '5316':
+  #       gymer['service_type'] = 'Introductory'
+  #     elif str(gymer.get('pricePlan')).strip() == '11000':
+  #       gymer['service_type'] = 'Standard'
+  #     else :
+  #       gymer['service_type'] = 'Unknown'
               
-    else:
-       payments_list,total_balance,total_montly_income = '', 0, 0
+  #   else:
+  #      payments_list,total_balance,total_montly_income = '', 0, 0
        
   context = {
-      'gymers': gymers,
-      'payments': payments_list_coll,
+      'bills': bill,
+      # 'payments': payments_list_coll,
       'total_active_users': gymers_collection.count_documents({'payDone': True}),
       'total_balance': total_balance,
       'total_monthly_income' : total_montly_income,
     }
-  print(context['payments'])
     
     
         
     
   return render(request, 'User-admin-income.html', context )
+
+
+def user_admin_data_entry(request):
+   return render(request, 'Data_Entry.html')
 
 
 @csrf_exempt

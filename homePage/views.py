@@ -47,6 +47,7 @@ def home_page(request):
       result = gymers_collection.find_one(
     {'users.userName': profile.user.username},
     {'users.$': 1}  )
+      
       if result:
         #registration date calculation
         
@@ -91,6 +92,8 @@ def home_page(request):
         if phone_number and phone_verified:
           context['first_name'] = profile.first_name.capitalize()
           context['last_name'] = profile.last_name.capitalize()
+          email = profile.email
+          print(f'This your email {email}')
           first_name = context['first_name']
           last_name = context['last_name']
           request.session['first_name'] = first_name
@@ -109,8 +112,10 @@ def home_page(request):
                   'package_length': package_length,
                   'price': price,
                   'next_payment_date': next_payment_date,
-                  'days_left': days_left
+                  'days_left': days_left,
+                  'profile_data': profile
               }
+          
           
 
         
@@ -488,5 +493,45 @@ def submitPricingPlan(request):
                 })
       
 
-      
+import time     
     
+def checkingProfile(request):
+    user = request.user
+    profile = UserProfile.objects.filter(user=user).first()
+    gymers_collection = get_gymers_collection()
+
+    if not profile or profile.age is None:
+        print("❌ Age missing in Django profile.")
+        return redirect('fill_profile')  # optional
+
+    # Use $elemMatch and projection to get only the matched user
+    gym_doc = gymers_collection.find_one(
+        {
+            'users': {
+                '$elemMatch': {'userName': profile.user.username}
+            }
+        },
+        {
+            'users.$': 1  # Project only the matched user from array
+        }
+    )
+
+    if gym_doc and 'users' in gym_doc and len(gym_doc['users']) > 0:
+        matched_user = gym_doc['users'][0]
+        mongo_age = matched_user.get('age')
+        mongo_email = matched_user.get('email')
+
+        print(f"✅ Found user in MongoDB: Age = {mongo_age}, Email = {mongo_email}")
+    else:
+        matched_user = None
+        print("⚠️ No matching user found in MongoDB.")
+        messages.error(request, 'Please complete your profile to access the full features of our app.')
+        redirect('home')
+    
+
+    return render(request, 'Checking.html', {
+        'age': mongo_age,
+        'email': mongo_email
+    })
+
+

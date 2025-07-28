@@ -97,6 +97,7 @@ def insertion(request):
     if not phone_number_exist and user:
 
       profile= UserProfile.objects.get(user = user)
+      print(f'this is the {profile.username}')
       profile.phone_number = f"{phone_number}"
       if gym_house:
         profile.gym_house = gym_house

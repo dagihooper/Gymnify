@@ -1,0 +1,98 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checking</title>
+  <link rel="stylesheet" href="../../static/css/output.css">
+</head>
+<body>
+
+  
+<body class="font-poppins">
+
+
+  {% if messages %}
+  <div id="message-container" class="absolute font-lato shadow-md text-white  max-w-[80%] w-[21rem] max-md:min-w-[80%] top-4 left-8 mt-8">
+      {% for message in messages %}
+      <div class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} px-6 py-5 rounded-md flex flex-row justify-center items-center gap-4">
+          <p class="w-full">{{ message }}</p>
+          <button class="top-1 right-2 text-white" onclick="this.parentElement.remove();">✖</button>
+  
+      </div>
+      {% endfor %}
+  </div>
+  {% endif %}
+  <main class=" max-h-full fixed left-[50%] top-[50%] z-40 w-full sm:w-[500px] translate-x-[-50%] translate-y-[-50%]">
+
+
+    <div class="bg-white p-8 rounded-lg shadow-lg w-96 flex flex-col">
+        <h1 class="text-2xl max-sm:text-xl font-bold text-center text-gray-800">Checking your profiles</h1>
+        <p class="mt-4 text-sm mb-4 text-center text-gray-600">We're reviewing your account to ensure everything is up to date and accurate. This helps us provide you with a secure and personalized experience.</p>
+        <p class="text-coral-red text-sm mb-4">
+              Please wait<span class="inline-block animate-pulse">...</span>
+            </p>
+
+          <div class="w-6 h-6 border-4 border-blue-300 border-t-blue-600 rounded-full animate-spin mx-auto mb-4"></div>
+          <p class="text-sm mb-4">Found user in MongoDB: Profile = 
+            
+            <span id="mached-user-data" class="font-semibold text-sm opacity-90">
+              {% if age %}
+              All done
+            
+              {% else %}
+
+              empty
+
+              {% endif %}
+
+            </span>
+            
+            Email = {{email}}</p>
+ <ul class="text-left text-gray-600 text-sm space-y-2 mb-6">
+      <li id="checking"">✔️ Verifying personal information</li>
+      <li id="checking_1">✔️ Checking membership status</li>
+      <li id="checking_2">✔️ Updating profile picture and bio</li>
+    </ul>
+
+    </div>
+       
+    </main>
+
+
+
+</body>
+</html>
+
+  
+<script>
+  
+
+
+  document.getElementById('checking').style.display = 'none'
+  
+  document.getElementById('checking_1').style.display = 'none'
+  
+  document.getElementById('checking_2').style.display = 'none'
+
+
+  setTimeout(function()  {
+  document.getElementById('checking').style.display = 'block'
+
+  },7000)
+
+   setTimeout(function()  {
+  document.getElementById('checking_1').style.display = 'block'
+
+  },3000)
+  
+   setTimeout(function()  {
+
+    document.getElementById('checking_2').style.display = 'block'
+  },5000)
+
+
+
+</script>
+  
+</body>
+</html>

@@ -31,4 +31,9 @@ function sideBarToggle() {
 }
 
 
+function showPassword() {
+  alert('username: gymnify, Password: gymnify')
+}
+
+
 

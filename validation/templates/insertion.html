@@ -10,9 +10,8 @@
 
 <body>
 
-  <main class="max-h-full fixed left-[50%] top-[50%] z-40 w-full sm:w-[500px] translate-x-[-50%] translate-y-[-50%]">
     {% if messages %}
-    <div id="message-container" class="absolute top-4 left-8 w-[21rem] max-w-[80%] font-lato text-white">
+    <div id="message-container" class="absolute top-4 max-md:top-1 max-md:left-2 w-[21rem] max-w-[80%] font-lato text-white">
         {% for message in messages %}
         <div class="flex items-center justify-between p-4 mb-4 rounded-md {% if message.tags == 'success' %}bg-green-500{% elif message.tags == 'error' %}bg-red-500{% else %}bg-gray-500{% endif %}">
             <p class="w-full">{{ message }}</p>
@@ -21,6 +20,9 @@
         {% endfor %}
     </div>
     {% endif %}
+
+      <main class="max-h-full fixed left-[50%] top-[50%] z-40 w-full sm:w-[500px] translate-x-[-50%] translate-y-[-50%]">
+
 
     <form action="/insertion" method="POST" class="rounded-lg shadow-lg border flex flex-col px-4 py-8 gap-4">
       {% csrf_token %}

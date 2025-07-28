@@ -1,9 +1,9 @@
 from django.apps import AppConfig
 
 
-class MealplannerConfig(AppConfig):
+class ExercisesConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'mealplanner'
+    name = 'exercises'
 
     def ready(self):
-        import mealplanner.signals  
+        import exercises.signals 

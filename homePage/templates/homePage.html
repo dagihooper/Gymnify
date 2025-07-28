@@ -5,8 +5,51 @@
 
   <title>Gymnify</title>
   <link rel="stylesheet" href="../../static/css/output.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
 </head>
 <body>
+
+  
+
+  <div class="fixed items-center bottom-0 w-full max-w-[85%] left-[7%] bg-white flex justify-around py-3 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-[100000001] rounded-t-2xl">
+
+    <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" onclick="navigateTo('settings')">
+    <i class="fas fa-home text-[20px] mb-1 text-[#9d80c1]"></i>
+    <span class="text-xs">Home</span>
+  </div>
+
+  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" id="exerciseButton">
+    <i class="fas fa-dumbbell rotate-[30deg] text-[20px] mb-1"></i>
+    <span class="text-xs">Exercise</span>
+  </div>
+
+  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" >
+    <i class="fas fa-utensils text-[20px] mb-1"></i>
+    <span class="text-xs">Nutrition</span>
+  </div>
+
+  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" onclick="navigateTo('report')">
+    <i class="fas fa-chart-pie text-[20px] mb-1"></i>
+    <span class="text-xs">Report</span>
+  </div>
+  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" id="profileButton">
+    <i class="fas fa-user text-[20px] mb-1"></i>
+    <span class="text-xs">Profile</span>
+  </div>
+</div>
+
+<script>
+  function navigateTo(path) {
+    if (path === 'logout') {
+      window.location.href = '/login';
+    } else {
+      window.location.href = `/${path}`;
+    }
+  }
+</script>
+
+
 
   
   {% if messages %}
@@ -21,7 +64,7 @@
 </div>
 {% endif %}
 
-<div class="qr-code  bg-white shadow-md shadow-amber-200 p-4 max-md:p-2 rounded-md md:w-50 md:h-50 fixed bottom-4 left-8 z-50 cursor-pointer " id="qr_code">
+<div class="qr-code  bg-white shadow-md shadow-amber-200 p-4 max-md:p-2 rounded-md md:w-50 md:h-50 fixed bottom-64 left-8 z-50 cursor-pointer " id="qr_code">
 <img width="30" height="30" src="../../static/assets/logo/qr-code.png" alt="" srcset="">
 </div>
 
@@ -40,7 +83,8 @@
 
 
     <div id="warning-page" class="absolute font-lato -z-10 text-black  max-w-[50%] max-md:min-w-[80%] top-4 left-8">
-      <div class="padding-x py-5 rounded-md flex flex-row justify-center items-center space-x-4 hover:shadow-md cursor-pointer {% if days_left >= 6 %} bg-yellow-300 {% else %} bg-red-400 {% endif %} ">
+                <div class="padding-x py-5 rounded-md flex flex-row justify-center items-center space-x-4 hover:shadow-md cursor-pointer {% if days_left >= 6 %} bg-yellow-300 {% else %} bg-red-400 {% endif %} ">
+
           <p class="w-full">
             
             {% if days_left > 0 %}
@@ -57,20 +101,20 @@
       </div>
   </div>
 
-    <div id="circle-warning" class="fixed font-lato -z-10 w-24 h-24 flex justify-center items-center  text-black rounded-full top-[20rem] right-5{% if days_left >= 6 %} bg-yellow-300 {% else %} bg-red-400 {% endif %} ">
+
+  <div onclick="redirectToChecking()" style="background: linear-gradient(135deg, #6e8efb, #a777e3)" class = "shadow-lg animate-bounce duration-1000 p-4 max-md:p-2 max-md:px-3 rounded-[60px] md:w-50 md:h-50 fixed bottom-64 right-8 z-50 cursor-pointer " id="start_gym">
+    <p class="text-white ">Start Gym >></p>
+</div>
+
+
+    <!-- <div id="circle-warning" class="fixed font-lato -z-10 w-24 h-24 flex justify-center items-center  text-black rounded-full bottom-64 right-5{% if days_left >= 6 %} bg-yellow-300 {% else %} bg-red-400 {% endif %} ">
       <div>
         <p class="w-full"> 
-           {% if days_left > 0 %}
-            {{days_left}} days left
-           {% elif days_left == 0 %}
-             Expired
-           {% else %}
-             Expired
-           {% endif %}
+           Start Gym
           </p>
       </div>
            
-  </div>
+  </div> -->
 
   <header class="flex flex-row w-full items-center justify-between padding-x mt-16 max-sm:mt-28 top-[53%] ">
       <div>
@@ -89,7 +133,8 @@
       {%endif%}
     </div>
 
-              <div class="absolute shadow-lg hidden group-hover:flex duration-1000 transition-all  top-30  flex-col justify-center items-center p-8 space-y-8 rounded-lg right-0  ">
+
+              <div class="absolute shadow-lg hidden group-hover:flex duration-1000 transition-all  top-30  flex-col justify-center items-center p-8 space-y-8 rounded-lg right-0 z-[1000] ">
 
                 <div class="flex flex-row justify-center items-center space-x-2">
                   <img width="20" height="20" src="../../static/assets/logo/profile.png" alt="">
@@ -185,5 +230,72 @@
   
   <script src="../../static/js/register.js"></script>
   <script src="../../static/js/home.js"></script>
+  <script>
+  document.getElementById('exerciseButton').addEventListener('click', function () {
+    const userEmail = "{{ profile_data.email|escapejs }}";
+    console.log('This is the user email');
+    console.log(userEmail);
+
+    if (userEmail) {
+      localStorage.setItem('user_email', userEmail);
+      console.log('User email saved:', userEmail);
+
+      fetch('http://10.27.114.94:5173/exercise', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: userEmail })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('User data sent successfully:', data);
+        window.location.href = 'http://10.27.114.94:5173/exercise';
+      })
+      .catch(err => {
+        console.error('Error sending user data:', err);
+        window.location.href = 'http://10.27.114.94:5173/exercise';
+      });
+
+    } else {
+      console.warn('User email not found, redirecting anyway');
+    }
+  });
+
+  document.getElementById('profileButton').addEventListener('click', function () {
+    const userEmail = "{{ profile_data.email|escapejs }}";
+    console.log('This is the user email');
+    console.log(userEmail);
+
+    if (userEmail) {
+      localStorage.setItem('user_email', userEmail);
+      console.log('User email saved:', userEmail);
+
+      fetch('http://10.27.114.94:5173/profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: userEmail })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('User data sent successfully:', data);
+        window.location.href = 'http://10.27.114.94:5173/profile';
+      })
+      .catch(err => {
+        console.error('Error sending user data:', err);
+        window.location.href = 'http://10.27.114.94:5173/profile';
+      });
+
+    } else {
+      console.warn('User email not found, redirecting anyway');
+    }
+  });
+
+  function redirectToChecking() {
+    window.location = '/checking_profile'
+  }
+
+  
+</script>
+
+
 </body>
 </html>

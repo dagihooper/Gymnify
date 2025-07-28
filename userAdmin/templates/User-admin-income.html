@@ -21,7 +21,7 @@
 
     </div>
 
-    <ul class="h-[88%] relative list-none p-0">
+    <ul class="h-[88%] relative items-start flex-col justify-start list-none p-0">
       <li  class="p-4 my-2 rounded-md hover:bg-slate-200 hover:text-light-gray transition-all duration-700  cursor-pointer text-light-gray"> 
         <a href="user-admin-dashboard" class="text-sm flex items-center justify-center gap-6">
           <img width="27" height="27" class="opacity-50" src="../../static/assets/logo/dashboard.png">
@@ -35,6 +35,14 @@
           <span class="overflow-hidden max-side-bar:hidden">Income</span>
         </a>
       </li>
+
+       <li class="p-4 my-2 rounded-md hover:bg-slate-200 transition-all duration-700 text-light-gray cursor-pointer bg-white "> 
+        <a href="user-admin-data-entry" class="text-sm flex items-center gap-6 ">
+          <img width ="27" height="27" class="opacity-50" src="../../static/assets/logo/data-entry.png">
+          <span class="overflow-hidden max-side-bar:hidden">Data Entry</span>
+        </a>
+      </li>
+
      
       <div class="profile grid grid-cols-2  absolute bottom-28 left-2  w-full text-sm -space-x-3">
         <div class="bg-soft-teal h-12 w-12 mt-1 rounded-full text-white">
@@ -148,25 +156,20 @@
             </thead>
             <tbody>
 
-              {% for gymer in gymers %}
-              {% if gymer.paymentsList %}
+              {% for bill in bills %}
+              <!-- {% if gymer.paymentsList %} -->
                 <tr class="border-t bg-white shadow-sm">
-                    <td class="p-3">{{gymer.name}}</td>
-                    <td class="p-3">{{gymer.service_type}}</td>
+                    <td class="p-3">{{bill.gym_house_name}}</td>
+                    <td class="p-3">{{bill.service_type}}</td>
                     <td class="p-3 text-active-text">Done</td>
 
                     <td class="p-3">
-                      {% if payments %}
                       <ul>
-                          {% for payment in gymer.paymentsList %}
-                          <li class="before:content-['✔️'] before:mr-2 before:text-[10px]">{{gymer.date }}</li>
-                          {% endfor %}
+                          <li class="before:content-['✔️'] before:mr-2 before:text-[10px]">{{bill.date }}</li>
                       </ul>
-                      {% else %}
-                      No Payments Found
-                      {% endif %}</td>
+                     }</td>
 
-                    <td class="p-3">{{gymer.price}} birr</td>
+                    <td class="p-3">{{bill.price}} birr</td>
                    
                 </tr>
                   {% endif %}

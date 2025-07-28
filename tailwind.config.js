@@ -3,12 +3,12 @@
 module.exports = {
   content: [
   'userMember/templates/**/*.html',
-  './userAdmin/templates/**/*.html',
-  './vote/templates/**/*.js',
-  './validation/templates/**/*.html',
-  './homePage/templates/**/*.html',
-  './validation/templates/**/*.js',
-  './exercises/templates/**/*.html',
+  'userAdmin/templates/**/*.html',
+  'vote/templates/**/*.js',
+  'validation/templates/**/*.html',
+  'homePage/templates/**/*.html',
+  'validation/templates/**/*.js',
+  'exercises/templates/**/*.html',
 
 
 ],

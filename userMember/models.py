@@ -17,7 +17,7 @@ class UserProfile(models.Model):
   height = models.CharField(max_length  = 3, null= True)
   gender = models.CharField(max_length = 10, choices= [('M', 'Male'), ('F', 'Female')], default='M', null = True, blank = True)
   exercise_day = models.IntegerField(blank = True, null = True)
-  health_status = models.CharField(max_length= 10, null = True)
+  health_status = models.CharField(max_length=50, null = True)
   exercise_type = models.CharField(max_length = 20, null = True)
   blood_type = models.CharField(max_length = 20, null = True)
   exercise_time_per_day = models.CharField(max_length=30, null=True )
@@ -26,7 +26,7 @@ class UserProfile(models.Model):
   notificationTime = models.CharField(max_length=30, null = True)
   enteringTime = models.CharField(max_length=30, null = True)
   totalTimeSpendOnGym = models.CharField(max_length=30, null = True)
-  activityLevel = models.CharField(max_length=10, choices = [('SL', 'Sedentary Level'), ('LA', 'Light Active'), ('MA', 'Moderately Active'), ('VA', 'Very Active')], default= 'LA', null = True, blank = True )
+  activityLevel = models.CharField(max_length=50, choices = [('SL', 'Sedentary Level'), ('LA', 'Light Active'), ('MA', 'Moderately Active'), ('VA', 'Very Active')], default= 'LA', null = True, blank = True )
   
 
   def __str__(self):

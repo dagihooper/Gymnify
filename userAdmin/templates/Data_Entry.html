@@ -1,0 +1,93 @@
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../static/css/output.css">
+  <title>Gymnify</title>
+</head>
+<body class="m-0 p-0 border-none outline-none box-border font-poppins bg-[#FAFBFF] overflow-x-auto">
+
+<main class="flex gap-2 w-full ">
+
+  <div id="sideBar" class="sidebar visible sticky top-0 left-0 bottom-0 max-side-bar:min-w-[110px] side-bar:min-w-[240px] h-screen px-7 max-side-bar:px-5 text-white overflow-hidden bg-white-gray bg-white max-sm:hidden">
+    <div class="text-lg text-black font-bold pl-[26px] max-side-bar:pl-9 py-4  absolute space-x-6 w-full top-0 left-0">
+      <div class="flex items-center  space-x-10"><img class="h-12 w-auto" src="../../static/assets/logo/logo.svg" alt="">
+
+        <span class="max-side-bar:hidden">Gymnify.</span>
+      </div>
+    </div>
+    <div class="logo h-40 p-4 ">
+
+    </div>
+
+    <ul class="h-[88%] relative flex items-start flex-col justify-start list-none p-0">
+      <li  class="p-4 my-2 rounded-md hover:bg-slate-200 hover:text-light-gray transition-all duration-700  cursor-pointer text-light-gray"> 
+        <a href="user-admin-dashboard" class="text-sm flex items-center justify-center gap-6">
+          <img width="27" height="27" class="opacity-50" src="../../static/assets/logo/dashboard.png">
+          <span class="overflow-hidden max-side-bar:hidden">Dashboard</span>
+        </a>
+      </li>
+
+      <li  class="p-4 my-2 rounded-md hover:bg-slate-200 hover:text-light-gray transition-all duration-700  cursor-pointer text-light-gray"> 
+        <a href="/user-admin-income" class="text-sm flex items-center gap-6">
+          <img width ="27" height="27" class="opacity-50" src="../../static/assets/logo/income.png">
+          <span class="overflow-hidden max-side-bar:hidden">Income</span>
+        </a>
+      </li>
+
+      <li class="p-4 my-2 rounded-md hover:bg-slate-200 transition-all duration-700 text-white cursor-pointer bg-blue-violet "> 
+        <a href="/user-admin-data-entry" class="text-sm flex items-center gap-6">
+          <img width ="27" height="27" class="opacity-50" src="../../static/assets/logo/data-entry.png">
+          <span class="overflow-hidden max-side-bar:hidden">Data Entry</span>
+        </a>
+      </li>
+     
+      <div class="profile grid grid-cols-2  absolute bottom-28 left-2  w-full text-sm -space-x-3">
+        <div class="bg-soft-teal h-12 w-12 mt-1 rounded-full text-white">
+
+        </div>
+
+        <div class="grid grid-rows-2 -space-y-2 max-side-bar:hidden">
+          <div class=" text-black">
+            Gymnify
+          </div>
+          <div class=" text-light-gray">
+            Managment System
+          </div>
+        </div>
+      </div>
+    </ul>
+  </div>
+
+   <!-- /* ---------------------------*/ -->
+
+
+ <div class="main-content flex flex-1 relative w-full items-center justify-center p-4 gap-6 ">
+
+   <div class="flex items-center justify-center rounded-lg shadow-lg bg-white font-poppins text-xl p-6 h-52 w-[200px] font-semibold cursor-pointer hover:shadow-xl hover:scale-105 hover:bg-violet-300 transition-all duration-1000 ">
+    <a href="{% url 'add_exercises'}">Add Exercises</a>
+
+   </div>
+
+   <div class="flex relative flex-col overflow-hidden items-center group justify-center rounded-lg shadow-lg bg-white font-poppins text-xl p-6 h-52 w-[200px] font-semibold cursor-pointer hover:shadow-xl hover:scale-105 hover:bg-violet-300 transition-all duration-1000 ">
+        <a href="{% url 'admin:index' %}mealplanner/food/
+">Add Foods</a>
+        <button onclick="showPassword()" class="font-bold bg-white rounded-md max-w-md p-2 text-sm absolute -bottom-10 group-hover:bottom-3 transition-all duration-1000  z-30 font-palanquin">Show password</button>
+   </div>
+     <!-- /* ---------------------------*/ -->
+
+
+  
+
+ </div>
+
+ 
+
+
+</main>
+
+
+<script src="../../static/js/user-admin.js"></script>
+</body>
+</html>
