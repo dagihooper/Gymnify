@@ -24,18 +24,18 @@ def user_register(request):
     gymers_collection = get_gymers_collection()
     gymers = list(gymers_collection.find())
     
-    gymers_collection.update_many(
-        {"$or": [
-                {'users.phone': ''},  
-                {'users.phoneVerified': False} 
-            ]
-        },
-        {"$pull": {
-                'users': {
-                    "$or": [
-                        {'phone': ''}, 
-                        {'phoneVerified': False} 
-                          ]}}})
+    # gymers_collection.update_many(
+    #     {"$or": [
+    #             {'users.phone': ''},  
+    #             {'users.phoneVerified': False} 
+    #         ]
+    #     },
+    #     {"$pull": {
+    #             'users': {
+    #                 "$or": [
+    #                     {'phone': ''}, 
+    #                     {'phoneVerified': False} 
+    #                       ]}}})
         
     context = {
       'gymers': gymers
@@ -80,41 +80,41 @@ def user_register(request):
           request.session['username'] = username
           request.session['gym_house'] = gym_house
           
-          new_user_mongo = {
-             "userName": username,
-             "firstName": first_name,
-             "lastName": last_name,
-             "password": make_password(password),
-             "phoneVerified": False,
-             "email": '',
-             "phone" : '',
-             "age": '',
-             "sex": '',
-             "height": '',
-             "weight": '',
-             "registeredDate": registeredDate,
-             "paymentDate": '',
-             "exerciseTimePerDay": '',
-             "notificationTime": '',
-             "healthStatus": '',
-             "exerciseType" : '',
-             "enteringTime": '',
-             "bloodType" : '',
-             "upComingExercise": '',
-             "totalTimeSpendOnGym": '',
-             'protienAmountRequired': '',
-             "TodayNotification": '',
-             "activityLevel": '',
-             "fitnessGoal": '',
-          }
+          # new_user_mongo = {
+          #    "userName": username,
+          #    "firstName": first_name,
+          #    "lastName": last_name,
+          #    "password": make_password(password),
+          #    "phoneVerified": False,
+          #    "email": '',
+          #    "phone" : '',
+          #    "age": '',
+          #    "sex": '',
+          #    "height": '',
+          #    "weight": '',
+          #    "registeredDate": registeredDate,
+          #    "paymentDate": '',
+          #    "exerciseTimePerDay": '',
+          #    "notificationTime": '',
+          #    "healthStatus": '',
+          #    "exerciseType" : '',
+          #    "enteringTime": '',
+          #    "bloodType" : '',
+          #    "upComingExercise": '',
+          #    "totalTimeSpendOnGym": '',
+          #    'protienAmountRequired': '',
+          #    "TodayNotification": '',
+          #    "activityLevel": '',
+          #    "fitnessGoal": '',
+          # }
           
         
-          gymers_collection.update_one(
-               {'name': gym_house},
-               {"$push": {
-                 "users": new_user_mongo
-               }}
-              )
+          # gymers_collection.update_one(
+          #      {'name': gym_house},
+          #      {"$push": {
+          #        "users": new_user_mongo
+          #      }}
+          #     )
             
           
     
@@ -125,45 +125,106 @@ def user_register(request):
     return render(request, 'Register.html', context )
 
 def user_login(request):
-  
-  
-  users_without_phone = UserProfile.objects.filter(Q(phone_number__isnull = True) | Q(gym_house__isnull = True))
-    
-  for users_profile in users_without_phone:
-      user = users_profile.user
-      users_profile.delete()
-      user.delete()
-      
-  if request.method == 'POST':
-  
-      userphone = request.POST.get('userphone').strip().lower()
-      password = request.POST.get('password')
+    gymers = get_gymers_collection().find({})
 
-      try:
-        
-        if '09' in userphone:
-          user = User.objects.get(userprofile__phone_number = userphone)
-      
-        else:
-          user = User.objects.get(username = userphone)        
-        user = authenticate(request, username = user.username, password = password)
-        
-        if user is not None:
-          login(request, user)
-          request.session['userphone'] = userphone
-          user = authenticate(request, username = user.username, password = password)
-          user.save()
-          return redirect('/home')
+    users_without_phone = UserProfile.objects.filter(Q(phone_number__isnull=True) | Q(gym_house__isnull=True))
+    for users_profile in users_without_phone:
+        user = users_profile.user
+        users_profile.delete()
+        user.delete()
 
-        else:
-          messages.error(request,'Invalid Password. Please try again')
-      
-      except User.DoesNotExist:
-        messages.error(request, "Username or Phone number doesn't exist. Please sign up if you don't have an account")
+    if request.method == 'POST':
+        userphone = request.POST.get('userphone', '').strip().lower()
+        password = request.POST.get('password')
 
+        try:
+            if userphone.startswith('09'):
+                user = User.objects.get(userprofile__phone_number=userphone)
+            else:
+                user = User.objects.get(username=userphone)
 
-  return render(request,'Login.html')
-      
+            user = authenticate(request, username=user.username, password=password)
+            if user is not None:
+                login(request, user)
+                request.session['userphone'] = userphone
+                request.session['first_name'] = user.userprofile.first_name
+                request.session['last_name'] = user.userprofile.last_name
+                request.session['username'] = user.username
+                request.session['gym_house'] = user.userprofile.gym_house
+                return redirect('/home')
+            else:
+                messages.error(request, 'Invalid Password. Please try again')
+
+        except User.DoesNotExist:
+            for gymer in gymers:
+                for mongo_user in gymer.get('users', []):
+                    user_name = mongo_user.get('userName', '').lower()
+                    print(f'this is mongo user {user_name}')
+                    print(f'this is the inputed username {userphone}')
+                    if userphone == user_name:
+                        try:
+                            user = User.objects.get(username=user_name)
+                            print(f'this is a userphone {userphone}')
+                        except User.DoesNotExist:
+                            
+                            phone_number = mongo_user.get('phone', '')
+                            first_name = mongo_user.get('firstName', '')
+                            last_name = mongo_user.get('lastName', '')
+                            gym_house = gymer.get('name', '')
+                            email = mongo_user.get('email', '')
+                            age = mongo_user.get('age', '')
+                            weight = mongo_user.get('weight', '')
+                            gender = mongo_user.get('sex', '')
+                            phone_verified = mongo_user.get('phoneVerified', False)
+                            password_hash = mongo_user.get('password', '') 
+                            exercise_time_per_day = mongo_user.get('exerciseTimePerDay', '')
+                            blood_type = mongo_user.get('bloodType', '')
+                            exercise_type = mongo_user.get('exerciseType', '')
+                            fitness_goal = mongo_user.get('fitness_goal', '')
+                            profile_photo = mongo_user.get('profilePhoto', '')
+
+                            user = User.objects.create(username=user_name, email=email)
+                            user.set_password(password)
+                            user.save()
+
+                            user_profile = UserProfile(
+                                user=user,
+                                first_name=first_name,
+                                last_name=last_name,
+                                gym_house=gym_house,
+                                phone_number=phone_number,
+                                phone_verified=phone_verified,
+                                weight=weight,
+                                age=age,
+                                gender=gender,
+                                exercise_time_per_day=exercise_time_per_day,
+                                blood_type=blood_type,
+                                exercise_type=exercise_type,
+                                fitness_goal=fitness_goal,
+                                profile_photo=profile_photo
+                            )
+                            user_profile.save()
+
+                        auth_user = authenticate(request, username=user_name, password=password)
+                        if auth_user is not None:
+                            login(request, auth_user)
+                            request.session['first_name'] = first_name
+                            request.session['last_name'] = last_name
+                            request.session['username'] = user_name
+                            request.session['gym_house'] = gym_house
+                            return redirect('home')
+                        else:
+                            messages.error(request, "Invalid password for imported user.")
+                            break
+
+            else:
+                messages.error(request, "Username or Phone number doesn't exist. Please sign up.")
+
+        except Exception as e:
+            messages.error(request, f"An error occurred: {str(e)}")
+
+    return render(request, 'Login.html')
+
 
 def user_logout(request):
   logout(request)
@@ -261,3 +322,59 @@ def password_reset(request):
   else: 
      messages.error(request, 'Please try again later.')
      return redirect('login')
+  
+
+  # This is a function for trying, debugging, and implementing new features
+import qrcode
+import base64
+import json
+from io import BytesIO
+
+def trial_stuffs(request):
+   
+   gymers = get_gymers_collection()
+   result = []
+
+   collections = gymers.find({})
+   for collection in  collections:
+      gym_house_name = collection.get('name')
+      print(gym_house_name)
+
+      if gym_house_name == 'Oxygen':
+         gymers.update_many  ( 
+            {"name": "Oxygen"},
+            { "$unset": {"name": ''}}
+         )
+  
+
+      for user in collection.get('users', []):
+         print(user.get('userName'))   
+
+      #Handle the qr code
+
+      user_data = {
+          "name": "dagmawi_t",
+          "email": 18,
+          "phone_number": "+251912345678"
+      }
+
+      json_data = json.dumps(user_data)
+      qr = qrcode.QRCode(
+          version=1,
+          error_correction=qrcode.constants.ERROR_CORRECT_L,
+          box_size=10,
+          border=4,
+      )
+      qr.add_data(json_data)
+      qr.make(fit=True)
+
+      img = qr.make_image(fill_color="black", back_color="white")
+      buffer = BytesIO()
+      img.save(buffer, format="PNG")
+      img_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
+
+     
+
+   
+
+   return render(request, 'trial.html', {'qr_code':  img_base64})

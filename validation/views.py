@@ -1,4 +1,8 @@
 from django.shortcuts import render, redirect
+import json
+import qrcode
+import base64
+from io import BytesIO
 from Gymnify.mongo_utils import get_gymers_collection
 from django.contrib import messages
 from userMember.models import UserProfile
@@ -9,6 +13,10 @@ from django.conf import settings
 from .utils import send_verification_code
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
+
+
+
+
 
 
 def insertion(request):
@@ -57,55 +65,47 @@ def insertion(request):
     phone_number = f"0{phone_number}" 
     phone_number_exist = UserProfile.objects.filter(phone_number = phone_number).exists()
         
-    if gym_house:
-        registeredDate = datetime.now().strftime("%Y, %m, %d")
 
         
-        new_user_mongo = {
-              "userName": username,
-              "firstName": profile.first_name,
-              "lastName": profile.last_name,
-              "phoneVerified": False,
-              "email": request.user.email,
-              "phone" : '',
-              "age": '',
-              "sex": '',
-              "height": '',
-              "weight": '',
-              "registeredDate": registeredDate,
-              "paymentDate": '',
-              "exerciseTimePerDay": '',
-              "notificationTime": '',
-              "healthStatus": '',
-              "exerciseType" : '',
-              "enteringTime": '',
-              "bloodType" : '',
-              "upComingExercise": '',
-              "totalTimeSpendOnGym": '',
-              'protienAmountRequired': '',
-              "TodayNotification": '',
-              "activityLevel": '',
-              "fitnessGoal": '',
-            }
+        # new_user_mongo = {
+        #       "userName": username,
+        #       "firstName": profile.first_name,
+        #       "lastName": profile.last_name,
+        #       "phoneVerified": False,
+        #       "email": request.user.email,
+        #       "phone" : '',
+        #       "age": '',
+        #       "sex": '',
+        #       "height": '',
+        #       "weight": '',
+        #       "registeredDate": registeredDate,
+        #       "paymentDate": '',
+        #       "exerciseTimePerDay": '',
+        #       "notificationTime": '',
+        #       "healthStatus": '',
+        #       "exerciseType" : '',
+        #       "enteringTime": '',
+        #       "bloodType" : '',
+        #       "upComingExercise": '',
+        #       "totalTimeSpendOnGym": '',
+        #       'protienAmountRequired': '',
+        #       "TodayNotification": '',
+        #       "activityLevel": '',
+        #       "fitnessGoal": '',
+        #     }
         
-        gymers_collection.update_one({
-          'name': gym_house
-        }, {"$push": {
-          'users': new_user_mongo
-        }})
+        # gymers_collection.update_one({
+        #   'name': gym_house
+        # }, {"$push": {
+        #   'users': new_user_mongo
+        # }})
       
     if not phone_number_exist and user:
 
-      profile= UserProfile.objects.get(user = user)
-      print(f'this is the {profile.username}')
       profile.phone_number = f"{phone_number}"
       if gym_house:
         profile.gym_house = gym_house
       
-      gymers_collection.update_one(
-      {"users.userName": username},
-      {"$set": { "users.$.phone": phone_number}}
-    )
       gymers = list(gymers_collection.find({'users.username': 'step'}))
       for gymer in gymers:
            pass      
@@ -131,7 +131,9 @@ def insertion(request):
     
   return render(request, 'insertion.html', context)
       
-  
+
+ 
+
 def validation(request):
   gymers_collection = get_gymers_collection()
   
@@ -155,17 +157,84 @@ def validation(request):
       url = '%s?to=%s&code=%s' % (base_url, to, code)
       result = session.get(url, headers=headers)
       if result.status_code == 200:
-          json = result.json()
-          if json['acknowledge'] == 'success':
+          response_json = result.json()
+          if response_json['acknowledge'] == 'success':
               messages.success(request, 'You are succesfully signed in.')
               user_profile.phone_verified = True
-              gymers_collection.update_one (
-                {'users.userName': username},
-                {'$set': {'users.$.phoneVerified': True}}
+              registeredDate = datetime.now().strftime("%Y, %m, %d")
+
+              user_data = {
+                  "name": username,
+                  "email": user_profile.email,
+                  "phone": user_profile.phone_number
+              }
+
+              json_data = json.dumps(user_data)
+              qr = qrcode.QRCode(
+                  version=1,
+                  error_correction=qrcode.constants.ERROR_CORRECT_L,
+                  box_size=10,
+                  border=4,
               )
+              qr.add_data(json_data)
+              qr.make(fit=True)
+
+              img = qr.make_image(fill_color="black", back_color="white")
+              buffer = BytesIO()
+              img.save(buffer, format="PNG")
+              img_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
+
+
+
+              # gymers_collection.update_one (
+              #   {'users.userName': username},
+              #   {'$set': {'users.$.phoneVerified': True}}
+              # )
+               
+
+
+            
+              new_user_mongo = {
+                  "userName": username,
+                  "firstName": user_profile.first_name,
+                  "lastName": user_profile.last_name,
+                  "phoneVerified": True,
+                  "email": request.user.email,
+                  "password": user.password,
+                  "phone" : user_profile.phone_number,
+                  "age": '',
+                  "qrCode": img_base64,
+                  "profilePhoto": '',
+                  "sex": '',
+                  "height": '',
+                  "weight": '',
+                  "registeredDate": registeredDate,
+                  "paymentDate": '',
+                  "paymentStatus": False,
+                  "exerciseTimePerDay": '',
+                  "notificationTime": '',
+                  "healthStatus": '',
+                  "exerciseType" : '',
+                  "enteringTime": '',
+                  "bloodType" : '',
+                  "exercise": [],
+                  "upComingExercise": '',
+                  "totalTimeSpendOnGym": '',
+                  'protienAmountRequired': '',
+                  "TodayNotification": '',
+                  "activityLevel": '',
+                  "fitnessGoal": '',
+                }
+            
+              gymers_collection.update_one({
+                'name': user_profile.gym_house
+              }, {"$push": {
+                'users': new_user_mongo
+              }})
+
               user_profile.save()
               
-              return redirect('login')
+              return redirect('home')
           else:
               messages.error(request, 'The otp you entered is incorrect, try again')
 

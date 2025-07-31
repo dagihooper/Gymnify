@@ -29,6 +29,8 @@ def home_page(request):
   
   if userphone and (User.objects.filter(username = userphone).exists() or User.objects.filter(userprofile__phone_number = userphone)):
       profile= UserProfile.objects.get(user = user)
+      print('this is the profile.user.username to get the mail of the gym_house')
+      print(profile.user.username)
       gym_house_email = gymers_collection.find_one(
         {'users.userName': profile.user.username},
         {'email': 1}
@@ -51,7 +53,7 @@ def home_page(request):
       if result:
         #registration date calculation
         
-        date_obj = datetime.strptime(result['users'][0].get('registeredDate', None), '%d, %m, %Y'  )
+        date_obj = datetime.strptime(result['users'][0].get('registeredDate', None), '%Y, %m, %d'  )
         registeredDate = date_obj.strftime('%B %d %Y G.C')
         current_time = datetime.now()
         days_of_registration = (current_time - date_obj).days
@@ -149,6 +151,7 @@ def home_page(request):
         
           request.session['first_name'] = first_name
           request.session['last_name'] = last_name
+          print(f'this is the username from the home page on line 152')
           
           gym_house_email = gymers_collection.find_one(
                   {'users.userName': profile.user.username},
@@ -273,7 +276,8 @@ def home_page(request):
 
 
 from django.shortcuts import render
-from pymongo import MongoClient
+import base64
+from django.core.files.storage import default_storage
 
 
 from django.views.decorators.csrf import csrf_exempt
@@ -316,6 +320,19 @@ def profilePage(request):
                   profile_photo = request.FILES.get('profile_photo')
                   profile.profile_photo = profile_photo
                   profile.save()
+                  
+                  #handling the insertion of profile photo to mongodb
+
+                  photo_encoded_string = base64.b64encode(profile.profile_photo.read()).decode('utf-8')
+                  print('inserting')
+                  gymers_collection.update_one (
+                     {"users.userName" : profile.user.username },
+                     {"$set": {"users.$.profilePhoto": photo_encoded_string} }
+                  )
+
+                 
+
+
                   redirect('profilepage')
                   
             if request.method == 'POST' and not request.FILES.get('profile_photo'):
@@ -335,7 +352,6 @@ def profilePage(request):
                   enteringTime = request.POST.get('enteringTime')
                   totalTimeSpendOnGym = request.POST.get('totalTimeSpendOnGym')
                   activityLevel = request.POST.get('activityLevel')
-                  print(activityLevel)
                   
                   profile = UserProfile.objects.filter(Q(user=user) | Q(email = userGoggle)).first()
                   
@@ -376,7 +392,8 @@ def profilePage(request):
                       "users.$.notificationTime": notificationTime,
                       "users.$.enteringTime": enteringTime,
                       "users.$.totalTimeSpendOnGym": totalTimeSpendOnGym,
-                      "users.$.activityLevel": activityLevel
+                      "users.$.activityLevel": activityLevel,
+                      "users.$.profilePhoto": photo_encoded_string
                     }
                   }
                 )

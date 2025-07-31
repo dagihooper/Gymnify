@@ -1,62 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gymnify</title>
-  <link rel="stylesheet" href="../../static/css/output.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gymnify</title>
+    <link rel="stylesheet" href="../../static/css/output.css" />
+  </head>
 
-
-<body>
-
+  <body>
     {% if messages %}
-    <div id="message-container" class="absolute top-4 max-md:top-1 max-md:left-2 w-[21rem] max-w-[80%] font-lato text-white">
-        {% for message in messages %}
-        <div class="flex items-center justify-between p-4 mb-4 rounded-md {% if message.tags == 'success' %}bg-green-500{% elif message.tags == 'error' %}bg-red-500{% else %}bg-gray-500{% endif %}">
-            <p class="w-full">{{ message }}</p>
-            <button class="text-white" onclick="this.parentElement.remove();">✖</button>
-        </div>
-        {% endfor %}
+    <div
+      id="message-container"
+      class="absolute top-4 max-md:top-1 max-md:left-2 w-[21rem] max-w-[80%] font-lato text-white"
+    >
+      {% for message in messages %}
+      <div
+        class="flex items-center justify-between p-4 mb-4 rounded-md {% if message.tags == 'success' %}bg-green-500{% elif message.tags == 'error' %}bg-red-500{% else %}bg-gray-500{% endif %}"
+      >
+        <p class="w-full">{{ message }}</p>
+        <button class="text-white" onclick="this.parentElement.remove();">
+          ✖
+        </button>
+      </div>
+      {% endfor %}
     </div>
     {% endif %}
 
-      <main class="max-h-full fixed left-[50%] top-[50%] z-40 w-full sm:w-[500px] translate-x-[-50%] translate-y-[-50%]">
+    <main
+      class="max-h-full fixed left-[50%] top-[50%] z-40 w-full sm:w-[500px] translate-x-[-50%] translate-y-[-50%]"
+    >
+      <form
+        action="/insertion"
+        method="POST"
+        class="rounded-lg shadow-lg border flex flex-col px-4 py-8 gap-4"
+      >
+        {% csrf_token %}
 
+        <header class="flex gap-4 mb-3 flex-col mt-8">
+          <img
+            class="h-12 w-auto"
+            src="../../static/assets/logo/logo.svg"
+            alt=""
+          />
+          <p class="text-xl font-poppins text-black">
+            Hey 🖐️
+            <span class="block mt-4 font-bold font-poppins text-2xl"
+              >{{first_name|capfirst}}{{first_nameGoggle}} {{last_nameGoggle}}
+              {{last_name|capfirst}}</span
+            >
+          </p>
+        </header>
 
-    <form action="/insertion" method="POST" class="rounded-lg shadow-lg border flex flex-col px-4 py-8 gap-4">
-      {% csrf_token %}
+        {% if not gym_house %}
 
-      <header class="flex gap-4 mb-3 flex-col  mt-8">
-          <img class="h-12 w-auto" src="../../static/assets/logo/logo.svg" alt="">
-        <p class="text-xl font-poppins text-black">Hey 🖐️
-          <span class="block mt-4 font-bold font-poppins text-2xl">{{first_name|capfirst}}{{first_nameGoggle}} {{last_nameGoggle}} {{last_name|capfirst}}</span> </p>
-      </header>
-
-       {% if not gym_house %}
-
-      <div class="mb-4 w-max">
-        <label for="gym_house" class="block font-medium text-gray-700">Select Gym:</label>
-        <select id="gym_house" name="gym_house" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" required>
-          {% for gymer in gymers %}
-          <option value="{{ gymer.name }}">{{ gymer.name }}</option>
-          {% endfor %}
-        </select>
-      </div>
-
-      {% endif %}
-
-      <div>
-        <h1 class="text-2xl max-sm:text-xl  text-gray-500">Enter your phone number</h1>
-        <div class="flex items-center mt-6">
-          <span class="text-lg">+251</span>
-          <input type="tel" name="phone_number" placeholder="Enter your phone number" pattern="[0-9]{9}" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
+        <div class="mb-4 w-max">
+          <label for="gym_house" class="block font-medium text-gray-700"
+            >Select Gym:</label
+          >
+          <select
+            id="gym_house"
+            name="gym_house"
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
+            required
+          >
+            {% for gymer in gymers %}
+            <option value="{{ gymer.name }}">{{ gymer.name }}</option>
+            {% endfor %}
+          </select>
         </div>
-      </div>
 
-              <button type="submit" class="p-4 w-full bg-blue-500  rounded-xl hover:bg-green-500 duration-700 hover:duration-700 font-poppins hover:text-white">Send SMS</button>
-    </form>
-  </main>
+        {% endif %}
 
-</body>
+        <div>
+          <h1 class="text-2xl max-sm:text-xl text-gray-500">
+            Enter your phone number
+          </h1>
+          <div class="flex items-center mt-6">
+            <span class="text-lg">+251</span>
+            <input
+              type="tel"
+              name="phone_number"
+              placeholder="Enter your phone number"
+              pattern="[0-9]{9}"
+              required
+              class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
+            />
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="p-4 w-full bg-blue-500 rounded-xl hover:bg-green-500 duration-700 hover:duration-700 font-poppins hover:text-white"
+        >
+          Send SMS
+        </button>
+      </form>
+    </main>
+  </body>
 </html>
