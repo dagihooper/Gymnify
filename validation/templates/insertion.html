@@ -8,10 +8,11 @@
   </head>
 
   <body>
+
     {% if messages %}
     <div
       id="message-container"
-      class="absolute top-4 max-md:top-1 max-md:left-2 w-[21rem] max-w-[80%] font-lato text-white"
+      class="absolute top-4 max-md:top-1 max-md:left-2 w-[21rem] max-w-[80%] font-lato text-white z-[100]"
     >
       {% for message in messages %}
       <div
@@ -45,8 +46,8 @@
           <p class="text-xl font-poppins text-black">
             Hey 🖐️
             <span class="block mt-4 font-bold font-poppins text-2xl"
-              >{{first_name|capfirst}}{{first_nameGoggle}} {{last_nameGoggle}}
-              {{last_name|capfirst}}</span
+              >{{full_name|capfirst}}{{full_nameGoggle}} 
+            </span
             >
           </p>
         </header>
@@ -91,10 +92,10 @@
         <button
           type="submit"
           class="p-4 w-full bg-blue-500 rounded-xl hover:bg-green-500 duration-700 hover:duration-700 font-poppins hover:text-white"
-        >
-          Send SMS
-        </button>
+        >Send SMS</button>
       </form>
     </main>
+  <script src="../../static/js/message-continer.js"></script>
+
   </body>
 </html>

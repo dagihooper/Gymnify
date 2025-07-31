@@ -6,8 +6,7 @@ from django.contrib.auth import get_user_model
 
 class UserProfile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE) 
-  first_name = models.CharField(max_length=30, null=True, blank=True)
-  last_name = models.CharField(max_length=30, null=True, blank=True)
+  full_name = models.CharField(max_length=255, null=True, blank=True)
   email = models.EmailField(max_length=254, null=True, blank=True)
   phone_number = models.CharField(max_length= 35, null= True, )
   gym_house = models.CharField(max_length=30, null= True)
@@ -27,7 +26,8 @@ class UserProfile(models.Model):
   enteringTime = models.CharField(max_length=30, null = True)
   totalTimeSpendOnGym = models.CharField(max_length=30, null = True)
   activityLevel = models.CharField(max_length=50, choices = [('SL', 'Sedentary Level'), ('LA', 'Light Active'), ('MA', 'Moderately Active'), ('VA', 'Very Active')], default= 'LA', null = True, blank = True )
-  
+  qr_code = models.TextField(null = True)
+
 
   def __str__(self):
         return f"{self.user.username}'s Profile"

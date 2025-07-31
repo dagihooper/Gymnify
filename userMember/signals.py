@@ -17,8 +17,9 @@ def user_signed_up_(request, user, sociallogin=None, **kwargs):
  
     if sociallogin:
         if sociallogin.account.provider == 'google':
-            user.first_name = sociallogin.account.extra_data['given_name']
-            user.last_name = sociallogin.account.extra_data['family_name']
+            first_name = sociallogin.account.extra_data['given_name']
+            last_name = sociallogin.account.extra_data['family_name']
+            user.full_name = f'{first_name} {last_name}'
             user.email = sociallogin.account.extra_data['email']
             user.profile_photo = sociallogin.account.extra_data['email']
  

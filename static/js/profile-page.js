@@ -1,27 +1,5 @@
 const csrfToken = '{{ csrf_token }}';
 
-
-setTimeout(function() {
-  const messageContainer = document.getElementById('message-container');
-  if (messageContainer) {
-    messageContainer.style.transition = 'opacity 0.5s ease'; 
-    messageContainer.style.opacity = '0';
-    setTimeout(() => messageContainer.remove(), 500);
-  }
-}, 5000);
-
-
-
-
-setTimeout(function()  {
-  const circleWarning = document.getElementById('circle-warning')
-  circleWarning.style.opacity = '0'
-  if(circleWarning){
-    circleWarning.style.transition = 'opacity 0.5s ease'
-    circleWarning.style.opacity = '1'
-  }
-}, 11000);
-
 const profileDiv = document.getElementById('profileDiv')
 
 
@@ -72,6 +50,3 @@ document.getElementById('profilePhotoInput').addEventListener('change', function
 document.getElementById('refreshPage').addEventListener('click', function() {
   location.reload();
 })
-
-
-

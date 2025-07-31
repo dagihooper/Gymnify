@@ -4,6 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Gymnify</title>
+  <link rel="icon" href="../../static/assets/logo/logo_white.svg" type="image/png">
   <link rel="stylesheet" href="../../static/css/output.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
@@ -14,7 +15,7 @@
 
   <div class="fixed items-center bottom-0 w-full max-w-[85%] left-[7%] bg-white flex justify-around py-3 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-[100000001] rounded-t-2xl">
 
-    <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" onclick="navigateTo('settings')">
+    <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" onclick="navigateTo('home')">
     <i class="fas fa-home text-[20px] mb-1 text-[#9d80c1]"></i>
     <span class="text-xs">Home</span>
   </div>
@@ -29,11 +30,11 @@
     <span class="text-xs">Nutrition</span>
   </div>
 
-  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" onclick="navigateTo('report')">
+  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500">
     <i class="fas fa-chart-pie text-[20px] mb-1"></i>
     <span class="text-xs">Report</span>
   </div>
-  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" id="profileButton">
+  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" id="profileButton" onclick="navigateTo('profilepage')">
     <i class="fas fa-user text-[20px] mb-1"></i>
     <span class="text-xs">Profile</span>
   </div>
@@ -64,18 +65,18 @@
 </div>
 {% endif %}
 
-<div class="qr-code  bg-white shadow-md shadow-amber-200 p-4 max-md:p-2 rounded-md md:w-50 md:h-50 fixed bottom-64 left-8 z-50 cursor-pointer " id="qr_code">
-<img width="30" height="30" src="../../static/assets/logo/qr-code.png" alt="" srcset="">
+<div class="qr-code  bg-white shadow-md shadow-amber-200 p-4 max-md:p-2 rounded-md md:w-50 md:h-50 fixed bottom-64 left-8 z-[1000] cursor-pointer " id="qr_code">
+<img loading="lazy" width="30" height="30" src="../../static/assets/logo/qr-code.png" alt="" srcset="">
 </div>
 
 <div class="overlay fixed top-0 left-0 w-full h-full bg-black/50 hidden z-10 "></div>
 
-<div class="qr_displayer font-poppins hidden w-full max-h-full fixed left-[50%] top-[50%] z-40 md:w-[668px] translate-x-[-50%] translate-y-[-50%] gap-4 border shadow-lg flex-col p-6 overflow-hidden bg-white items-center justify-center rounded-lg" id="qr_displayer">
-<img class="cursor-pointer" width="20" height="20" src="../../static/assets/logo/remove.png" onclick="removeOLPE()" >
+<div class="qr_displayer font-poppins hidden w-full max-h-full fixed left-[50%] top-[50%] z-[1000] md:w-[668px] translate-x-[-50%] translate-y-[-50%] gap-4 border shadow-lg flex-col p-6 overflow-hidden bg-white items-center justify-center rounded-lg" id="qr_displayer">
+<img loading="lazy" class="cursor-pointer" width="20" height="20" src="../../static/assets/logo/remove.png" onclick="removeOLPE()" >
 
 <h1 class="text-active-text font-bold text-xl">Checking you into the Gym</h1>
 <p>Please use this QR code to check yourself to your Gym.</p>
-<img src="../../static/assets/images/Screenshot 2025-05-27 222316.png" alt="" srcset="">
+<img loading="lazy" src="{{qr_code}}" alt="" srcset="">
 
 </div>
 
@@ -107,29 +108,20 @@
 </div>
 
 
-    <!-- <div id="circle-warning" class="fixed font-lato -z-10 w-24 h-24 flex justify-center items-center  text-black rounded-full bottom-64 right-5{% if days_left >= 6 %} bg-yellow-300 {% else %} bg-red-400 {% endif %} ">
-      <div>
-        <p class="w-full"> 
-           Start Gym
-          </p>
-      </div>
-           
-  </div> -->
-
   <header class="flex flex-row w-full items-center justify-between padding-x mt-16 max-sm:mt-28 top-[53%] ">
       <div>
-        <img class="h-12 w-auto" src="../../static/assets/logo/logo.svg" alt="">
+        <img loading="lazy" class="h-12 w-auto" src="../../static/assets/logo/logo.svg" alt="">
       </div>
      <div class="group cursor-pointer">
       <div id="profile" class="rounded-full cursor-pointer w-12 h-12 bg-gray-400 flex items-center justify-center text-white font-poppins relative overflow-hidden">
         {% if profile_photo %}  
           <div class="absolute inset-0 flex justify-center items-center w-full h-full">
-            <img class="object-cover object-center w-full h-full"  src="../../static/profile_photos/{{profile_photo}}" alt="">
+            <img loading="lazy" class="object-cover object-center w-full h-full"  src="../../static/profile_photos/{{profile_photo}}" alt="">
 
           </div>
        
       {%else%}
-        <p>{{ first_name|slice:":1"  }}{{last_name|slice:":1"}}</p>
+        <p>{{ full_name|slice:":1"  }}</p>
       {%endif%}
     </div>
 
@@ -137,13 +129,13 @@
               <div class="absolute shadow-lg hidden group-hover:flex duration-1000 transition-all  top-30  flex-col justify-center items-center p-8 space-y-8 rounded-lg right-0 z-[1000] ">
 
                 <div class="flex flex-row justify-center items-center space-x-2">
-                  <img width="20" height="20" src="../../static/assets/logo/profile.png" alt="">
+                  <img loading="lazy" width="20" height="20" src="../../static/assets/logo/profile.png" alt="">
                   <a href="{% url 'profilepage' %}" class="font-lato text-xl text-blue-400 hover:text-blue-300">
                     Profile
                   </a>
               </div>
               <div class="flex flex-row justify-center items-center space-x-2">
-                  <img width="20" height="20" src="../../static/assets/logo/logout.png" alt="">
+                  <img loading="lazy" width="20" height="20" src="../../static/assets/logo/logout.png" alt="">
                   <a href="{% url 'logout' %}" class="font-lato text-xl text-blue-400 hover:text-blue-300">
                     Logout
                   </a>
@@ -161,7 +153,7 @@
   <section id="home" class="max-container padding-x w-full flex items-center justify-center mt-10 text-2xl">
 
      <div class="shadow-blue-200 shadow-md rounded-md p-10 max-md:w-full text-center">
-      <p class="font-montserrat max-sm:text-2xl">Welcome back, <span class="text-blue-500 font-bold max-md:block max-sm:text-2xl">{{first_name}} {{last_name}}</span></p>
+      <p class="font-montserrat max-sm:text-2xl">Welcome back, <span class="text-blue-500 font-bold max-md:block max-sm:text-2xl">{{full_name}}</span></p>
      </div>   
   </section>
 
@@ -228,7 +220,7 @@
   
 </main>
   
-  <script src="../../static/js/register.js"></script>
+  <script src="../../static/js/message-continer.js"></script>
   <script src="../../static/js/home.js"></script>
   <script>
   document.getElementById('exerciseButton').addEventListener('click', function () {
@@ -260,34 +252,6 @@
     }
   });
 
-  document.getElementById('profileButton').addEventListener('click', function () {
-    const userEmail = "{{ profile_data.email|escapejs }}";
-    console.log('This is the user email');
-    console.log(userEmail);
-
-    if (userEmail) {
-      localStorage.setItem('user_email', userEmail);
-      console.log('User email saved:', userEmail);
-
-      fetch('http://10.27.114.94:5173/profile', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: userEmail })
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('User data sent successfully:', data);
-        window.location.href = 'http://10.27.114.94:5173/profile';
-      })
-      .catch(err => {
-        console.error('Error sending user data:', err);
-        window.location.href = 'http://10.27.114.94:5173/profile';
-      });
-
-    } else {
-      console.warn('User email not found, redirecting anyway');
-    }
-  });
 
   function redirectToChecking() {
     window.location = '/checking_profile'

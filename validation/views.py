@@ -38,18 +38,14 @@ def insertion(request):
   if SocialAccount.objects.filter(user=user).exists():
       profile = UserProfile.objects.filter(email = request.user.email).first()
       if profile:
-        first_name = profile.first_name
-        last_name = profile.last_name
-        request.session['first_name'] = first_name
-        request.session['last_name'] = last_name
+        full_name = profile.full_name
+        request.session['full_name'] = full_name
         
   if profile:
-      first_name = profile.first_name
-      last_name = profile.last_name
+      full_name = profile.full_name
       
   context = {
-    'first_name': first_name,
-    'last_name': last_name,
+    'full_name': full_name,
     'gymers': gymers,
     'gym_house': gym_house
     
@@ -69,8 +65,6 @@ def insertion(request):
         
         # new_user_mongo = {
         #       "userName": username,
-        #       "firstName": profile.first_name,
-        #       "lastName": profile.last_name,
         #       "phoneVerified": False,
         #       "email": request.user.email,
         #       "phone" : '',
@@ -183,7 +177,7 @@ def validation(request):
               buffer = BytesIO()
               img.save(buffer, format="PNG")
               img_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
-
+              user_profile.qr_code = f'data:image/png;base64,{img_base64}'
 
 
               # gymers_collection.update_one (
@@ -196,8 +190,7 @@ def validation(request):
             
               new_user_mongo = {
                   "userName": username,
-                  "firstName": user_profile.first_name,
-                  "lastName": user_profile.last_name,
+                  "fullName": user_profile.full_name,
                   "phoneVerified": True,
                   "email": request.user.email,
                   "password": user.password,

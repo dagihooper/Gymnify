@@ -8,11 +8,9 @@
 </head>
 <body>
 
-
-<main class="w-full sm:w-[500px] overflow-y-auto shadow-lg max-h-full fixed left-1/2 top-1/2 z-40  translate-x-[-50%] translate-y-[-50%] ">
   {% if messages %}
 
-  <div id="message-container" class="absolute font-lato  text-white  max-w-[80%] w-[21rem] max-md:min-w-[80%] top-4 left-8 mt-8 z-10">
+  <div id="message-container" class="absolute font-lato  text-white  max-w-[80%] w-[21rem] max-md:min-w-[80%] top-4 left-8 mt-8 z-[100]">
       {% for message in messages %}
       <div class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} px-6 py-5 rounded-md flex flex-row justify-center items-center gap-4 mb-8">
           <p class="w-full">{{ message }}</p>
@@ -22,6 +20,10 @@
       {% endfor %}
   </div>
   {% endif %}
+
+
+<main class="w-full sm:w-[500px] overflow-y-auto shadow-lg max-h-full fixed left-1/2 top-1/2 z-40  translate-x-[-50%] translate-y-[-50%] ">
+  
   <form method="POST" action="/login" >
     
 
@@ -41,7 +43,7 @@
       <div class="text-gray-400 mb-4 mt-4 text-xl">or</div>
 
       <div class="mb-4 min-w-[300px] text-start">
-        <label for="username" class="block text-gray-700 text-md font-medium mb-1">Username or Phone number</label>
+        <label for="username" class="block text-gray-700 text-md font-medium mb-1">Username or Phone number <span class="text-slate-gray text-[12px] italic">(E.g. 09********)</span></label>
         <input type="text" name="userphone" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500 placeholder:text-sm" required placeholder="phone number or username">
     </div>
     
@@ -50,7 +52,7 @@
         <input type="password" name="password" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500 placeholder:text-sm" required placeholder="Enter your password">
     </div>
 
-    <button type="submit" class="p-4 bg-blue-500  rounded-xl hover:bg-green-500 duration-700 hover:duration-700 font-poppins min-w-[300px] hover:text-white">Login</button>
+    <button id="submitBtn" type="submit" class="p-4 bg-blue-500  rounded-xl hover:bg-green-500 duration-700 hover:duration-700 font-poppins min-w-[300px] hover:text-white">Login</button>
 
       <a href="/forget_password" class="block mt-4 text-blue-400 hover:text-blue-500 font-lato">Forgot password?</a>
 
@@ -61,7 +63,9 @@
   </div>
 </form>
 
-<script src="../../static/js/register.js"></script>
+  <script src="../../static/js/message-continer.js"></script>
+    <script src="../../static/js/submitting.js"></script>
+
 
 </main>
 </body>

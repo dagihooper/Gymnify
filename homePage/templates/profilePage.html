@@ -4,8 +4,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gymnify</title>
   <link rel="stylesheet" href="../../static/css/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
 </head>
 <body>
+
+    <div class="fixed items-center bottom-0 w-full max-w-[85%] left-[7%] bg-white flex justify-around py-3 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-[100000001] rounded-t-2xl">
+
+    <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" onclick="navigateTo('home')">
+    <i class="fas fa-home text-[20px] mb-1 text-gray-500"></i>
+    <span class="text-xs">Home</span>
+  </div>
+
+  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" id="exerciseButton">
+    <i class="fas fa-dumbbell rotate-[30deg] text-[20px] mb-1"></i>
+    <span class="text-xs">Exercise</span>
+  </div>
+
+  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" >
+    <i class="fas fa-utensils text-[20px] mb-1"></i>
+    <span class="text-xs">Nutrition</span>
+  </div>
+
+  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500  rounded transition-all hover:text-purple-500" ">
+    <i class="fas fa-chart-pie text-[20px] mb-1"></i>
+    <span class="text-xs">Report</span>
+  </div>
+  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-[#9d80c1] rounded transition-all hover:text-purple-500" id="profileButton" onclick="navigateTo('profilepage')">
+    <i class="fas fa-user text-[20px] mb-1"></i>
+    <span class="text-xs">Profile</span>
+  </div>
+</div>
 
   {% if messages %}
   <div id="message-container" class="absolute font-lato shadow-md text-white  max-w-[80%] w-[21rem] max-md:min-w-[80%] top-4 left-8 mt-8">
@@ -33,7 +62,7 @@
 
         </div>
       {%else%}
-            <p>{{first_name|slice:":1"}}{{last_name|slice:":1"}}</p>
+            <p>{{full_name|slice:":1"}}</p>
       {%endif%}
 
             <div class="absolute shadow-lg hidden group-hover:flex duration-1000 transition-all  top-10  flex-col justify-center items-center p-8 space-y-8 rounded-lg  ">
@@ -81,7 +110,7 @@
     </div>
   
     <div class="font-montserrat text-3xl  flex-1 text-right max-md:text-center">
-      {{first_name}} {{last_name}}
+      {{full_name}}
     </div>
   
   </div>
@@ -175,7 +204,7 @@
       <button id="refreshPage" class="flex w-full gap-2"><img width="20" height="20" src="../../static/assets/logo/refresh.png" alt="">Refresh</button>
     </div>
     <div>
-      <button type="submit" class="flex w-full gap-2"> <img width="20" height="20" src="../../static/assets/logo/update.png" alt="">Update</button>
+      <button id="submitBtn" type="submit" class="flex w-full gap-2"> <img width="20" height="20" src="../../static/assets/logo/update.png" alt="">Update</button>
     </div>
 
   </div>
@@ -187,6 +216,60 @@
 
   </main>
 
-  <script src="../../static/js/register.js"></script>
+  <script src="../../static/js/profile-page.js"></script>
+  <script src="../../static/js/submitting.js"></script>
+  <script src="../../static/js/message-continer.js"></script>
+
+  <script>
+  function navigateTo(path) {
+    if (path === 'logout') {
+      window.location.href = '/login';
+    } else {
+      window.location.href = `/${path}`;
+    }
+  }
+</script>
+
+ <script>
+  document.getElementById('exerciseButton').addEventListener('click', function () {
+    const userEmail = "{{ profile_data.email|escapejs }}";
+    console.log('This is the user email');
+    console.log(userEmail);
+
+    if (userEmail) {
+      localStorage.setItem('user_email', userEmail);
+      console.log('User email saved:', userEmail);
+
+      fetch('http://10.27.114.94:5173/exercise', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: userEmail })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('User data sent successfully:', data);
+        window.location.href = 'http://10.27.114.94:5173/exercise';
+      })
+      .catch(err => {
+        console.error('Error sending user data:', err);
+        window.location.href = 'http://10.27.114.94:5173/exercise';
+      });
+
+    } else {
+      console.warn('User email not found, redirecting anyway');
+    }
+  });
+
+ 
+  document.getElementById('homeButton').addEventListener ('click', function () {
+    window.location.href = '/home'
+  })
+  function redirectToChecking() {
+    window.location = '/checking_profile'
+  }
+
+  
+</script>
+
 </body>
 </html>

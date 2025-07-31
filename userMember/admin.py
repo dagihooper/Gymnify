@@ -3,7 +3,7 @@ from .models import UserProfile
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-  list_display = ('user','gym_house', 'first_name', 'last_name', 'email', 'phone_number', 'age', 'weight', 'height', 'gender', 'exercise_day', 'health_status', 'exercise_type', 'blood_type', 'exercise_time_per_day', 'fitness_goal' ,'profile_photo', 'phone_verified' )
+  list_display = ('user','gym_house', 'full_name', 'email', 'phone_number', 'age', 'weight', 'height', 'gender', 'exercise_day', 'health_status', 'exercise_type', 'blood_type', 'exercise_time_per_day', 'fitness_goal' ,'profile_photo', 'phone_verified', 'qr_code' )
 
   
 

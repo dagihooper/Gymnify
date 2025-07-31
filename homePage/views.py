@@ -23,14 +23,22 @@ def home_page(request):
   user = request.user
   context = {
         'userphone': userphone,
-        'first_name': request.session.get('first_name', ''),
-        'last_name' : '',
+        'full_name': request.session.get('full_name', ''),
         }
   
   if userphone and (User.objects.filter(username = userphone).exists() or User.objects.filter(userprofile__phone_number = userphone)):
       profile= UserProfile.objects.get(user = user)
-      print('this is the profile.user.username to get the mail of the gym_house')
-      print(profile.user.username)
+      
+      # doc = gymers_collection.find_one(
+      #    {'users.userName': profile.user.username},
+      #    {'users.$': 1}
+      # )
+
+      # if doc and 'users' in doc:
+      #    qr_code = doc['users'][0].get('qrCode')
+      qr_code = profile.qr_code
+         
+
       gym_house_email = gymers_collection.find_one(
         {'users.userName': profile.user.username},
         {'email': 1}
@@ -88,22 +96,19 @@ def home_page(request):
           messages.error(request, f"You haven't purchased a membership package from {gym_house_name} Gym yet. Please select a price plan to continue")
           plan_name, package_length, price, next_payment_date, days_left = '', '', '', '', ''
           return redirect('pricingplan')
+        
       if profile:
         phone_number = profile.phone_number
         phone_verified = profile.phone_verified
         if phone_number and phone_verified:
-          context['first_name'] = profile.first_name.capitalize()
-          context['last_name'] = profile.last_name.capitalize()
+          context['full_name'] = profile.full_name.capitalize()
           email = profile.email
           print(f'This your email {email}')
-          first_name = context['first_name']
-          last_name = context['last_name']
-          request.session['first_name'] = first_name
-          request.session['last_name'] = last_name
+          full_name = context['full_name']
+          request.session['full_name'] = full_name
   
           context = {
-                  'first_name': request.session['first_name'],
-                  'last_name': request.session['last_name'],
+                  'full_name': request.session['full_name'],
                   'profile_photo': profile.profile_photo,
                   'gym_house_email': gym_house_email,
                   'gym_house_phone': gym_house_phone,
@@ -115,7 +120,8 @@ def home_page(request):
                   'price': price,
                   'next_payment_date': next_payment_date,
                   'days_left': days_left,
-                  'profile_data': profile
+                  'profile_data': profile,
+                  'qr_code': qr_code
               }
           
           
@@ -143,14 +149,13 @@ def home_page(request):
     if profile:
       phone_number = profile.phone_number
       phone_verified = profile.phone_verified
+      qr_code = profile.qr_code
       request.session['user_username'] = profile.user.username
       if phone_number and phone_verified:
-          first_name = profile.first_name
-          last_name = profile.last_name
+          full_name = profile.full_name
           profile_photo = profile.profile_photo
         
-          request.session['first_name'] = first_name
-          request.session['last_name'] = last_name
+          request.session['full_name'] = full_name
           print(f'this is the username from the home page on line 152')
           
           gym_house_email = gymers_collection.find_one(
@@ -214,8 +219,7 @@ def home_page(request):
           
           
           context = {
-            'first_name': first_name,
-            'last_name': last_name,
+            'full_name': full_name,
             'profile_photo': profile_photo,
             'gym_house_email': gym_house_email,
             'gym_house_phone': gym_house_phone,
@@ -226,7 +230,8 @@ def home_page(request):
             'package_length': package_length,
             'price': price,
             'next_payment_date': next_payment_date,
-            'days_left': days_left
+            'days_left': days_left,
+            'qr_code': qr_code
           }
               
       else:
@@ -235,24 +240,25 @@ def home_page(request):
           return redirect('insertion')
     
     else:
+      fn = request.user.first_name
+      ln = request.user.last_name
+
       
-      first_nameGoggle = request.user.first_name
-      last_nameGoggle = request.user.last_name
+      full_nameGoggle = f'{fn} {ln}'
       
      #Generating a random username for the user
      
       unique_number = random.randint(100, 999)
-      pre_username = f"{first_nameGoggle[:2].lower()}{last_nameGoggle[:2].lower()}"
+      pre_username = f"{full_nameGoggle[:2].lower()}"
       username = f'{pre_username}{unique_number}'
       
       myuser = User.objects.create(username = username)
-      user_profile = UserProfile(user = myuser, first_name = first_nameGoggle, last_name = last_nameGoggle, email = request.user.email)
+      user_profile = UserProfile(user = myuser, full_name = full_nameGoggle, email = request.user.email)
       myuser.save()
       user_profile.save()
       
       context = {
-        'first_nameGoggle': first_nameGoggle,
-        'last_nameGoggle': last_nameGoggle
+        'full_nameGoggle': full_nameGoggle,
         }
       messages.error(request,'Please insert your phone number, for further validation')
 
@@ -294,8 +300,7 @@ def profilePage(request):
         profile = UserProfile.objects.filter(Q(user=user) | Q(email = userGoggle)).first()
         if profile:
             username = profile.user.username
-            first_name = profile.first_name.capitalize()
-            last_name = profile.last_name.capitalize()
+            full_name = profile.full_name.capitalize()
             profile_photo = profile.profile_photo
             email = profile.email
             age = profile.age
@@ -323,12 +328,12 @@ def profilePage(request):
                   
                   #handling the insertion of profile photo to mongodb
 
-                  photo_encoded_string = base64.b64encode(profile.profile_photo.read()).decode('utf-8')
-                  print('inserting')
-                  gymers_collection.update_one (
-                     {"users.userName" : profile.user.username },
-                     {"$set": {"users.$.profilePhoto": photo_encoded_string} }
-                  )
+                  # photo_encoded_string = base64.b64encode(profile.profile_photo.read()).decode('utf-8')
+                  # print('inserting')
+                  # gymers_collection.update_one (
+                  #    {"users.userName" : profile.user.username },
+                  #    {"$set": {"users.$.profilePhoto": photo_encoded_string} }
+                  # )
 
                  
 
@@ -393,7 +398,7 @@ def profilePage(request):
                       "users.$.enteringTime": enteringTime,
                       "users.$.totalTimeSpendOnGym": totalTimeSpendOnGym,
                       "users.$.activityLevel": activityLevel,
-                      "users.$.profilePhoto": photo_encoded_string
+                      # "users.$.profilePhoto": photo_encoded_string
                     }
                   }
                 )
@@ -404,8 +409,7 @@ def profilePage(request):
  
   context = {
     'username': username,
-    'first_name': first_name,
-    'last_name': last_name,
+    'full_name': full_name,
     'profile_photo': profile_photo,
     'email': email,
     'age': age,

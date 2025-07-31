@@ -44,9 +44,8 @@ def user_register(request):
       
     if request.method == 'POST':
         username = request.POST.get('username', '').strip().lower()
-        first_name = request.POST.get('first_name', '').strip()
+        full_name = request.POST.get('full_name', '').strip()
         registeredDate = datetime.now().strftime("%d, %m, %Y")
-        last_name = request.POST.get('last_name', '').strip()
         password = request.POST.get('password', '').strip()
         gym_house = request.POST.get('gym_house', '').strip()
         confirm_password = request.POST.get('confirm_password', '').strip()
@@ -69,21 +68,18 @@ def user_register(request):
      
           user = User.objects.create(username=username)
           user.set_password(password)
-          user_profile = UserProfile(user=user, last_name=last_name,first_name= first_name, gym_house = gym_house)
+          user_profile = UserProfile(user=user, full_name= full_name, gym_house = gym_house)
           user.save()
           user_profile.save()
 
           user = authenticate(request, username = username, password= password)
 
-          request.session['first_name'] = first_name
-          request.session['last_name'] = last_name
+          request.session['full_name'] = full_name
           request.session['username'] = username
           request.session['gym_house'] = gym_house
           
           # new_user_mongo = {
           #    "userName": username,
-          #    "firstName": first_name,
-          #    "lastName": last_name,
           #    "password": make_password(password),
           #    "phoneVerified": False,
           #    "email": '',
@@ -147,11 +143,10 @@ def user_login(request):
             if user is not None:
                 login(request, user)
                 request.session['userphone'] = userphone
-                request.session['first_name'] = user.userprofile.first_name
-                request.session['last_name'] = user.userprofile.last_name
+                request.session['full_name'] = user.userprofile.full_name
                 request.session['username'] = user.username
                 request.session['gym_house'] = user.userprofile.gym_house
-                return redirect('/home')
+                return redirect('home')
             else:
                 messages.error(request, 'Invalid Password. Please try again')
 
@@ -159,64 +154,70 @@ def user_login(request):
             for gymer in gymers:
                 for mongo_user in gymer.get('users', []):
                     user_name = mongo_user.get('userName', '').lower()
+                    phone_number = mongo_user.get('phone', '')
+                    mongo_user_password = mongo_user.get('password', '')
                     print(f'this is mongo user {user_name}')
                     print(f'this is the inputed username {userphone}')
-                    if userphone == user_name:
-                        try:
-                            user = User.objects.get(username=user_name)
-                            print(f'this is a userphone {userphone}')
-                        except User.DoesNotExist:
-                            
-                            phone_number = mongo_user.get('phone', '')
-                            first_name = mongo_user.get('firstName', '')
-                            last_name = mongo_user.get('lastName', '')
-                            gym_house = gymer.get('name', '')
-                            email = mongo_user.get('email', '')
-                            age = mongo_user.get('age', '')
-                            weight = mongo_user.get('weight', '')
-                            gender = mongo_user.get('sex', '')
-                            phone_verified = mongo_user.get('phoneVerified', False)
-                            password_hash = mongo_user.get('password', '') 
-                            exercise_time_per_day = mongo_user.get('exerciseTimePerDay', '')
-                            blood_type = mongo_user.get('bloodType', '')
-                            exercise_type = mongo_user.get('exerciseType', '')
-                            fitness_goal = mongo_user.get('fitness_goal', '')
-                            profile_photo = mongo_user.get('profilePhoto', '')
+                    print(f'this is the mongo user password {mongo_user_password}')
+                    print(f'this is the password entered {password}')
+                    if userphone == user_name or userphone == phone_numberp:
+                        if mongo_user_password == password:
+                          try:
+                              user = User.objects.get(username=user_name)
+                              print(f'this is a userphone {userphone}')
+                          except User.DoesNotExist:
+                              
+                              phone_number = mongo_user.get('phone', '')
+                              full_name = mongo_user.get('fullName', '')
+                              gym_house = gymer.get('name', '')
+                              email = mongo_user.get('email', '')
+                              age = mongo_user.get('age', '')
+                              weight = mongo_user.get('weight', '')
+                              gender = mongo_user.get('sex', '')
+                              phone_verified = mongo_user.get('phoneVerified', False)
+                              # password_hash = mongo_user.get('password', '') 
+                              exercise_time_per_day = mongo_user.get('exerciseTimePerDay', '')
+                              blood_type = mongo_user.get('bloodType', '')
+                              exercise_type = mongo_user.get('exerciseType', '')
+                              fitness_goal = mongo_user.get('fitness_goal', '')
+                              qr_code = mongo_user.get('qrCode', '')
 
-                            user = User.objects.create(username=user_name, email=email)
-                            user.set_password(password)
-                            user.save()
+                              user = User.objects.create(username=user_name, email=email)
+                              user.set_password(password)
 
-                            user_profile = UserProfile(
-                                user=user,
-                                first_name=first_name,
-                                last_name=last_name,
-                                gym_house=gym_house,
-                                phone_number=phone_number,
-                                phone_verified=phone_verified,
-                                weight=weight,
-                                age=age,
-                                gender=gender,
-                                exercise_time_per_day=exercise_time_per_day,
-                                blood_type=blood_type,
-                                exercise_type=exercise_type,
-                                fitness_goal=fitness_goal,
-                                profile_photo=profile_photo
-                            )
-                            user_profile.save()
+                              user_profile = UserProfile(
+                                  user=user,
+                                  full_name=full_name,
+                                  gym_house=gym_house,
+                                  email = email,
+                                  phone_number=phone_number,
+                                  phone_verified=phone_verified,
+                                  weight=weight,
+                                  age=age,
+                                  gender=gender,
+                                  exercise_time_per_day=exercise_time_per_day,
+                                  blood_type=blood_type,
+                                  exercise_type=exercise_type,
+                                  fitness_goal=fitness_goal,
+                                  qr_code = qr_code,
+                              )
+                              user_profile.save()
+                              user.save()
+                       
+                              auth_user = authenticate(request, username=user_name, password=password)
+                              if auth_user is not None:
+                                  login(request, auth_user)
+                                  request.session['full_name'] = full_name
+                                  request.session['userphone'] = user_name
+                                  request.session['gym_house'] = gym_house
+                                  return redirect('home')
+                              else:
+                                  messages.error(request, "Invalid password for imported user.")
+                                  break
+                          else:
+                             messages.error(request, "Invalid password, please try to remember or reset it.")
 
-                        auth_user = authenticate(request, username=user_name, password=password)
-                        if auth_user is not None:
-                            login(request, auth_user)
-                            request.session['first_name'] = first_name
-                            request.session['last_name'] = last_name
-                            request.session['username'] = user_name
-                            request.session['gym_house'] = gym_house
-                            return redirect('home')
-                        else:
-                            messages.error(request, "Invalid password for imported user.")
-                            break
-
+                          
             else:
                 messages.error(request, "Username or Phone number doesn't exist. Please sign up.")
 
@@ -273,7 +274,7 @@ def password_reset(request):
   user = User.objects.get(username = username)
   if username:
     profile = UserProfile.objects.get(user = user)
-    first_name = profile.first_name
+    full_name = profile.full_name
 
     if request.method == 'POST': 
       #handling the entered_otp, password and new_password
@@ -317,7 +318,7 @@ def password_reset(request):
       else:
           print('HTTP error ... code: %d, msg: %s' % (result.status_code, result.content))
      
-    return render( request, 'Password-reset.html', {'phone_number': phone_number, 'first_name': first_name})
+    return render( request, 'Password-reset.html', {'phone_number': phone_number, 'full_name': full_name})
 
   else: 
      messages.error(request, 'Please try again later.')

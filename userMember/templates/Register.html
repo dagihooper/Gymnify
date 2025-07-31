@@ -12,10 +12,9 @@
 </head>
 <body>
 
-  <main class="max-md:mb-[20rem]">
 
-    {% if messages %}
-<div id="message-container" class="absolute font-lato shadow-md text-white  max-w-[80%] w-[21rem] max-md:min-w-[80%] top-4 left-8 mt-8">
+   {% if messages %}
+<div id="message-container" class="absolute font-lato shadow-md text-white  max-w-[80%] w-[21rem] max-md:min-w-[80%] z-[1000] top-4 left-8 mt-8">
     {% for message in messages %}
     <div class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} padding-x py-5 rounded-md flex flex-row justify-center items-center gap-4">
         <p class="w-full">{{ message }}</p>
@@ -25,6 +24,12 @@
     {% endfor %}
 </div>
 {% endif %}
+
+
+
+  <main class="max-md:mb-[20rem]">
+
+   
 
     <section class="w-full overflow-y-auto shadow-lg max-h-full fixed left-1/2 top-1/2 z-40 md:w-[668px] translate-x-[-50%] translate-y-[-50%] ">
        <div class="flex flex-1 flex-row items-center justify-center">
@@ -78,13 +83,10 @@
                     <input type="text" name="username" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" required placeholder="Enter your username">
                 </div>
                 <div class="mb-4">
-                    <label for="first_name" class="block text-gray-700 text-sm font-medium mb-1">First Name</label>
-                    <input type="text" name="first_name" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" required placeholder="Enter your first name">
+                    <label for="full_name" class="block text-gray-700 text-sm font-medium mb-1">Full Name</label>
+                    <input type="text" name="full_name" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" required placeholder="Enter your first name">
                 </div>
-                <div class="mb-4">
-                    <label for="last_name" class="block text-gray-700 text-sm font-medium mb-1">Last Name</label>
-                    <input type="text" name="last_name" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" required placeholder="Enter your last name">
-                </div>
+              
                 <div class="mb-4">
                     <label for="password" class="block text-gray-700 text-sm font-medium mb-1">Password</label>
                     <input type="password" name="password" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" required placeholder="Enter your Password">
@@ -94,7 +96,7 @@
                     <input type="password" name="confirm_password" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" required placeholder="confirm password">
                 </div>
             </div>
-              <button type="submit" class="p-4 w-full bg-blue-500  rounded-xl hover:bg-green-500 duration-700 hover:duration-700 font-poppins hover:text-white">Sign Up</button>
+              <button id="submitBtn" type="submit" class="p-4 w-full bg-blue-500  rounded-xl hover:bg-green-500 duration-700 hover:duration-700 font-poppins hover:text-white">Sign Up</button>
           
             </form>
           </div>
@@ -108,6 +110,8 @@
     </section>
   </main>
 
-<script src="../../static/js/register.js"></script>
+  <script src="../../static/js/message-continer.js"></script>
+    <script src="../../static/js/submitting.js"></script>
+
 </body>
 </html>
