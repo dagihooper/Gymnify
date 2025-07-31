@@ -239,6 +239,7 @@ def user_admin_income(request):
   gym_house_name_coll = []
   balance = 0
   montly_income = 0
+  total_montly_income = 0
 
   for bill in bills:
             
