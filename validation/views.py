@@ -192,7 +192,7 @@ def validation(request):
                   "userName": username,
                   "fullName": user_profile.full_name,
                   "phoneVerified": True,
-                  "email": request.user.email,
+                  "email": user_profile.email,
                   "password": user.password,
                   "phone" : user_profile.phone_number,
                   "age": '',
