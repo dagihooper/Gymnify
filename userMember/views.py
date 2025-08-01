@@ -160,7 +160,7 @@ def user_login(request):
                     print(f'this is the inputed username {userphone}')
                     print(f'this is the mongo user password {mongo_user_password}')
                     print(f'this is the password entered {password}')
-                    if userphone == user_name or userphone == phone_numberp:
+                    if userphone == user_name or userphone == phone_number:
                         if mongo_user_password == password:
                           try:
                               user = User.objects.get(username=user_name)

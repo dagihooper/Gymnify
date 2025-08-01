@@ -217,6 +217,21 @@ def validation(request):
                   "TodayNotification": '',
                   "activityLevel": '',
                   "fitnessGoal": '',
+                  "attendance": False,
+                  "metabolicHealth": "",
+                  "livesInHotClimate": False,
+                  "medicalConditions": [],
+                  "dietaryPreferences": {},
+                  "mealFrequency": 0,
+                  "wakeTime": "",
+                  "sleepTime": "",
+                  "cookingTime": "",
+                  "supplements": [],
+                  "spentTimeOnGym" : {},
+                  "bodyMeasurements": {},
+                  "nutritionHisotry": []
+
+
                 }
             
               gymers_collection.update_one({

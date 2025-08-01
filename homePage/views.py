@@ -82,7 +82,7 @@ def home_page(request):
             next_payment_date = payment_obj.strftime('%B %d %Y')
             obj_payment_date = datetime.strptime(next_payment_date, '%B %d %Y')
             days_left = (obj_payment_date - datetime.now()).days
-            paymentDate = obj_payment_date.strftime('%d, %m, %Y')
+            paymentDate = obj_payment_date.strftime('%Y, %m, %d')
             gymers_collection.update_one ( 
                   {'users.userName': profile.user.username},
                   {'$set': 
@@ -523,7 +523,7 @@ def checkingProfile(request):
 
     if not profile or profile.age is None:
         print("❌ Age missing in Django profile.")
-        return redirect('fill_profile')  # optional
+        return redirect('profilepage')  # optional
 
     # Use $elemMatch and projection to get only the matched user
     gym_doc = gymers_collection.find_one(

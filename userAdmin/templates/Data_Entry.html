@@ -68,12 +68,12 @@
  <div class="main-content flex flex-1 relative w-full items-center justify-center p-4 gap-6 ">
 
    <div class="flex items-center justify-center rounded-lg shadow-lg bg-white font-poppins text-xl p-6 h-52 w-[200px] font-semibold cursor-pointer hover:shadow-xl hover:scale-105 hover:bg-violet-300 transition-all duration-1000 ">
-    <a href="{% url 'add_exercises'}">Add Exercises</a>
+    <a href="/add_exercises" target="_blank">Add Exercises</a>
 
    </div>
 
    <div class="flex relative flex-col overflow-hidden items-center group justify-center rounded-lg shadow-lg bg-white font-poppins text-xl p-6 h-52 w-[200px] font-semibold cursor-pointer hover:shadow-xl hover:scale-105 hover:bg-violet-300 transition-all duration-1000 ">
-        <a href="{% url 'admin:index' %}mealplanner/food/
+        <a href="{% url 'admin:index' %}
 ">Add Foods</a>
         <button onclick="showPassword()" class="font-bold bg-white rounded-md max-w-md p-2 text-sm absolute -bottom-10 group-hover:bottom-3 transition-all duration-1000  z-30 font-palanquin">Show password</button>
    </div>
