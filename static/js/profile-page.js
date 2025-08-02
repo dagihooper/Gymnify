@@ -1,7 +1,8 @@
 const csrfToken = '{{ csrf_token }}';
 
 const profileDiv = document.getElementById('profileDiv')
-
+const updatingMsg = document.getElementById('updating_msg')
+updatingMsg.style.display = 'none'
 
 document.getElementById('profileDiv').addEventListener('click', () => {
   const fileInput = document.getElementById('profilePhotoInput');
@@ -21,11 +22,15 @@ document.getElementById('profilePhotoInput').addEventListener('change', function
           const previewImage = document.getElementById('previewImage');
           previewImage.src = `${e.target.result}`;
           console.log("Div background updated.");
+          updatingMsg.style.display = 'block'
+          updatingMsg.style.position = 'fixed'
+
       };
       reader.readAsDataURL(file);
 
       const formData = new FormData();
       formData.append('profile_photo', file);
+      
 
       fetch('/profilepage/', { 
           method: 'POST',
@@ -37,6 +42,15 @@ document.getElementById('profilePhotoInput').addEventListener('change', function
       .then(response => {
           if (response.ok) {
               console.log('Profile photo uploaded successfully!');
+              updatingMsg.classList.add('bg-green-500')
+              updatingMsg.textContent = 'Updated🎯'
+
+              setTimeout(() => {
+
+                updatingMsg.style.display = 'none'
+                
+              }, 3000);
+
               location.reload()
           } else {
               console.error('An error occurred while uploading the photo.');

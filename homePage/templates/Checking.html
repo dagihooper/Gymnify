@@ -51,7 +51,7 @@
  <ul class="text-left text-gray-600 text-sm space-y-2 mb-6">
       <li id="checking"">✔️ Verifying personal information</li>
       <li id="checking_1">✔️ Checking membership status</li>
-      <li id="checking_2">✔️ Updating profile picture and bio</li>
+      <li id="checking_2">✔️ Generating exercises and nutritions plan</li>
     </ul>
 
     </div>
@@ -91,6 +91,27 @@
 
     document.getElementById('checking_2').style.display = 'block'
   },5000)
+
+  setTimeout(() => {
+const gymnify_user_email = "{{ gymnify_user_email|escapejs }}";
+    console.log('This is the user email');
+    console.log(gymnify_user_email);
+
+    if (gymnify_user_email) {
+      localStorage.setItem('user_email', gymnify_user_email);
+      console.log('User email saved:', gymnify_user_email);
+      window.location.href = `https://tahiradem.github.io/Gimnify-App/?email=${encodeURIComponent(gymnify_user_email)}`;
+
+    }
+
+  function redirectToChecking() {
+    window.location = '/checking_profile'
+  }    
+  }, 7000);
+
+    
+
+  
 
 
 

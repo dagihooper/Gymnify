@@ -62,6 +62,7 @@
         "intermediate": { "reps": 8, "sets": 4 },
         "advanced": { "reps": 12, "sets": 5 }
       },
+      
       "equipment": false,
       "primaryMuscles": ["back"],
       "secondaryMuscles": ["biceps", "shoulders"],

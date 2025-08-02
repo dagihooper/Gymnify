@@ -106,6 +106,8 @@ def home_page(request):
           print(f'This your email {email}')
           full_name = context['full_name']
           request.session['full_name'] = full_name
+          
+          
   
           context = {
                   'full_name': request.session['full_name'],
@@ -121,9 +123,11 @@ def home_page(request):
                   'next_payment_date': next_payment_date,
                   'days_left': days_left,
                   'profile_data': profile,
-                  'qr_code': qr_code
+                  'qr_code': qr_code,
+                  'start_gym': profile.start_gym
               }
-          
+          print('below down is the context of the sart gym')
+          print(context['start_gym'])
           
 
         
@@ -231,8 +235,11 @@ def home_page(request):
             'price': price,
             'next_payment_date': next_payment_date,
             'days_left': days_left,
-            'qr_code': qr_code
+            'qr_code': qr_code,
+            'start_gym': profile.start_gym
           }
+
+          print(f'below is the start_gm value {context['start_gym']}')
               
       else:
           username = request.session.get('username')
@@ -324,8 +331,26 @@ def profilePage(request):
                if request.FILES.get('profile_photo'):
                   profile_photo = request.FILES.get('profile_photo')
                   profile.profile_photo = profile_photo
-                  profile.save()
+                  print(f'this is the profile photo url {profile.profile_photo.url}')
+
+                  import cloudinary
+                  import cloudinary.uploader
+                  from cloudinary.utils import cloudinary_url
+
+                  # Configuration       
+                  cloudinary.config( 
+                      cloud_name = "dyfbdwnw8", 
+                      api_key = "458266777466637", 
+                      api_secret = "qN_8cuhd73BGm2GKnJKB5VNFtPY", # Click 'View API Keys' above to copy your API secret
+                      secure=True
+                  )
+
+                  # Upload an image
+                  upload_result = cloudinary.uploader.upload(profile.profile_photo)
                   
+                  print(upload_result["secure_url"])
+                  profile.save()
+
                   #handling the insertion of profile photo to mongodb
 
                   # photo_encoded_string = base64.b64encode(profile.profile_photo.read()).decode('utf-8')
@@ -403,7 +428,7 @@ def profilePage(request):
                   }
                 )
 
-  if not user: 
+  if not user or request.user.is_anonymous: 
    messages.error(request, f'Please login first to access the profile page')
    return redirect('login')
  
@@ -519,10 +544,31 @@ import time
 def checkingProfile(request):
     user = request.user
     profile = UserProfile.objects.filter(user=user).first()
+    if profile:
+       age = profile.age
+       height = profile.height
+       weight = profile.weight
+       email = profile.email
+    
+    elif SocialAccount.objects.filter(user=user).exists():
+       email = request.user.email
+       profile = UserProfile.objects.filter(email = email).first()
+       age = profile.age
+       height = profile.height
+       weight = profile.weight
+
+    else:
+       messages.error(request, 'Please login first')
+
+       
+       
+   
+
     gymers_collection = get_gymers_collection()
 
-    if not profile or profile.age is None:
+    if not age or not height or not weight or not email:
         print("❌ Age missing in Django profile.")
+        messages.error(request, 'Please fill the profile first')
         return redirect('profilepage')  # optional
 
     # Use $elemMatch and projection to get only the matched user
@@ -541,6 +587,10 @@ def checkingProfile(request):
         matched_user = gym_doc['users'][0]
         mongo_age = matched_user.get('age')
         mongo_email = matched_user.get('email')
+        profile.start_gym = True
+        profile.save()
+
+
 
         print(f"✅ Found user in MongoDB: Age = {mongo_age}, Email = {mongo_email}")
     else:
@@ -552,7 +602,9 @@ def checkingProfile(request):
 
     return render(request, 'Checking.html', {
         'age': mongo_age,
-        'email': mongo_email
+        'gymnify_user_email': mongo_email,
+        
+
     })
 
 

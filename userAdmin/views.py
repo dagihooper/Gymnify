@@ -32,7 +32,6 @@ def user_admin_dashboard(request):
         expiry_date = registered_date + relativedelta(months=1)
         formatted_expiry_date = expiry_date.strftime('%B, %d, %Y')
         days_left = (expiry_date.date() - current_date).days
-        print(days_left)
         gymer['timeline'] = delta.days
         
         #for service type
@@ -50,7 +49,7 @@ def user_admin_dashboard(request):
         notifications = list(gymer['adminNotifications'])
         
 
-        if notifications:
+        if True:
 
           for notification in notifications:
             if '_id' not in notification: 
@@ -73,9 +72,12 @@ def user_admin_dashboard(request):
                   "id": notification['_id'],
                   "company": gymer['name'],
                   "package": gymer['service_type'],
-                  "date": notification['date']
+                  "date": notification['date'],
+                  'expiry_date': formatted_expiry_date,
+                  'days_left': days_left,
               })
               
+            print(notification)
               
            #for handle the sending notification to notficationAdmin
            
@@ -108,65 +110,7 @@ def user_admin_dashboard(request):
              
           elif days_left <= 0:
                
-              print('days left found in ')
-              print(days_left)
-                
-              existing_notification = gymers_collection.find_one({
-                          'name': gymer['name'],
-                          'adminNotifications': {
-                              '$elemMatch': {
-                                  'type': 'Package Expiry',
-                                  'days_left': days_left
-                              }
-                          }
-                      })
-
-              if not existing_notification:
-                  gymers_collection.update_one(
-                      {'name': gymer['name']},
-                      {'$push': {
-                          'adminNotifications': {
-                              'type': 'Package Expiry',
-                              'date': datetime.now(),
-                              'days_left': days_left
-                          }
-                      }}
-                  )
-
-        else:
-           #for handle the sending notification to notficationAdmin
-           
-          if days_left in (90, 75, 50, 35, 20, 5, 3 , 2, 1):
-
-            print('days left found in ')
-            print(days_left)
-                
-            existing_notification = gymers_collection.find_one({
-                        'name': gymer['name'],
-                        'adminNotifications': {
-                            '$elemMatch': {
-                                'type': 'Package Expiry',
-                                'days_left': days_left
-                            }
-                        }
-                    })
-
-            if not existing_notification:
-                gymers_collection.update_one(
-                    {'name': gymer['name']},
-                    {'$push': {
-                        'adminNotifications': {
-                            'type': 'Package Expiry',
-                            'date': datetime.now(),
-                            'days_left': days_left
-                        }
-                    }}
-                )
              
-          elif days_left <= 0:
-               
-              print('days left found in ')
-              print(days_left)
                 
               existing_notification = gymers_collection.find_one({
                           'name': gymer['name'],
@@ -190,8 +134,7 @@ def user_admin_dashboard(request):
                       }}
                   )
 
-
-      
+        
         #for payment status 
         
         if gymer.get('payDone'):
@@ -203,6 +146,7 @@ def user_admin_dashboard(request):
         user_array  = gymer.get('users')
         total_users += len(user_array) 
         
+
         
        
           
@@ -214,16 +158,16 @@ def user_admin_dashboard(request):
          #context
          
              
-        context = {
-          'gymers': gymers,
-          'total_customers': gymers_collection.count_documents({}),
-          'total_active_users': gymers_collection.count_documents({'payDone': True}),
-          'total_users':  total_users,
-          'notifications': notification_data,
-          'expiry_date': formatted_expiry_date,
-          'days_left': days_left,
-          
-        }
+    context = {
+      'gymers': gymers,
+      'total_customers': gymers_collection.count_documents({}),
+      'total_active_users': gymers_collection.count_documents({'payDone': True}),
+      'total_users':  total_users,
+      'notifications': notification_data,
+      "total_notifications": len(notification_data)
+      
+      
+    }
      
     return render(request, 'User-admin-dashboard.html', context)
 

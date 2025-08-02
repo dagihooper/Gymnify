@@ -27,6 +27,7 @@ class UserProfile(models.Model):
   totalTimeSpendOnGym = models.CharField(max_length=30, null = True)
   activityLevel = models.CharField(max_length=50, choices = [('SL', 'Sedentary Level'), ('LA', 'Light Active'), ('MA', 'Moderately Active'), ('VA', 'Very Active')], default= 'LA', null = True, blank = True )
   qr_code = models.TextField(null = True)
+  start_gym = models.BooleanField(default=False)
 
 
   def __str__(self):

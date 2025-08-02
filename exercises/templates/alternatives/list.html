@@ -1,6 +1,6 @@
 <h1>Alternatives</h1>
 <ul>
   {% for alt in alternatives %}
-    <li><a href="{% url 'alternative_detail' alt.pk %}">{{ alt.name }}</a></li>
+    <li><a href="{% url 'alternative_detail' alt.pk %}" target="_blank">{{ alt.name }}</a></li>
   {% endfor %}
 </ul>

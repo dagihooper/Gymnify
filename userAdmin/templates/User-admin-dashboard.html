@@ -81,8 +81,9 @@
       <div class="user--info flex items-center space-x-14 max-md:space-x-8 pr-4 cursor-pointer">
 
         <div class="relative"> 
+          <span class="bg-red-400 p-3  flex items-center justify-center rounded-full text-white absolute w-6 h-6 text-xs text-center -top-2 -right-2">{{total_notifications}}</span>
   <!-- Notification Icon -->
-  <img id="notButton"  width="27" height="27" src="../../static/assets/logo/notification.png" class="opacity-50 cursor-pointer" alt="">
+  <img id="notButton" class  width="27" height="27" src="../../static/assets/logo/notification.png" class="opacity-50 cursor-pointer" alt="">
     {% if notifications %}
 
   <div id="notContent" class="grid grid-cols-1 items-start justify-center gap-8 shadow-lg p-6 border border-solid border-black rounded-md border-opacity-35 absolute -right-28 top-20 -z-10 bg-white
@@ -94,13 +95,13 @@
       <h1 class="font-bold mb-3">🔔 {{notification.type}}</h1>
       <p><span class="font-bold">Company:</span> {{notification.company}}</p>
       <p><span class="font-bold">Package:</span> {{notification.package}}</p>
-      <p><span class="font-bold">Expired on:</span> {{expiry_date}}—
-        {% if days_left == 0%} 
+      <p><span class="font-bold">Expired on:</span> {{notification.expiry_date}}—
+        {% if notification.days_left == 0%} 
         Expired today
-        {% elif days_left < 0 %}
-        Already expired
+        {% elif notification.days_left < 0 %}
+        Already expired ({{notification.days_left}})
         {% else %}
-        in {{days_left}} days
+        in {{notification.days_left}} days
 
         {% endif %}
 

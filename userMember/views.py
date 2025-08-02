@@ -269,6 +269,7 @@ def forget_password(request):
 
 
 def password_reset(request):
+  gymers_collection = get_gymers_collection()
   phone_number = request.session.get('phone_number')
   username = request.session.get('username')
   user = User.objects.get(username = username)
@@ -301,6 +302,13 @@ def password_reset(request):
 
           user = User.objects.get(username = username)
           user.set_password(new_password)
+          gymers_collection.update_one ( 
+                  {'users.userName': profile.user.username},
+                  {'$set': 
+                    {
+                      'users.$.password': new_password
+                    }
+                    })
           user.save()
           messages.success(request, 'Your changed your password succesfully, now you can login using your new password.')
       else:

@@ -13,8 +13,8 @@
 
   
 
-  <div class="fixed items-center bottom-0 w-full max-w-[85%] left-[7%] bg-white flex justify-around py-3 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-[100000001] rounded-t-2xl">
-
+    <div class="fixed items-center bottom-0 w-full max-w-[85%] md:left-[50%] md:-translate-x-[50%] md:max-w-md left-[7%] bg-white flex justify-around py-3 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-[100000001] rounded-t-2xl">
+    <div class=""></div>
     <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" onclick="navigateTo('home')">
     <i class="fas fa-home text-[20px] mb-1 text-[#9d80c1]"></i>
     <span class="text-xs">Home</span>
@@ -102,10 +102,19 @@
       </div>
   </div>
 
+      {% if start_gym is False %}
 
   <div onclick="redirectToChecking()" style="background: linear-gradient(135deg, #6e8efb, #a777e3)" class = "shadow-lg animate-bounce duration-1000 p-4 max-md:p-2 max-md:px-3 rounded-[60px] md:w-50 md:h-50 fixed bottom-64 right-8 z-50 cursor-pointer " id="start_gym">
-    <p class="text-white ">Start Gym >></p>
-</div>
+    <p class="text-white ">Start Gym>> </p> </div>
+
+      {% else %}
+
+      <div onclick="redirectToChecking()" style="background: linear-gradient(135deg, #6e8efb, #a777e3)" class = "shadow-lg hidden animate-bounce duration-1000 p-4 max-md:p-2 max-md:px-3 rounded-[60px] md:w-50 md:h-50 fixed bottom-64 right-8 z-50 cursor-pointer " id="start_gym">
+    <p class="text-white "> </p>
+      </div>
+
+      {% endif %}
+
 
 
   <header class="flex flex-row w-full items-center justify-between padding-x mt-16 max-sm:mt-28 top-[53%] ">
@@ -116,7 +125,7 @@
       <div id="profile" class="rounded-full cursor-pointer w-12 h-12 bg-gray-400 flex items-center justify-center text-white font-poppins relative overflow-hidden">
         {% if profile_photo %}  
           <div class="absolute inset-0 flex justify-center items-center w-full h-full">
-            <img loading="lazy" class="object-cover object-center w-full h-full"  src="../../static/profile_photos/{{profile_photo}}" alt="">
+            <img loading="lazy" class="object-cover object-center w-full h-full"  src="{{profile_photo.url}}" alt="">
 
           </div>
        
@@ -224,39 +233,26 @@
   <script src="../../static/js/home.js"></script>
   <script>
   document.getElementById('exerciseButton').addEventListener('click', function () {
-    const userEmail = "{{ profile_data.email|escapejs }}";
+    const gymnify_user_email = "{{ profile_data.email|escapejs }}";
+    const password = "{{ profile_data.user.password|escapejs }}"
     console.log('This is the user email');
-    console.log(userEmail);
+    console.log(gymnify_user_email);
+    console.log('This is the password of the user')
+    console.log(password)
 
-    if (userEmail) {
-      localStorage.setItem('user_email', userEmail);
-      console.log('User email saved:', userEmail);
+    if (gymnify_user_email) {
+      localStorage.setItem('user_email', gymnify_user_email);
+      console.log('User email saved:', gymnify_user_email);
+      window.location.href = `https://tahiradem.github.io/Gimnify-App/?email=${encodeURIComponent(gymnify_user_email)}`;
 
-      fetch('http://10.27.114.94:5173/exercise', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: userEmail })
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('User data sent successfully:', data);
-        window.location.href = 'http://10.27.114.94:5173/exercise';
-      })
-      .catch(err => {
-        console.error('Error sending user data:', err);
-        window.location.href = 'http://10.27.114.94:5173/exercise';
-      });
-
-    } else {
-      console.warn('User email not found, redirecting anyway');
     }
-  });
 
+  
+  })
 
   function redirectToChecking() {
     window.location = '/checking_profile'
   }
-
   
 </script>
 
