@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
     submitBtn.textContent = 'Verifying...'
   }
 
-    else if (submitBtn.textContent == 'Sign up') {
+    else if (submitBtn.textContent == 'Sign Up') {
     submitBtn.textContent = 'Signing...'
   }
     else if (submitBtn.textContent == 'Send SMS') {

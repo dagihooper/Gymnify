@@ -25,12 +25,12 @@
     <span class="text-xs">Exercise</span>
   </div>
 
-  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" >
+  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" id="nutritionBtn" >
     <i class="fas fa-utensils text-[20px] mb-1"></i>
     <span class="text-xs">Nutrition</span>
   </div>
 
-  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500">
+  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" id="reportBtn">
     <i class="fas fa-chart-pie text-[20px] mb-1"></i>
     <span class="text-xs">Report</span>
   </div>
@@ -125,7 +125,7 @@
       <div id="profile" class="rounded-full cursor-pointer w-12 h-12 bg-gray-400 flex items-center justify-center text-white font-poppins relative overflow-hidden">
         {% if profile_photo %}  
           <div class="absolute inset-0 flex justify-center items-center w-full h-full">
-            <img loading="lazy" class="object-cover object-center w-full h-full"  src="{{profile_photo.url}}" alt="">
+            <img loading="lazy" class="object-cover object-center w-full h-full"  src="{{profile_photo}}" alt="">
 
           </div>
        
@@ -172,7 +172,7 @@
 
     <div class="shadow-lg shadow-slate-gray group p-6 py-10 bg-gray-800 text-white rounded-md max-w-md w-full h-[17rem]  text-xl leading-normal  hover:scale-105 cursor-pointer hover:duration-700 duration-700 ">
       <h2 class="text-center font-montserrat text-2xl mb-4 group-hover:text-blue-300  text-blue-500 font-bold">Package</h2>
-       <p class="font-lato">{{gym_house_name}} Gym</p>
+       <p class="font-lato">{{gym_house_name}}</p>
        <br>
       <p class="font-poppins">Your membership level is <span class="font-bold  text-green-400">{{plan_name}}.</span> <span class="inline"><br><span class="text-blue-400">Price: </span>{{price}} birr</span> for <span class="text-green-400">{{package_length}}</span> period</p>
     </div>
@@ -232,7 +232,36 @@
   <script src="../../static/js/message-continer.js"></script>
   <script src="../../static/js/home.js"></script>
   <script>
-  document.getElementById('exerciseButton').addEventListener('click', function () {
+  const startGym = "{{ start_gym|escapejs }}"
+  const exerciseBtn = document.getElementById('exerciseButton')
+  const nutritionBtn = document.getElementById('nutritionBtn')
+  const reportBtn = document.getElementById ('reportBtn')
+
+   if (startGym == 'False') {
+        const bottomButtons = [exerciseBtn, nutritionBtn, reportBtn]
+        bottomButtons.forEach(button => {
+          button.disabled = true
+          console.log(button)
+
+          button.classList.add('cursor-not-allowed', 'opacity-50')
+
+          button.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Please click the Start Gym button first to get exercise suggestions, nutrition suggestions, and reports')
+          })
+
+          
+        })
+        
+      
+      
+    }
+
+    
+
+  else if (startGym == 'True') {
+
+    exerciseBtn.addEventListener('click', function () {
     const gymnify_user_email = "{{ profile_data.email|escapejs }}";
     const password = "{{ profile_data.user.password|escapejs }}"
     console.log('This is the user email');
@@ -243,12 +272,49 @@
     if (gymnify_user_email) {
       localStorage.setItem('user_email', gymnify_user_email);
       console.log('User email saved:', gymnify_user_email);
-      window.location.href = `https://tahiradem.github.io/Gimnify-App/?email=${encodeURIComponent(gymnify_user_email)}`;
+      window.location.href = `https://gymnify-users.onrender.com/Exercise_Review/?email=${encodeURIComponent(gymnify_user_email)}`;
+
+    }
+  })
+
+    nutritionBtn.addEventListener('click', function () {
+    const gymnify_user_email = "{{ profile_data.email|escapejs }}";
+    const password = "{{ profile_data.user.password|escapejs }}"
+    console.log('This is the user email');
+    console.log(gymnify_user_email);
+    console.log('This is the password of the user')
+    console.log(password)
+
+    if (gymnify_user_email) {
+      localStorage.setItem('user_email', gymnify_user_email);
+      console.log('User email saved:', gymnify_user_email);
+      window.location.href = `https://gymnify-users.onrender.com/nutration/?email=${encodeURIComponent(gymnify_user_email)}`;
+
+    }
+
+  })
+
+
+    reportBtn.addEventListener('click', function () {
+    const gymnify_user_email = "{{ profile_data.email|escapejs }}";
+    const password = "{{ profile_data.user.password|escapejs }}"
+    console.log('This is the user email');
+    console.log(gymnify_user_email);
+    console.log('This is the password of the user')
+    console.log(password)
+
+    if (gymnify_user_email) {
+      localStorage.setItem('user_email', gymnify_user_email);
+      console.log('User email saved:', gymnify_user_email);
+      window.location.href = `https://gymnify-users.onrender.com/report/?email=${encodeURIComponent(gymnify_user_email)}`;
 
     }
 
   
   })
+    
+  }
+
 
   function redirectToChecking() {
     window.location = '/checking_profile'

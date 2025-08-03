@@ -62,7 +62,7 @@
     <div id="profile" class="rounded-full border cursor-pointer w-12 h-12 bg-gray-400 flex items-center justify-center text-white font-poppins relative group overflow-hidden">
       {% if profile_photo %}  
         <div class="absolute inset-0 flex justify-center items-center w-full h-full">
-          <img class="object-cover object-center w-full h-full"  src="{{profile_photo.url}}" alt="">
+          <img class="object-cover object-center w-full h-full"  src="{{profile_photo}}" alt="">
 
         </div>
       {%else%}
@@ -102,7 +102,7 @@
     <div id="profileDiv" class="rounded-full border relative cursor-pointer min-w-20 min-h-20 bg-gray-400 flex items-center justify-center flex-col space-y-4 text-white font-poppins overflow-hidden group bg-cover bg-center bg-no-repeat">
       <div class="absolute inset-0 flex justify-center items-center w-full h-full">
         <img id="previewImage"  class="object-cover object-center w-full h-full" 
-             src="{% if profile_photo %}{{ profile_photo.url }}{% else %}../../static/assets/images/guest.png{% endif %}" 
+             src="{% if profile_photo %}{{ profile_photo }}{% else %}../../static/assets/images/guest.png{% endif %}" 
              alt="Profile Photo">
       </div>
       <div>

@@ -93,7 +93,7 @@ def home_page(request):
           
                   
         else: 
-          messages.error(request, f"You haven't purchased a membership package from {gym_house_name} Gym yet. Please select a price plan to continue")
+          messages.error(request, f"You haven't purchased a membership package from {gym_house_name} yet. Please select a price plan to continue")
           plan_name, package_length, price, next_payment_date, days_left = '', '', '', '', ''
           return redirect('pricingplan')
         
@@ -215,7 +215,7 @@ def home_page(request):
                       })
           
             else: 
-              messages.error(request, f"You haven't purchased a membership package from {gym_house_name} Gym yet. Please select a price plan to continue")
+              messages.error(request, f"You haven't purchased a membership package from {gym_house_name} yet. Please select a price plan to continue")
               plan_name, package_length, price, next_payment_date, days_left = '', '', '', '', ''
               return redirect('pricingplan')
           
@@ -330,8 +330,6 @@ def profilePage(request):
                profile = UserProfile.objects.filter(Q(user=user) | Q(email = userGoggle)).first()
                if request.FILES.get('profile_photo'):
                   profile_photo = request.FILES.get('profile_photo')
-                  profile.profile_photo = profile_photo
-                  print(f'this is the profile photo url {profile.profile_photo.url}')
 
                   import cloudinary
                   import cloudinary.uploader
@@ -346,7 +344,11 @@ def profilePage(request):
                   )
 
                   # Upload an image
-                  upload_result = cloudinary.uploader.upload(profile.profile_photo)
+                  upload_result = cloudinary.uploader.upload(profile_photo)
+                  profile.profile_photo = upload_result["secure_url"]
+                  print(f'this is the profile photo url {profile.profile_photo}')
+
+
                   
                   print(upload_result["secure_url"])
                   profile.save()
