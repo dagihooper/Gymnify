@@ -13,7 +13,7 @@
 
   
 
-    <div class="fixed items-center bottom-0 w-full max-w-[85%] md:left-[50%] md:-translate-x-[50%] md:max-w-md left-[7%] bg-white flex justify-around py-3 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-[100000001] rounded-t-2xl">
+    <div class="fixed items-center bottom-0 w-full max-w-[94%] md:left-[50%] md:-translate-x-[50%] md:max-w-md left-[11px] bg-white flex justify-around py-3 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-[100000001] rounded-t-2xl">
     <div class=""></div>
     <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" onclick="navigateTo('home')">
     <i class="fas fa-home text-[20px] mb-1 text-[#9d80c1]"></i>
@@ -54,7 +54,7 @@
 
   
   {% if messages %}
-<div id="message-container" class="absolute font-lato shadow-md text-white  max-w-[80%] w-[25rem] max-md:min-w-[80%] top-4 left-8">
+<div id="message-container" class="absolute font-lato shadow-md text-white  max-w-[80%] w-[25rem] max-md:min-w-[80%] top-4 left-8 z-50">
     {% for message in messages %}
     <div class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} padding-x py-5 rounded-md flex flex-row justify-center items-center gap-4">
         <p class="w-full">{{ message }}</p>
@@ -83,7 +83,7 @@
   <main>
 
 
-    <div id="warning-page" class="absolute font-lato -z-10 text-black  max-w-[50%] max-md:min-w-[80%] top-4 left-8">
+    <div id="warning-page" class="font-lato  text-black z-40  max-w-max  ml-8 mt-4 ">
                 <div class="padding-x py-5 rounded-md flex flex-row justify-center items-center space-x-4 hover:shadow-md cursor-pointer {% if days_left >= 6 %} bg-yellow-300 {% else %} bg-red-400 {% endif %} ">
 
           <p class="w-full">
@@ -117,7 +117,7 @@
 
 
 
-  <header class="flex flex-row w-full items-center justify-between padding-x mt-16 max-sm:mt-28 top-[53%] ">
+  <header class="flex flex-row w-full items-center justify-between padding-x mt-12 max-sm:mt-24 top-[53%] -z-30 ">
       <div>
         <img loading="lazy" class="h-12 w-auto" src="../../static/assets/logo/logo.svg" alt="">
       </div>
@@ -272,7 +272,7 @@
     if (gymnify_user_email) {
       localStorage.setItem('user_email', gymnify_user_email);
       console.log('User email saved:', gymnify_user_email);
-      window.location.href = `https://gymnify-users.onrender.com/Exercise_Review/?email=${encodeURIComponent(gymnify_user_email)}`;
+      window.location.href = `https://gymnify-users.onrender.com/Exercise_Review/`;
 
     }
   })
