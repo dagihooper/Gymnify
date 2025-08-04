@@ -52,6 +52,7 @@
           </h2>
 
           <div
+            id="provider_div"
             class="flex flex-row space-x-6 bg-[EDEDED] font-poppins p-5 rounded-xl max-w-sm mt-8 cursor-pointer bg-gray-300 min-w-[300px]"
           >
             <img
@@ -61,7 +62,7 @@
               alt=""
             />
             {% load socialaccount %}
-            <a href="{% provider_login_url 'google' %}?next=/home"
+            <a id="google_redirect" onclick="googleRedirect()" href="{% provider_login_url 'google' %}?next=/home"
               >Sign in with Google</a
             >
           </div>
@@ -126,6 +127,15 @@
 
       <script src="../../static/js/message-continer.js"></script>
       <script src="../../static/js/submitting.js"></script>
+      <script>
+        function googleRedirect() {
+              providerDiv = document.getElementById('provider_div')
+
+              providerDiv.classList.add('animate-pulse',  'opacity-70')
+
+
+        }
+      </script>
     </main>
   </body>
 </html>

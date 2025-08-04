@@ -9,6 +9,7 @@ module.exports = {
   './homePage/templates/**/*.html',
   './validation/templates/**/*.js',
   './exercises/templates/**/*.html',
+  './static/js/**/*.js'
 
 
 ],

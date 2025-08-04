@@ -110,6 +110,10 @@
           const priceElement = card.querySelector(`#price-${planName}`);
           const price = priceElement ? priceElement.textContent : 'N/A';
           const price_number = price.match(/\d+/)[0];
+          button.textContent = 'Buying the plan'
+          button.displaed = true
+          button.classList.add('animate', 'animate-pulse', 'duration-1000', 'cursor-not-allowed');
+
 
           const data = {
               plan_name: planName,
