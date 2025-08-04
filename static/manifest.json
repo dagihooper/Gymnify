@@ -1,4 +1,5 @@
 {
+  "id": "/",
   "start_url": "/",
   "display": "standalone",
   "name": "Gymnify User App",
