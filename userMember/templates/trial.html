@@ -1,11 +1,29 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<h1>This is the qr code generatoed</h1>
-<img src="data:image/png;base64,{{qr_code}}" />    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trial page</title>
+  </head>
+  <body>
+    <h1>This is the qr code generatoed</h1>
+
+    <form method="POST" action="/trial">
+      {% csrf_token %}
+
+      <h1>Name information</h1>
+      <input type="hidden" name="form_type" value="name" />
+      <input type="text" name="first_name" />
+      <input type="text" name="last_name" />
+      <button type="submit">Submit</button>
+    </form>
+
+    <form method="POST" action="/trial">
+      {% csrf_token %}
+
+      <h1>Email information</h1>
+      <input type="hidden" name="form_type" value="email" />
+      <input type="email" name="email" />
+      <button type="submit">Submit</button>
+    </form>
+  </body>
 </html>

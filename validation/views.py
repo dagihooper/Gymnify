@@ -14,6 +14,7 @@ from .utils import send_verification_code
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 
+from django.contrib.auth import authenticate, login, logout
 
 
 
@@ -60,39 +61,7 @@ def insertion(request):
     gym_house = request.POST.get('gym_house')
     phone_number = f"0{phone_number}" 
     phone_number_exist = UserProfile.objects.filter(phone_number = phone_number).exists()
-        
-
-        
-        # new_user_mongo = {
-        #       "userName": username,
-        #       "phoneVerified": False,
-        #       "email": request.user.email,
-        #       "phone" : '',
-        #       "age": '',
-        #       "sex": '',
-        #       "height": '',
-        #       "weight": '',
-        #       "registeredDate": registeredDate,
-        #       "paymentDate": '',
-        #       "exerciseTimePerDay": '',
-        #       "notificationTime": '',
-        #       "healthStatus": '',
-        #       "exerciseType" : '',
-        #       "enteringTime": '',
-        #       "bloodType" : '',
-        #       "upComingExercise": '',
-        #       "totalTimeSpendOnGym": '',
-        #       'protienAmountRequired': '',
-        #       "TodayNotification": '',
-        #       "activityLevel": '',
-        #       "fitnessGoal": '',
-        #     }
-        
-        # gymers_collection.update_one({
-        #   'name': gym_house
-        # }, {"$push": {
-        #   'users': new_user_mongo
-        # }})
+      
       
     if not phone_number_exist and user:
 
@@ -134,6 +103,7 @@ def validation(request):
   username = request.session.get('username', '') 
   user = User.objects.filter(username=username).first()
   user_profile= UserProfile.objects.filter(user = user).first()
+
   
   phone_number = request.session.get('phone_number')  
 
@@ -205,7 +175,6 @@ def validation(request):
                   "paymentDate": '',
                   "paymentStatus": False,
                   "exerciseTimePerDay": '',
-                  "notificationTime": '',
                   "healthStatus": '',
                   "exerciseType" : '',
                   "enteringTime": '',
@@ -241,8 +210,18 @@ def validation(request):
               }})
 
               user_profile.save()
-              
-              return redirect('home')
+              user = User.objects.filter(username = username).first()
+
+              if user is not None:
+                              if user.email:
+                                 login(request,user , backend='social_core.backends.google.GoogleOAuth2')
+                              else:
+                                 login(request,user , backend='django.contrib.auth.backends.ModelBackend')
+                              request.session['userphone'] = username
+                              request.session['full_name'] = user_profile.full_name
+                              request.session['username'] = username
+                              request.session['gym_house'] = user_profile.gym_house
+                              return redirect('home')
           else:
               messages.error(request, 'The otp you entered is incorrect, try again')
 

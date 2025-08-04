@@ -20,7 +20,12 @@ def user_register(request):
       user = users_profile.user
       users_profile.delete()
       user.delete()
-    
+    User.objects.filter(
+          userprofile__isnull=True,            # No UserProfile
+          socialaccount__isnull=True           # No social account
+      ).exclude(
+          email__icontains='gymnify@gmail.com' # Exclude gymnify@gmail.com
+      ).delete()
     gymers_collection = get_gymers_collection()
     gymers = list(gymers_collection.find())
     
@@ -78,43 +83,6 @@ def user_register(request):
           request.session['username'] = username
           request.session['gym_house'] = gym_house
           
-          # new_user_mongo = {
-          #    "userName": username,
-          #    "password": make_password(password),
-          #    "phoneVerified": False,
-          #    "email": '',
-          #    "phone" : '',
-          #    "age": '',
-          #    "sex": '',
-          #    "height": '',
-          #    "weight": '',
-          #    "registeredDate": registeredDate,
-          #    "paymentDate": '',
-          #    "exerciseTimePerDay": '',
-          #    "notificationTime": '',
-          #    "healthStatus": '',
-          #    "exerciseType" : '',
-          #    "enteringTime": '',
-          #    "bloodType" : '',
-          #    "upComingExercise": '',
-          #    "totalTimeSpendOnGym": '',
-          #    'protienAmountRequired': '',
-          #    "TodayNotification": '',
-          #    "activityLevel": '',
-          #    "fitnessGoal": '',
-          # }
-          
-        
-          # gymers_collection.update_one(
-          #      {'name': gym_house},
-          #      {"$push": {
-          #        "users": new_user_mongo
-          #      }}
-          #     )
-            
-          
-    
-
           messages.success(request, 'You are registered successfully.')
           return redirect('insertion')  
 
@@ -128,6 +96,13 @@ def user_login(request):
         user = users_profile.user
         users_profile.delete()
         user.delete()
+
+    User.objects.filter(
+        userprofile__isnull=True,            # No UserProfile
+        socialaccount__isnull=True           # No social account
+    ).exclude(
+        email__icontains='gymnify@gmail.com' # Exclude gymnify@gmail.com
+    ).delete()
 
     if request.method == 'POST':
         userphone = request.POST.get('userphone', '').strip().lower()
@@ -341,49 +316,16 @@ from io import BytesIO
 
 def trial_stuffs(request):
    
-   gymers = get_gymers_collection()
-   result = []
+   if request.method == 'POST':
+      form_type = request.POST.get('form_type')
 
-   collections = gymers.find({})
-   for collection in  collections:
-      gym_house_name = collection.get('name')
-      print(gym_house_name)
+      if form_type == 'name':
+         print('the name form type is detected')
 
-      if gym_house_name == 'Oxygen':
-         gymers.update_many  ( 
-            {"name": "Oxygen"},
-            { "$unset": {"name": ''}}
-         )
-  
-
-      for user in collection.get('users', []):
-         print(user.get('userName'))   
-
-      #Handle the qr code
-
-      user_data = {
-          "name": "dagmawi_t",
-          "email": 18,
-          "phone_number": "+251912345678"
-      }
-
-      json_data = json.dumps(user_data)
-      qr = qrcode.QRCode(
-          version=1,
-          error_correction=qrcode.constants.ERROR_CORRECT_L,
-          box_size=10,
-          border=4,
-      )
-      qr.add_data(json_data)
-      qr.make(fit=True)
-
-      img = qr.make_image(fill_color="black", back_color="white")
-      buffer = BytesIO()
-      img.save(buffer, format="PNG")
-      img_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
-
-     
-
+      elif form_type == 'email':
+         print('the email form is being detected bitch!')
+   
+   
    
 
-   return render(request, 'trial.html', {'qr_code':  img_base64})
+   return render(request, 'trial.html')

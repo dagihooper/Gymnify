@@ -1,16 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gymnify</title>
-      <link rel="icon" href="../../static/assets/logo/logo_white.svg" type="image/png">
+    <link
+      rel="icon"
+      href="../../static/assets/logo/logo_white.svg"
+      type="image/png"
+    />
 
     <link rel="stylesheet" href="../../static/css/output.css" />
   </head>
 
   <body>
-
     {% if messages %}
     <div
       id="message-container"
@@ -48,9 +51,8 @@
           <p class="text-xl font-poppins text-black">
             Hey 🖐️
             <span class="block mt-4 font-bold font-poppins text-2xl"
-              >{{full_name|capfirst}}{{full_nameGoggle}} 
-            </span
-            >
+              >{{full_name|capfirst}}{{full_nameGoggle}}
+            </span>
           </p>
         </header>
 
@@ -95,11 +97,12 @@
           type="submit"
           id="submitBtn"
           class="p-4 w-full bg-blue-500 rounded-xl hover:bg-green-500 duration-700 hover:duration-700 font-poppins hover:text-white"
-        >Send SMS</button>
+        >
+          Send SMS
+        </button>
       </form>
     </main>
-  <script src="../../static/js/message-continer.js"></script>
-  <script src="../../static/js/submitting.js"></script>
-
+    <script src="../../static/js/message-continer.js"></script>
+    <script src="../../static/js/submitting.js"></script>
   </body>
 </html>

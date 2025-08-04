@@ -1,62 +1,86 @@
 <!-- templates/exercises/exercise_list.html -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>All Exercises</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <title>All Exercises</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="stylesheet" href="../../../static/css/output.css">
-</head>
+    <link rel="stylesheet" href="../../../static/css/output.css" />
+  </head>
 
-
-
-<body class="bg-gray-100 py-6 px-1 overflow-x-hidden overflow-y-auto font-poppins">
-
-  {% if messages %}
-<div id="message-container" class="absolute font-lato shadow-md text-white   w-[360px] -top-1 right-8 mt-8">
-    {% for message in messages %}
-    <div class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} padding-x py-5 rounded-md flex flex-row justify-center items-center gap-4">
+  <body
+    class="bg-gray-100 py-6 px-1 overflow-x-hidden overflow-y-auto font-poppins"
+  >
+    {% if messages %}
+    <div
+      id="message-container"
+      class="absolute font-lato shadow-md text-white w-[360px] -top-1 right-8 mt-8"
+    >
+      {% for message in messages %}
+      <div
+        class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} padding-x py-5 rounded-md flex flex-row justify-center items-center gap-4"
+      >
         <p class="w-full">{{ message }}</p>
-        <button class="top-1 right-2 text-white" onclick="this.parentElement.remove();">✖</button>
-
+        <button
+          class="top-1 right-2 text-white"
+          onclick="this.parentElement.remove();"
+        >
+          ✖
+        </button>
+      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
-</div>
-{% endif %}
+    {% endif %}
 
     <div class="flex flex-col gap-2">
-    <h1 class="font-bold mb-6 ml-2 text-3xl">All Exercises</h1>
-    <table class="text-sm mb-8 min-w-full bg-white shadow rounded-lg overflow-hidden">
-      <thead class="bg-gray-200 text-gray-700">
-        <tr>
-          <th class="py-2 px-4 text-left">Name</th>
-          <th class="py-2 px-4 text-left">Category</th>
-          <th class="py-2 px-4 text-left">Calories(per rep)</th>
-          <th class="py-2 px-4 text-left">Actions</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y">
-        {% for exercise in exercises %}
-        <tr>
-          <td class="py-2 px-4">{{ exercise.name }}</td>
-          <td class="py-2 px-4">{{ exercise.category }}</td>
-          <td class="py-2 px-4">{{ exercise.caloriesPerRep }}</td>
-          <td class="py-2 px-4">
-            <a href="{% url 'edit_exercise' exercise.id %}" class="text-blue-500 hover:underline mr-2">Edit</a>
-            <a href="{% url 'delete_exercise' exercise.id %}" class="text-red-500 hover:underline">Delete</a>
-          </td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="4" class="py-4 px-4 text-center text-gray-500">No exercises found.</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+      <h1 class="font-bold mb-6 ml-2 text-3xl">All Exercises</h1>
+      <table
+        class="text-sm mb-8 min-w-full bg-white shadow rounded-lg overflow-hidden"
+      >
+        <thead class="bg-gray-200 text-gray-700">
+          <tr>
+            <th class="py-2 px-4 text-left">Name</th>
+            <th class="py-2 px-4 text-left">Category</th>
+            <th class="py-2 px-4 text-left">Calories(per rep)</th>
+            <th class="py-2 px-4 text-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y">
+          {% for exercise in exercises %}
+          <tr>
+            <td class="py-2 px-4">{{ exercise.name }}</td>
+            <td class="py-2 px-4">{{ exercise.category }}</td>
+            <td class="py-2 px-4">{{ exercise.caloriesPerRep }}</td>
+            <td class="py-2 px-4">
+              <a
+                href="{% url 'edit_exercise' exercise.id %}"
+                class="text-blue-500 hover:underline mr-2"
+                >Edit</a
+              >
+              <a
+                href="{% url 'delete_exercise' exercise.id %}"
+                class="text-red-500 hover:underline"
+                >Delete</a
+              >
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4" class="py-4 px-4 text-center text-gray-500">
+              No exercises found.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
 
-      <a href="{% url 'add_exercise' %}" class="text-sm px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">Add New Exercise</a>
-<script src="../../../static/js/message-continer.js"></script>
-</body>
+    <a
+      href="{% url 'add_exercise' %}"
+      class="text-sm px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+      >Add New Exercise</a
+    >
+    <script src="../../../static/js/message-continer.js"></script>
+  </body>
 </html>

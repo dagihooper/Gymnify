@@ -1,62 +1,106 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gymnify</title>
-    <link rel="icon" href="../../static/assets/logo/logo_white.svg" type="image/png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gymnify</title>
+    <link
+      rel="icon"
+      href="../../static/assets/logo/logo_white.svg"
+      type="image/png"
+    />
 
-  <link rel="stylesheet" href="../../static/css/output.css">
-
-
-</head>
-<body>
-  <main class=" max-h-full fixed left-[50%] top-[50%] z-40 w-full sm:w-[500px] translate-x-[-50%] translate-y-[-50%]">
-    {% if messages %}
-    <div id="message-container" class="absolute font-lato shadow-md text-white  max-w-[80%] w-[21rem] max-md:min-w-[80%] top-4 left-8 mt-8">
+    <link rel="stylesheet" href="../../static/css/output.css" />
+  </head>
+  <body>
+    <main
+      class="max-h-full fixed left-[50%] top-[50%] z-40 w-full sm:w-[500px] translate-x-[-50%] translate-y-[-50%]"
+    >
+      {% if messages %}
+      <div
+        id="message-container"
+        class="absolute font-lato shadow-md text-white max-w-[80%] w-[21rem] max-md:min-w-[80%] top-4 left-8 mt-8"
+      >
         {% for message in messages %}
-        <div class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} padding-x py-5 rounded-md flex flex-row justify-center items-center gap-4">
-            <p class="w-full">{{ message }}</p>
-            <button class="top-1 right-2 text-white" onclick="this.parentElement.remove();">✖</button>
-    
+        <div
+          class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} padding-x py-5 rounded-md flex flex-row justify-center items-center gap-4"
+        >
+          <p class="w-full">{{ message }}</p>
+          <button
+            class="top-1 right-2 text-white"
+            onclick="this.parentElement.remove();"
+          >
+            ✖
+          </button>
         </div>
         {% endfor %}
-    </div>
-    {% endif %}
+      </div>
+      {% endif %}
 
-  <div class="rounded-lg shadow-lg border flex flex-col px-4 py-8">
+      <div class="rounded-lg shadow-lg border flex flex-col px-4 py-8">
+        <div class="flex flex-col items-center">
+          <div class="flex justify-center items-center mb-5">
+            <img
+              width="100"
+              src="../../static/assets/logo/message.svg"
+              alt="Logo"
+            />
+          </div>
+          <h2 class="text-2xl font-semibold mb-2 font-montserrat">
+            OTP Verification
+          </h2>
 
-   
-    <div class="flex flex-col items-center">
-    <div class="flex justify-center items-center mb-5">
-      <img width="100" src="../../static/assets/logo/message.svg" alt="Logo">
-    </div>
-    <h2 class="text-2xl font-semibold mb-2 font-montserrat">OTP Verification</h2>
+          <p class="text-gray-600 mb-6 font-lato">
+            Enter the code we just sent to your mobile phone
+            <span class="text-blue-500">+251 {{phone_number}}</span>
+          </p>
 
-    <p class="text-gray-600 mb-6 font-lato">
-      Enter the code we just sent to your mobile phone <span class="text-blue-500">+251 {{phone_number}}</span>
-    </p>
+          <form
+            method="POST"
+            action="validation"
+            class="flex justify-center gap-4 mb-6"
+          >
+            {% csrf_token %}
+            <div>
+              <input
+                type="text"
+                maxlength="1"
+                class="w-12 h-12 border-2 border-gray-300 text-center text-2xl rounded-md focus:border-blue-500 focus:outline-none otp-input"
+              />
+              <input
+                type="text"
+                maxlength="1"
+                class="w-12 h-12 border-2 border-gray-300 text-center text-2xl rounded-md focus:border-blue-500 focus:outline-none otp-input"
+              />
+              <input
+                type="text"
+                maxlength="1"
+                class="w-12 h-12 border-2 border-gray-300 text-center text-2xl rounded-md focus:border-blue-500 focus:outline-none otp-input"
+              />
+              <input
+                type="text"
+                maxlength="1"
+                class="w-12 h-12 border-2 border-gray-300 text-center text-2xl rounded-md focus:border-blue-500 focus:outline-none otp-input"
+              />
+              <input
+                type="text"
+                maxlength="1"
+                class="w-12 h-12 border-2 border-gray-300 text-center text-2xl rounded-md focus:border-blue-500 focus:outline-none otp-input"
+              />
+            </div>
+          </form>
 
-    <form method="POST" action="validation" class="flex justify-center gap-4 mb-6">
-      {% csrf_token %}
-      <div>
-      <input type="text" maxlength="1" class="w-12 h-12 border-2 border-gray-300 text-center text-2xl rounded-md focus:border-blue-500 focus:outline-none otp-input "/>
-      <input type="text" maxlength="1" class="w-12 h-12 border-2 border-gray-300 text-center text-2xl rounded-md focus:border-blue-500 focus:outline-none otp-input" />
-      <input type="text" maxlength="1" class="w-12 h-12 border-2 border-gray-300 text-center text-2xl rounded-md focus:border-blue-500 focus:outline-none otp-input" />
-      <input type="text" maxlength="1" class="w-12 h-12 border-2 border-gray-300 text-center text-2xl rounded-md focus:border-blue-500 focus:outline-none otp-input" />
-      <input type="text" maxlength="1" class="w-12  h-12 border-2 border-gray-300 text-center text-2xl rounded-md focus:border-blue-500 focus:outline-none otp-input" />
-    </div>
-  </form>
+          <p id="changable-msg" class="text-gray-600 font-poppins">
+            Didn't receive the code?
+            <a onclick="resendOtp()" href="#" class="text-blue-500 font-medium"
+              >Resend</a
+            >
+          </p>
+        </div>
+      </div>
+    </main>
+  </body>
 
-    <p id="changable-msg" class="text-gray-600 font-poppins">
-      Didn't receive the code? <a onclick="resendOtp()" href="#" class="text-blue-500 font-medium">Resend</a>
-    </p>
-  </div>
-</div>
-</main>
-</body>
-
-<script src="../../static/js/validation.js"></script>
-<script src="../../../static/js/message-continer.js"></script>
-
+  <script src="../../static/js/validation.js"></script>
+  <script src="../../../static/js/message-continer.js"></script>
 </html>

@@ -1,17 +1,29 @@
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trial_validation</title>
-  <link rel="stylesheet" href="../../static/css/output.css">
-</head>
-<body>
-  <form action="" method="POST" class="flex items-center  justify-center gap-4 mb-6 h-full w-full shadow-lg border bg-black" >
-    {% csrf_token %}
-    <div >
-    <input type="text" maxlength="4" name="otp" id="otp" class="w-20 h-20 border-2 border-gray-300 text-center text-2xl rounded-md focus:border-blue-500 focus:outline-none otp-input " />
-  </div>
-  <button type="submit" class="bg-white text-black w-20 h-20 p-4">Submit</button>
-</form>
-
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trial_validation</title>
+    <link rel="stylesheet" href="../../static/css/output.css" />
+  </head>
+  <body>
+    <form
+      action=""
+      method="POST"
+      class="flex items-center justify-center gap-4 mb-6 h-full w-full shadow-lg border bg-black"
+    >
+      {% csrf_token %}
+      <div>
+        <input
+          type="text"
+          maxlength="4"
+          name="otp"
+          id="otp"
+          class="w-20 h-20 border-2 border-gray-300 text-center text-2xl rounded-md focus:border-blue-500 focus:outline-none otp-input"
+        />
+      </div>
+      <button type="submit" class="bg-white text-black w-20 h-20 p-4">
+        Submit
+      </button>
+    </form>
+  </body>
+</html>

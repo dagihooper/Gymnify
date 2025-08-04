@@ -1,327 +1,481 @@
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Gymnify</title>
-  <link rel="icon" href="../../static/assets/logo/logo_white.svg" type="image/png">
-  <link rel="stylesheet" href="../../static/css/output.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-</head>
-<body>
-
-  
-
-    <div class="fixed items-center bottom-0 w-full max-w-[94%] md:left-[50%] md:-translate-x-[50%] md:max-w-md left-[11px] bg-white flex justify-around py-3 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-[100000001] rounded-t-2xl">
-    <div class=""></div>
-    <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" onclick="navigateTo('home')">
-    <i class="fas fa-home text-[20px] mb-1 text-[#9d80c1]"></i>
-    <span class="text-xs">Home</span>
-  </div>
-
-  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" id="exerciseButton">
-    <i class="fas fa-dumbbell rotate-[30deg] text-[20px] mb-1"></i>
-    <span class="text-xs">Exercise</span>
-  </div>
-
-  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" id="nutritionBtn" >
-    <i class="fas fa-utensils text-[20px] mb-1"></i>
-    <span class="text-xs">Nutrition</span>
-  </div>
-
-  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" id="reportBtn">
-    <i class="fas fa-chart-pie text-[20px] mb-1"></i>
-    <span class="text-xs">Report</span>
-  </div>
-  <div class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500" id="profileButton" onclick="navigateTo('profilepage')">
-    <i class="fas fa-user text-[20px] mb-1"></i>
-    <span class="text-xs">Profile</span>
-  </div>
-</div>
-
-<script>
-  function navigateTo(path) {
-    if (path === 'logout') {
-      window.location.href = '/login';
-    } else {
-      window.location.href = `/${path}`;
-    }
-  }
-</script>
-
-
-
-  
-  {% if messages %}
-<div id="message-container" class="absolute font-lato shadow-md text-white  max-w-[80%] w-[25rem] max-md:min-w-[80%] top-4 left-8 z-50">
-    {% for message in messages %}
-    <div class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} padding-x py-5 rounded-md flex flex-row justify-center items-center gap-4">
-        <p class="w-full">{{ message }}</p>
-        <button class="top-1 right-2 text-white" onclick="this.parentElement.remove();">✖</button>
-
-    </div>
-    {% endfor %}
-</div>
-{% endif %}
-
-<div class="qr-code  bg-white shadow-md shadow-amber-200 p-4 max-md:p-2 rounded-md md:w-50 md:h-50 fixed bottom-64 left-8 z-[1000] cursor-pointer " id="qr_code">
-<img loading="lazy" width="30" height="30" src="../../static/assets/logo/qr-code.png" alt="" srcset="">
-</div>
-
-<div class="overlay fixed top-0 left-0 w-full h-full bg-black/50 hidden z-10 "></div>
-
-<div class="qr_displayer font-poppins hidden w-full max-h-full fixed left-[50%] top-[50%] z-[1000] md:w-[668px] translate-x-[-50%] translate-y-[-50%] gap-4 border shadow-lg flex-col p-6 overflow-hidden bg-white items-center justify-center rounded-lg" id="qr_displayer">
-<img loading="lazy" class="cursor-pointer" width="20" height="20" src="../../static/assets/logo/remove.png" onclick="removeOLPE()" >
-
-<h1 class="text-active-text font-bold text-xl">Checking you into the Gym</h1>
-<p>Please use this QR code to check yourself to your Gym.</p>
-<img loading="lazy" src="{{qr_code}}" alt="" srcset="">
-
-</div>
-
-  <main>
-
-
-    <div id="warning-page" class="font-lato  text-black z-40  max-w-max  ml-8 mt-4 ">
-                <div class="padding-x py-5 rounded-md flex flex-row justify-center items-center space-x-4 hover:shadow-md cursor-pointer {% if days_left >= 6 %} bg-yellow-300 {% else %} bg-red-400 {% endif %} ">
-
-          <p class="w-full">
-            
-            {% if days_left > 0 %}
-            Your membership expires in {{days_left}} days.
-            {% elif days_left == 0 %}
-            Your membership is expired. Pay now 
-            {% else %}
-            Your membership is already expired, Pay now.
-            {% endif %}
-          
-          </p>
-          <button class="top-1 right-2 text-white" onclick="this.parentElement.remove();">✖</button>
-  
+    <title>Gymnify</title>
+    <link
+      rel="icon"
+      href="../../static/assets/logo/logo_white.svg"
+      type="image/png"
+    />
+    <link rel="stylesheet" href="../../static/css/output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div
+      class="fixed items-center bottom-0 w-full max-w-[94%] md:left-[50%] md:-translate-x-[50%] md:max-w-md left-[11px] bg-white flex justify-around py-3 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-[100000001] rounded-t-2xl"
+    >
+      <div class=""></div>
+      <div
+        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500"
+        onclick="navigateTo('home')"
+      >
+        <i class="fas fa-home text-[20px] mb-1 text-[#9d80c1]"></i>
+        <span class="text-xs">Home</span>
       </div>
-  </div>
+
+      <div
+        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500"
+        id="exerciseButton"
+      >
+        <i class="fas fa-dumbbell rotate-[30deg] text-[20px] mb-1"></i>
+        <span class="text-xs">Exercise</span>
+      </div>
+
+      <div
+        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500"
+        id="nutritionBtn"
+      >
+        <i class="fas fa-utensils text-[20px] mb-1"></i>
+        <span class="text-xs">Nutrition</span>
+      </div>
+
+      <div
+        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500"
+        id="reportBtn"
+      >
+        <i class="fas fa-chart-pie text-[20px] mb-1"></i>
+        <span class="text-xs">Report</span>
+      </div>
+      <div
+        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500"
+        id="profileButton"
+        onclick="navigateTo('profilepage')"
+      >
+        <i class="fas fa-user text-[20px] mb-1"></i>
+        <span class="text-xs">Profile</span>
+      </div>
+    </div>
+
+  <script>
+      function navigateTo(path) {
+        if (path === "logout") {
+          window.location.href = "/login";
+        } else {
+          window.location.href = `/${path}`;
+        }
+      }
+    </script>
+
+    {% if messages %}
+    <div
+      id="message-container"
+      class="absolute font-lato shadow-md text-white top-4 left-2 z-50 max-w-md"
+    >
+      {% for message in messages %}
+      <div
+        class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} padding-x py-5 gap-4 max-w-md rounded-md flex flex-row justify-center items-center"
+      >
+        <p class="w-full">{{ message }}</p>
+        <button
+          class="top-1 right-2 text-white"
+          onclick="this.parentElement.remove();"
+        >
+          ✖
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div
+      class="qr-code bg-white shadow-md shadow-amber-200 p-4 max-md:p-2 rounded-md md:w-50 md:h-50 fixed bottom-64 left-8 z-[1000] cursor-pointer"
+      id="qr_code"
+    >
+      <img
+        loading="lazy"
+        width="30"
+        height="30"
+        src="../../static/assets/logo/qr-code.png"
+        alt=""
+        srcset=""
+      />
+    </div>
+
+    <div
+      class="overlay fixed top-0 left-0 w-full h-full bg-black/50 hidden z-10"
+    ></div>
+
+    <div
+      class="qr_displayer font-poppins hidden w-full max-h-full fixed left-[50%] top-[50%] z-[1000] md:w-[668px] translate-x-[-50%] translate-y-[-50%] gap-4 border shadow-lg flex-col p-6 overflow-hidden bg-white items-center justify-center rounded-lg"
+      id="qr_displayer"
+    >
+      <img
+        loading="lazy"
+        class="cursor-pointer"
+        width="20"
+        height="20"
+        src="../../static/assets/logo/remove.png"
+        onclick="removeOLPE()"
+      />
+
+      <h1 class="text-active-text font-bold text-xl">
+        Checking you into the Gym
+      </h1>
+      <p>Please use this QR code to check yourself to your Gym.</p>
+      <img loading="lazy" src="{{qr_code}}" alt="" srcset="" />
+    </div>
+
+    <main>
+      <div
+        id="warning-page"
+        class="font-lato text-black z-40 max-w-max ml-2 mt-4"
+      >
+        <div
+          class="padding-x py-5 rounded-md flex flex-row justify-center items-center space-x-4 hover:shadow-md cursor-pointer {% if days_left >= 6 %} bg-yellow-300 {% else %} bg-red-400 {% endif %}"
+        >
+          <p class="w-full">
+            {% if days_left > 0 %} Your membership expires in {{days_left}}
+            days. {% elif days_left == 0 %} Your membership is expired. Pay now
+            {% else %} Your membership is already expired, Pay now. {% endif %}
+          </p>
+          <button
+            class="top-1 right-2 text-white"
+            onclick="this.parentElement.remove();"
+          >
+            ✖
+          </button>
+        </div>
+      </div>
 
       {% if start_gym is False %}
 
-  <div onclick="redirectToChecking()" style="background: linear-gradient(135deg, #6e8efb, #a777e3)" class = "shadow-lg animate-bounce duration-1000 p-4 max-md:p-2 max-md:px-3 rounded-[60px] md:w-50 md:h-50 fixed bottom-64 right-8 z-50 cursor-pointer " id="start_gym">
-    <p class="text-white ">Start Gym>> </p> </div>
+      <div
+        onclick="redirectToChecking()"
+        style="background: linear-gradient(135deg, #6e8efb, #a777e3)"
+        class="shadow-lg animate-bounce duration-1000 p-4 max-md:p-2 max-md:px-3 rounded-[60px] md:w-50 md:h-50 fixed bottom-64 right-8 z-50 cursor-pointer"
+        id="start_gym"
+      >
+        <p class="text-white">Start Gym>></p>
+      </div>
 
       {% else %}
 
-      <div onclick="redirectToChecking()" style="background: linear-gradient(135deg, #6e8efb, #a777e3)" class = "shadow-lg hidden animate-bounce duration-1000 p-4 max-md:p-2 max-md:px-3 rounded-[60px] md:w-50 md:h-50 fixed bottom-64 right-8 z-50 cursor-pointer " id="start_gym">
-    <p class="text-white "> </p>
+      <div
+        onclick="redirectToChecking()"
+        style="background: linear-gradient(135deg, #6e8efb, #a777e3)"
+        class="shadow-lg hidden animate-bounce duration-1000 p-4 max-md:p-2 max-md:px-3 rounded-[60px] md:w-50 md:h-50 fixed bottom-64 right-8 z-50 cursor-pointer"
+        id="start_gym"
+      >
+        <p class="text-white"></p>
       </div>
 
       {% endif %}
 
+      <header
+        class="flex flex-row w-full items-center justify-between padding-x mt-12 -z-30"
+      >
+        <div>
+          <img
+            loading="lazy"
+            class="h-12 w-auto"
+            src="../../static/assets/logo/logo.svg"
+            alt=""
+          />
+        </div>
+        <div class="group cursor-pointer">
+          <div
+            id="profile"
+            class="rounded-full cursor-pointer w-12 h-12 bg-gray-400 flex items-center justify-center text-white font-poppins relative overflow-hidden"
+          >
+            {% if profile_photo %}
+            <div
+              class="absolute inset-0 flex justify-center items-center w-full h-full"
+            >
+              <img
+                loading="lazy"
+                class="object-cover object-center w-full h-full"
+                src="{{profile_photo}}"
+                alt=""
+              />
+            </div>
 
-
-  <header class="flex flex-row w-full items-center justify-between padding-x mt-12 max-sm:mt-24 top-[53%] -z-30 ">
-      <div>
-        <img loading="lazy" class="h-12 w-auto" src="../../static/assets/logo/logo.svg" alt="">
-      </div>
-     <div class="group cursor-pointer">
-      <div id="profile" class="rounded-full cursor-pointer w-12 h-12 bg-gray-400 flex items-center justify-center text-white font-poppins relative overflow-hidden">
-        {% if profile_photo %}  
-          <div class="absolute inset-0 flex justify-center items-center w-full h-full">
-            <img loading="lazy" class="object-cover object-center w-full h-full"  src="{{profile_photo}}" alt="">
-
+            {%else%}
+            <p>{{ full_name|slice:":1" }}</p>
+            {%endif%}
           </div>
-       
-      {%else%}
-        <p>{{ full_name|slice:":1"  }}</p>
-      {%endif%}
-    </div>
 
+          <div
+            class="absolute shadow-lg hidden group-hover:flex duration-1000 transition-all top-30 flex-col justify-center items-center p-8 max-md:p-4 space-y-8 rounded-lg right-0 z-[1000]"
+          >
+            <div class="flex flex-row justify-center items-center space-x-2">
+              <img
+                loading="lazy"
+                width="20"
+                height="20"
+                src="../../static/assets/logo/logout.png"
+                alt=""
+              />
+              <a
+                href="{% url 'logout' %}"
+                class="font-lato text-xl text-blue-400 hover:text-blue-300"
+              >
+                Logout
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
 
-              <div class="absolute shadow-lg hidden group-hover:flex duration-1000 transition-all  top-30  flex-col justify-center items-center p-8 space-y-8 rounded-lg right-0 z-[1000] ">
+      <section
+        id="home"
+        class="max-container padding-x w-full flex items-center justify-center mt-10 text-2xl"
+      >
+        <div
+          class="shadow-blue-200 shadow-md rounded-md p-10 max-md:w-full text-center"
+        >
+          <p class="font-montserrat max-sm:text-2xl">
+            Welcome back,
+            <span class="text-blue-500 font-bold max-md:block max-sm:text-2xl"
+              >{{full_name}}</span
+            >
+          </p>
+        </div>
+      </section>
 
-                <div class="flex flex-row justify-center items-center space-x-2">
-                  <img loading="lazy" width="20" height="20" src="../../static/assets/logo/profile.png" alt="">
-                  <a href="{% url 'profilepage' %}" class="font-lato text-xl text-blue-400 hover:text-blue-300">
-                    Profile
-                  </a>
-              </div>
-              <div class="flex flex-row justify-center items-center space-x-2">
-                  <img loading="lazy" width="20" height="20" src="../../static/assets/logo/logout.png" alt="">
-                  <a href="{% url 'logout' %}" class="font-lato text-xl text-blue-400 hover:text-blue-300">
-                    Logout
-                  </a>
-              </div>
+      <section class="max-container padding-x w-full mt-32">
+        <div
+          class="grid grid-cols-2 max-custom:grid-cols-1 gap-7 place-items-center"
+        >
+          <div
+            class="shadow-lg shadow-slate-gray group p-6 py-10 bg-gray-800 text-white rounded-md max-w-md w-full h-[17rem] text-xl leading-normal hover:scale-105 cursor-pointer hover:duration-700 duration-700"
+          >
+            <h2
+              class="text-center font-montserrat text-2xl mb-4 group-hover:text-blue-300 text-blue-500 font-bold"
+            >
+              Package
+            </h2>
+            <p class="font-lato">{{gym_house_name}}</p>
+            <br />
+            <p class="font-poppins">
+              Your membership level is
+              <span class="font-bold text-green-400">{{plan_name}}.</span>
+              <span class="inline"
+                ><br /><span class="text-blue-400">Price: </span>{{price}}
+                birr</span
+              >
+              for <span class="text-green-400">{{package_length}}</span> period
+            </p>
+          </div>
 
-              </div>
+          <div
+            class="shadow-lg shadow-slate-gray group p-6 py-10 bg-gray-800 text-white rounded-md max-w-md w-full h-[17rem] text-xl leading-normal hover:scale-105 cursor-pointer hover:duration-700 duration-700"
+          >
+            <h2
+              class="text-center font-montserrat text-2xl mb-4 group-hover:text-blue-300 text-blue-500 font-bold"
+            >
+              Date
+            </h2>
 
+            <p class="font-poppins">
+              Registration <span class="">Date:</span>
+              <span class="block"
+                ><span class="font-bold text-green-400 ml-2"
+                  >{{registeredDate}} -- {% if days_of_registration == 1 %}
+                  {{days_of_registration}} day ago {% else %}
+                  {{days_of_registration}} days ago {%endif%}</span
+                >
+              </span>
+            </p>
 
-      </div>
+            <p class="font-poppins">
+              Next payment date:
+              <span class="block font-semibold ml-2 text-green-400"
+                >{{next_payment_date}} G.C</span
+              >
+            </p>
+          </div>
 
-     
+          <div
+            class="shadow-lg shadow-slate-gray group p-6 py-10 bg-gray-800 text-white rounded-md max-w-md w-full h-[17rem] text-xl leading-normal hover:scale-105 cursor-pointer hover:duration-700 duration-700"
+          >
+            <h2
+              class="text-center font-montserrat text-2xl mb-4 group-hover:text-blue-300 text-blue-500 font-bold"
+            >
+              Nurtition Tips
+            </h2>
 
-  </header>
+            <p class="font-poppins">
+              Start your day with
+              <span class="text-green-400"> high-protein </span>abreakfast to
+              boost energy and keep cravings away. Drink water throughout the
+              day!
+            </p>
+          </div>
+          <div
+            class="shadow-lg shadow-slate-gray group p-6 py-10 bg-gray-800 text-white rounded-md max-w-md w-full h-[17rem] text-xl leading-normal hover:scale-105 cursor-pointer hover:duration-700 duration-700"
+          >
+            <h2
+              class="text-center font-montserrat text-2xl mb-4 group-hover:text-blue-300 text-blue-500 font-bold"
+            >
+              Workouts to try
+            </h2>
 
-  <section id="home" class="max-container padding-x w-full flex items-center justify-center mt-10 text-2xl">
+            <p class="font-poppins">
+              Full body workout<span class="text-green-400">
+                <a
+                  href="https://youtu.be/npofZutKsfA?si=EB-5Ity2e9h9OTkd"
+                  target="_blank"
+                  >click here.</a
+                ></span
+              >
+            </p>
+            <p class="font-poppins">
+              Upper body workout
+              <span class="text-green-400">
+                <a
+                  href="https://youtu.be/3IQVNjWH60A?si=3iDiXKjNSEs2pi8r"
+                  target="_blank"
+                >
+                  click here</a
+                ></span
+              >
+            </p>
+            <p class="font-poppins">
+              Lower body workout
+              <span class="text-green-400"
+                ><a
+                  href="https://youtu.be/8zWDuWKdBZU?si=EgYD0oHx866_bvbb"
+                  target="_blank"
+                  >click here</a
+                ></span
+              >
+            </p>
+          </div>
+        </div>
+      </section>
 
-     <div class="shadow-blue-200 shadow-md rounded-md p-10 max-md:w-full text-center">
-      <p class="font-montserrat max-sm:text-2xl">Welcome back, <span class="text-blue-500 font-bold max-md:block max-sm:text-2xl">{{full_name}}</span></p>
-     </div>   
-  </section>
+      <section class="p-10 max-sm:p-1 max-container w-full bg-gray-300 mt-32">
+        <h1
+          class="text-center text-4xl max-md:text-3xl max-sm:text-2xl text-green-500 font-montserrat opacity-80"
+        >
+          Quote of the day
+        </h1>
+        <p
+          class="text-center text-2xl max-md:text-xl max-sm:text-sm text-white mt-8 font-lato"
+        >
+          “Sore? Tired? Out of breath? Good… it’s working!”
+        </p>
+      </section>
 
-  <section class="max-container padding-x w-full mt-32">
+      <section class="padding-x max-container w-full mt-32 max-sm:mt-16 -z-30">
+        <div class="flex justify-center flex-col space-y-8">
+          <h1 class="text-3xl font-montserrat font-bold">Contact Support</h1>
+          <p class="text-xl text-slate-gray">You can contact us using:</p>
+          <p class="text-2xl font-poppins">
+            Phone Number:
+            <span class="text-green-500">{{ gym_house_phone }}</span>
+          </p>
+          <p class="text-2xl font-poppins">
+            Email: <span class="text-green-500">{{ gym_house_email }}</span>
+          </p>
+        </div>
+      </section>
 
-  <div class="grid grid-cols-2  max-custom:grid-cols-1 gap-7 place-items-center">
+      <footer
+        class="mt-12 rounded-sm max-md:mb-[0vh] bg-black w-full max-container padding-x pt-6 pb-24 z-40"
+      >
+        <div
+          class="text-white font-montserrat flex flex-row justify-between text-xl mb-8"
+        >
+          <h1>Gymnify</h1>
+          <a href="#home">Home</a>
+        </div>
+        <p
+          class="font-poppins text-xl max-sm:text-sm text-slate-gray text-center"
+        >
+          Copyright@2024. All right reserved. Gymnify
+        </p>
+      </footer>
+    </main>
 
-    <div class="shadow-lg shadow-slate-gray group p-6 py-10 bg-gray-800 text-white rounded-md max-w-md w-full h-[17rem]  text-xl leading-normal  hover:scale-105 cursor-pointer hover:duration-700 duration-700 ">
-      <h2 class="text-center font-montserrat text-2xl mb-4 group-hover:text-blue-300  text-blue-500 font-bold">Package</h2>
-       <p class="font-lato">{{gym_house_name}}</p>
-       <br>
-      <p class="font-poppins">Your membership level is <span class="font-bold  text-green-400">{{plan_name}}.</span> <span class="inline"><br><span class="text-blue-400">Price: </span>{{price}} birr</span> for <span class="text-green-400">{{package_length}}</span> period</p>
-    </div>
+    <script src="../../static/js/message-continer.js"></script>
+    <script src="../../static/js/home.js"></script>
+    <script>
+      const startGym = "{{ start_gym|escapejs }}";
+      const exerciseBtn = document.getElementById("exerciseButton");
+      const nutritionBtn = document.getElementById("nutritionBtn");
+      const reportBtn = document.getElementById("reportBtn");
 
-    <div class="shadow-lg shadow-slate-gray group p-6 py-10 bg-gray-800 text-white rounded-md max-w-md w-full h-[17rem] text-xl leading-normal  hover:scale-105 cursor-pointer hover:duration-700 duration-700">
-      <h2 class="text-center font-montserrat text-2xl mb-4 group-hover:text-blue-300 text-blue-500 font-bold">Date</h2>
+      if (startGym == "False") {
+        const bottomButtons = [exerciseBtn, nutritionBtn, reportBtn];
+        bottomButtons.forEach((button) => {
+          button.disabled = true;
+          console.log(button);
 
-      <p class="font-poppins">Registration <span class="">Date:</span> <span class="block"><span class="font-bold text-green-400 ml-2">{{registeredDate}} -- {% if days_of_registration == 1 %} {{days_of_registration}} day ago {% else %} {{days_of_registration}} days ago {%endif%}</span></p>
+          button.classList.add("cursor-not-allowed", "opacity-50");
 
-      <p class="font-poppins">Next payment date: <span class="block font-semibold ml-2 text-green-400">{{next_payment_date}} G.C</span></p>
-    </div>
-
-    <div class="shadow-lg shadow-slate-gray group p-6 py-10 bg-gray-800 text-white rounded-md max-w-md w-full h-[17rem] text-xl leading-normal  hover:scale-105 cursor-pointer hover:duration-700 duration-700">
-      <h2 class="text-center font-montserrat text-2xl mb-4 group-hover:text-blue-300 text-blue-500 font-bold">Nurtition Tips</h2>
-
-      <p class="font-poppins">Start your day with  <span class="text-green-400"> high-protein </span>abreakfast to boost energy and keep cravings away. Drink water throughout the day!</p>
-    </div>
-    <div class="shadow-lg shadow-slate-gray group p-6 py-10 bg-gray-800 text-white rounded-md max-w-md w-full h-[17rem] text-xl leading-normal  hover:scale-105 cursor-pointer hover:duration-700 duration-700">
-      <h2 class="text-center font-montserrat text-2xl mb-4 group-hover:text-blue-300 text-blue-500 font-bold">Workouts to try</h2>
-
-      <p class="font-poppins">Full body workout<span class="text-green-400"> <a href="https://youtu.be/npofZutKsfA?si=EB-5Ity2e9h9OTkd" target="_blank">click here.</a></p>
-      <p class="font-poppins">Upper body workout <span class="text-green-400"> <a href="https://youtu.be/3IQVNjWH60A?si=3iDiXKjNSEs2pi8r" target="_blank"> click here</a></p>
-      <p class="font-poppins">Lower body workout <span class="text-green-400"><a href="https://youtu.be/8zWDuWKdBZU?si=EgYD0oHx866_bvbb" target="_blank">click here</a></p>
-    </div>
-
-   </div>
-  </section>
-
-
-  <section class="p-10 max-sm:p-1 max-container w-full bg-gray-300 mt-32">
-
- <h1 class="text-center text-4xl max-md:text-3xl max-sm:text-2xl text-green-500 font-montserrat opacity-80 ">Quote of the day</h1>
- <p class="text-center text-2xl max-md:text-xl max-sm:text-sm text-white mt-8 font-lato">“Sore? Tired? Out of breath? Good… it’s working!”</p>
-
-  </section>
-
-  <section class="padding-x max-container w-full mt-32 max-sm:mt-16 -z-30">
-  <div class="flex justify-center flex-col space-y-8 ">
-    <h1 class="text-3xl font-montserrat font-bold">Contact Support</h1>
-    <p class="text-xl text-slate-gray ">You can contact us using: </p>
-    <p class="text-2xl font-poppins">Phone Number: <span class="text-green-500">{{ gym_house_phone }}</span></p>
-    <p class="text-2xl font-poppins">Email: <span class="text-green-500">{{ gym_house_email }}</span></p>
-
-  </div>
-  </section>
-
-  <footer class="mt-12 rounded-sm max-md:mb-[0vh] bg-black w-full max-container padding-x py-6 z-40">
-    <div class="text-white font-montserrat flex flex-row justify-between text-xl mb-8">
-      <h1>Gymnify</h1>
-      <a href="#home">Home</a>
-    </div>
-      <p class="font-poppins text-xl max-sm:text-sm text-slate-gray text-center">Copyright@2024. All right reserved. Gymnify</p>
-  </footer>
-  
-</main>
-  
-  <script src="../../static/js/message-continer.js"></script>
-  <script src="../../static/js/home.js"></script>
-  <script>
-  const startGym = "{{ start_gym|escapejs }}"
-  const exerciseBtn = document.getElementById('exerciseButton')
-  const nutritionBtn = document.getElementById('nutritionBtn')
-  const reportBtn = document.getElementById ('reportBtn')
-
-   if (startGym == 'False') {
-        const bottomButtons = [exerciseBtn, nutritionBtn, reportBtn]
-        bottomButtons.forEach(button => {
-          button.disabled = true
-          console.log(button)
-
-          button.classList.add('cursor-not-allowed', 'opacity-50')
-
-          button.addEventListener('click', (e) => {
+          button.addEventListener("click", (e) => {
             e.preventDefault();
-            alert('Please click the Start Gym button first to get exercise suggestions, nutrition suggestions, and reports')
-          })
+            alert(
+              "Please click the Start Gym button first to get exercise suggestions, nutrition suggestions, and reports",
+            );
+          });
+        });
+      } else if (startGym == "True") {
+        exerciseBtn.addEventListener("click", function () {
+          const gymnify_user_email = "{{ profile_data.email|escapejs }}";
+          const password = "{{ profile_data.user.password|escapejs }}";
+          console.log("This is the user email");
+          console.log(gymnify_user_email);
+          console.log("This is the password of the user");
+          console.log(password);
 
-          
-        })
-        
-      
-      
-    }
+          if (gymnify_user_email) {
+            localStorage.setItem("user_email", gymnify_user_email);
+            console.log("User email saved:", gymnify_user_email);
+            window.location.href = `https://gymnify-users.onrender.com/Exercise_Review/`;
+          }
+        });
 
-    
+        nutritionBtn.addEventListener("click", function () {
+          const gymnify_user_email = "{{ profile_data.email|escapejs }}";
+          const password = "{{ profile_data.user.password|escapejs }}";
+          console.log("This is the user email");
+          console.log(gymnify_user_email);
+          console.log("This is the password of the user");
+          console.log(password);
 
-  else if (startGym == 'True') {
+          if (gymnify_user_email) {
+            localStorage.setItem("user_email", gymnify_user_email);
+            console.log("User email saved:", gymnify_user_email);
+            window.location.href = `https://gymnify-users.onrender.com/nutration/?email=${encodeURIComponent(gymnify_user_email)}`;
+          }
+        });
 
-    exerciseBtn.addEventListener('click', function () {
-    const gymnify_user_email = "{{ profile_data.email|escapejs }}";
-    const password = "{{ profile_data.user.password|escapejs }}"
-    console.log('This is the user email');
-    console.log(gymnify_user_email);
-    console.log('This is the password of the user')
-    console.log(password)
+        reportBtn.addEventListener("click", function () {
+          const gymnify_user_email = "{{ profile_data.email|escapejs }}";
+          const password = "{{ profile_data.user.password|escapejs }}";
+          console.log("This is the user email");
+          console.log(gymnify_user_email);
+          console.log("This is the password of the user");
+          console.log(password);
 
-    if (gymnify_user_email) {
-      localStorage.setItem('user_email', gymnify_user_email);
-      console.log('User email saved:', gymnify_user_email);
-      window.location.href = `https://gymnify-users.onrender.com/Exercise_Review/`;
+          if (gymnify_user_email) {
+            localStorage.setItem("user_email", gymnify_user_email);
+            console.log("User email saved:", gymnify_user_email);
+            window.location.href = `https://gymnify-users.onrender.com/report/?email=${encodeURIComponent(gymnify_user_email)}`;
+          }
+        });
+      }
 
-    }
-  })
-
-    nutritionBtn.addEventListener('click', function () {
-    const gymnify_user_email = "{{ profile_data.email|escapejs }}";
-    const password = "{{ profile_data.user.password|escapejs }}"
-    console.log('This is the user email');
-    console.log(gymnify_user_email);
-    console.log('This is the password of the user')
-    console.log(password)
-
-    if (gymnify_user_email) {
-      localStorage.setItem('user_email', gymnify_user_email);
-      console.log('User email saved:', gymnify_user_email);
-      window.location.href = `https://gymnify-users.onrender.com/nutration/?email=${encodeURIComponent(gymnify_user_email)}`;
-
-    }
-
-  })
-
-
-    reportBtn.addEventListener('click', function () {
-    const gymnify_user_email = "{{ profile_data.email|escapejs }}";
-    const password = "{{ profile_data.user.password|escapejs }}"
-    console.log('This is the user email');
-    console.log(gymnify_user_email);
-    console.log('This is the password of the user')
-    console.log(password)
-
-    if (gymnify_user_email) {
-      localStorage.setItem('user_email', gymnify_user_email);
-      console.log('User email saved:', gymnify_user_email);
-      window.location.href = `https://gymnify-users.onrender.com/report/?email=${encodeURIComponent(gymnify_user_email)}`;
-
-    }
-
-  
-  })
-    
-  }
-
-
-  function redirectToChecking() {
-    window.location = '/checking_profile'
-  }
-  
-</script>
-
-
-</body>
+      function redirectToChecking() {
+        window.location = "/checking_profile";
+      }
+    </script>
+  </body>
 </html>

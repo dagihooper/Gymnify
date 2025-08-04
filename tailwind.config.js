@@ -2,13 +2,13 @@
 
 module.exports = {
   content: [
-  'userMember/templates/**/*.html',
-  'userAdmin/templates/**/*.html',
-  'vote/templates/**/*.js',
-  'validation/templates/**/*.html',
-  'homePage/templates/**/*.html',
-  'validation/templates/**/*.js',
-  'exercises/templates/**/*.html',
+  './userMember/templates/**/*.html',
+  './userAdmin/templates/**/*.html',
+  './vote/templates/**/*.js',
+  './validation/templates/**/*.html',
+  './homePage/templates/**/*.html',
+  './validation/templates/**/*.js',
+  './exercises/templates/**/*.html',
 
 
 ],
@@ -44,8 +44,8 @@ module.exports = {
         "blue-violet":"#5932EA",
         "light-gray": "#8A8888",
         "soft-teal": "#5ED4B8",
-        "stroke": "00B087",
-        "active-text" : "008767"
+        "stroke": "#00B087",
+        "active-text" : "#008767"
       },
       boxShadow: {
         '3xl': '0 10px 40px rgba(0, 0, 0, 0.1)'

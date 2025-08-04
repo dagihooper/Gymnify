@@ -32,7 +32,7 @@
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-md:mb-[20rem] p-10">
-    {% if has_any_plan %}
+{% if has_any_plan %}
    {% for plan_name, plan_details in  member_ship.items %}
    {% if plan_details.1 %}
 
@@ -63,13 +63,16 @@
 
 
     {% endfor %}
-    {% else %}
+
+
+{% else %}
       <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-400 text-center">
         <h2 class="text-xl text-gray-400">There is no plan for this Gym</h2>
         <p class="text-2xl font-bold text-gray-800 mt-4">-- Birr<span class="text-lg text-gray-600">/month</span></p>
       </div>
     {% endif %}
-  </div>
+    </div>
+    </div>
 
 <div id="pricing_plan_data" data-plans='{{ member_ship|escapejs }}'></div>
 
@@ -78,6 +81,7 @@
 <script>
   const rawData = document.getElementById('pricing_plan_data').dataset.plans;
   pricingPlanData = rawData.replace(/\\u0027/g, `"`);
+  pricingPlanData = pricingPlanData.replace(/ObjectId\("([^"]+)"\)/g, '"$1"');
 
   document.querySelectorAll('select').forEach(selectElement => {
       selectElement.addEventListener('change', function() {
@@ -134,5 +138,3 @@
   });
 </script>
 
-</body>
-</html>

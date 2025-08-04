@@ -1,74 +1,128 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gymnify</title>
-    <link rel="icon" href="../../static/assets/logo/logo_white.svg" type="image/png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gymnify</title>
+    <link
+      rel="icon"
+      href="../../static/assets/logo/logo_white.svg"
+      type="image/png"
+    />
 
-  <link rel="stylesheet" href="../../static/css/output.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../../static/css/output.css" />
+  </head>
+  <body>
+    {% if messages %}
 
-  {% if messages %}
-
-  <div id="message-container" class="absolute font-lato  text-white  max-w-[80%] w-[21rem] max-md:min-w-[80%] top-4 left-8 mt-8 z-[100]">
+    <div
+      id="message-container"
+      class="absolute font-lato text-white max-w-[80%] w-[21rem] max-md:min-w-[80%] top-4 left-8 mt-8 z-[100]"
+    >
       {% for message in messages %}
-      <div class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} px-6 py-5 rounded-md flex flex-row justify-center items-center gap-4 mb-8">
-          <p class="w-full">{{ message }}</p>
-          <button class="top-1 right-2 text-white" onclick="this.parentElement.remove();">✖</button>
-  
+      <div
+        class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} px-6 py-5 rounded-md flex flex-row justify-center items-center gap-4 mb-8"
+      >
+        <p class="w-full">{{ message }}</p>
+        <button
+          class="top-1 right-2 text-white"
+          onclick="this.parentElement.remove();"
+        >
+          ✖
+        </button>
       </div>
       {% endfor %}
-  </div>
-  {% endif %}
-
-
-<main class="w-full sm:w-[500px] overflow-y-auto shadow-lg max-h-full fixed left-1/2 top-1/2 z-40  translate-x-[-50%] translate-y-[-50%] ">
-  
-  <form method="POST" action="/login" >
-    
-
-    {% csrf_token %} 
-    
-
-    <div class="flex flex-col border rounded-md py-8 jutify-center items-center ">
-      <h2 class="text-2xl font-montserrat text-black mb-6">Sign in to Gymnify</h2>
-
-      <div class="flex flex-row  space-x-6 bg-[EDEDED] font-poppins p-5 rounded-xl max-w-sm mt-8 cursor-pointer bg-gray-300 min-w-[300px]">
-        <img width="20" height="50" src="../../static/assets/logo/goggle.svg" alt="">
-        {% load socialaccount %} 
-       <a href="{% provider_login_url 'google' %}?next=/home">Sign in with Google</a>
-
-       </div>
-
-      <div class="text-gray-400 mb-4 mt-4 text-xl">or</div>
-
-      <div class="mb-4 min-w-[300px] text-start">
-        <label for="username" class="block text-gray-700 text-md font-medium mb-1">Username or Phone number <span class="text-slate-gray text-[12px] italic">(E.g. 09********)</span></label>
-        <input type="text" name="userphone" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500 placeholder:text-sm" required placeholder="phone number or username">
     </div>
-    
-    <div class="mb-4 text-start min-w-[300px]">
-        <label for="password" class="block text-gray-700 text-md font-medium mb-1">Password</label>
-        <input type="password" name="password" class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500 placeholder:text-sm" required placeholder="Enter your password">
-    </div>
+    {% endif %}
 
-    <button id="submitBtn" type="submit" class="p-4 bg-blue-500  rounded-xl hover:bg-green-500 duration-700 hover:duration-700 font-poppins min-w-[300px] hover:text-white">Login</button>
+    <main
+      class="w-full sm:w-[500px] overflow-y-auto shadow-lg max-h-full fixed left-1/2 top-1/2 z-40 translate-x-[-50%] translate-y-[-50%]"
+    >
+      <form method="POST" action="/login">
+        {% csrf_token %}
 
-      <a href="/forget_password" class="block mt-4 text-blue-400 hover:text-blue-500 font-lato">Forgot password?</a>
+        <div
+          class="flex flex-col border rounded-md py-8 jutify-center items-center"
+        >
+          <h2 class="text-2xl font-montserrat text-black mb-6">
+            Sign in to Gymnify
+          </h2>
 
-      <p class="text-gray-600 font-poppins mt-4">
-        If you don't have an account, <a href="{% url 'register' %}" class="text-blue-500 font-medium">Signup</a>
-      </p>
-    </div>
-  </div>
-</form>
+          <div
+            class="flex flex-row space-x-6 bg-[EDEDED] font-poppins p-5 rounded-xl max-w-sm mt-8 cursor-pointer bg-gray-300 min-w-[300px]"
+          >
+            <img
+              width="20"
+              height="50"
+              src="../../static/assets/logo/goggle.svg"
+              alt=""
+            />
+            {% load socialaccount %}
+            <a href="{% provider_login_url 'google' %}?next=/home"
+              >Sign in with Google</a
+            >
+          </div>
 
-  <script src="../../static/js/message-continer.js"></script>
-    <script src="../../static/js/submitting.js"></script>
+          <div class="text-gray-400 mb-4 mt-4 text-xl">or</div>
 
+          <div class="mb-4 min-w-[300px] text-start">
+            <label
+              for="username"
+              class="block text-gray-700 text-md font-medium mb-1"
+              >Username or Phone number
+              <span class="text-slate-gray text-[12px] italic"
+                >(E.g. 09********)</span
+              ></label
+            >
+            <input
+              type="text"
+              name="userphone"
+              class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500 placeholder:text-sm"
+              required
+              placeholder="phone number or username"
+            />
+          </div>
 
-</main>
-</body>
+          <div class="mb-4 text-start min-w-[300px]">
+            <label
+              for="password"
+              class="block text-gray-700 text-md font-medium mb-1"
+              >Password</label
+            >
+            <input
+              type="password"
+              name="password"
+              class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500 placeholder:text-sm"
+              required
+              placeholder="Enter your password"
+            />
+          </div>
+
+          <button
+            id="submitBtn"
+            type="submit"
+            class="p-4 bg-blue-500 rounded-xl hover:bg-green-500 duration-700 hover:duration-700 font-poppins min-w-[300px] hover:text-white"
+          >
+            Login
+          </button>
+
+          <a
+            href="/forget_password"
+            class="block mt-4 text-blue-400 hover:text-blue-500 font-lato"
+            >Forgot password?</a
+          >
+
+          <p class="text-gray-600 font-poppins mt-4">
+            If you don't have an account,
+            <a href="{% url 'register' %}" class="text-blue-500 font-medium"
+              >Signup</a
+            >
+          </p>
+        </div>
+      </form>
+
+      <script src="../../static/js/message-continer.js"></script>
+      <script src="../../static/js/submitting.js"></script>
+    </main>
+  </body>
 </html>

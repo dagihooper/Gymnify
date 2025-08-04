@@ -14,7 +14,7 @@ from dateutil.relativedelta import relativedelta
 from django.db.models import Q
 
 
-@login_required
+@login_required(login_url='login')
 
 def home_page(request):
   gymers_collection = get_gymers_collection()
@@ -93,7 +93,7 @@ def home_page(request):
           
                   
         else: 
-          messages.error(request, f"You haven't purchased a membership package from {gym_house_name} yet. Please select a price plan to continue")
+          messages.error(request, f"Please choose a membership plan to continue.")
           plan_name, package_length, price, next_payment_date, days_left = '', '', '', '', ''
           return redirect('pricingplan')
         
@@ -297,9 +297,13 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def profilePage(request):
-    
-  userGoggle = request.user.email
   user = request.user
+
+  if not user or request.user.is_anonymous: 
+    messages.error(request, f'Please login first to access the profile page')
+    return redirect('login')
+
+  userGoggle = request.user.email
   gymers_collection = get_gymers_collection()
 
   if user or userGoggle:
@@ -353,59 +357,26 @@ def profilePage(request):
                   print(upload_result["secure_url"])
                   profile.save()
 
-                  #handling the insertion of profile photo to mongodb
-
-                  # photo_encoded_string = base64.b64encode(profile.profile_photo.read()).decode('utf-8')
-                  # print('inserting')
-                  # gymers_collection.update_one (
-                  #    {"users.userName" : profile.user.username },
-                  #    {"$set": {"users.$.profilePhoto": photo_encoded_string} }
-                  # )
-
-                 
-
-
                   redirect('profilepage')
                   
             if request.method == 'POST' and not request.FILES.get('profile_photo'):
-              
+                  
+                form_type = request.POST.get('form_type')
+                if form_type == 'basic_information':
+
                   email = request.POST.get('email')
                   age = request.POST.get('age')
                   weight = request.POST.get('weight')
                   height = request.POST.get('height')
                   gender = request.POST.get('gender', 'M')
-                  exercise_day = request.POST.get('exercise_day')
-                  health_status = request.POST.get('health_status')
-                  exercise_type = request.POST.get('exercise_type')
-                  blood_type = request.POST.get('blood_type')
-                  exercise_time_per_day = request.POST.get('exercise_time_per_day')
-                  fitness_goal= request.POST.get('fitness_goal')
-                  notificationTime = request.POST.get('notificationTime')
-                  enteringTime = request.POST.get('enteringTime')
-                  totalTimeSpendOnGym = request.POST.get('totalTimeSpendOnGym')
-                  activityLevel = request.POST.get('activityLevel')
-                  
-                  profile = UserProfile.objects.filter(Q(user=user) | Q(email = userGoggle)).first()
-                  
+
                   profile.email = email
                   profile.age = age
                   profile.weight = weight
                   profile.height = height
                   profile.gender = gender
-                  profile.exercise_day = exercise_day
-                  profile.health_status = health_status
-                  profile.exercise_type = exercise_type
-                  profile.blood_type = blood_type
-                  profile.fitness_goal = fitness_goal
-                  profile.exercise_time_per_day = exercise_time_per_day
-                  profile.notificationTime = notificationTime
-                  profile.enteringTime = enteringTime
-                  profile.totalTimeSpendOnGym = totalTimeSpendOnGym
-                  profile.activityLevel = activityLevel
                   profile.save()
-                  
-                  #mongoDB insertion using $set 
-                  
+
                   gymers_collection.update_one(
                   {'users.userName': username},
                   {
@@ -416,23 +387,69 @@ def profilePage(request):
                       "users.$.weight": weight,
                       "users.$.height": height,
                       "users.$.sex": gender,
+                    }
+                  }
+                )
+
+                
+                elif form_type == 'health_information':
+
+                  activityLevel = request.POST.get('activityLevel')
+                  health_status = request.POST.get('health_status')
+                  blood_type = request.POST.get('blood_type')
+                  fitness_goal= request.POST.get('fitness_goal')
+
+                  profile.health_status = health_status
+                  profile.blood_type = blood_type
+                  profile.fitness_goal = fitness_goal
+                  profile.activityLevel = activityLevel
+                  profile.save()
+
+
+                  gymers_collection.update_one(
+                  {'users.userName': username},
+                  {
+                    '$set':  {
+                      
+                    "users.$.healthStatus": health_status,
+                    "users.$.fitnessGoal": fitness_goal,
+                    "users.$.bloodType": blood_type,
+                    "users.$.activityLevel": activityLevel,
+                  
+                    }
+                  }
+                )
+
+                elif form_type == 'activity_information':
+
+                  exercise_time_per_day = request.POST.get('exercise_time_per_day')
+                  enteringTime = request.POST.get('enteringTime')
+                  totalTimeSpendOnGym = request.POST.get('totalTimeSpendOnGym')
+                  exercise_day = request.POST.get('exercise_day')
+                  exercise_type = request.POST.get('exercise_type')
+
+                  profile.exercise_type = exercise_type
+                  profile.exercise_time_per_day = exercise_time_per_day
+                  profile.enteringTime = enteringTime
+                  profile.totalTimeSpendOnGym = totalTimeSpendOnGym
+                  
+                  profile.save()
+
+                  gymers_collection.update_one(
+                  {'users.userName': username},
+                  {
+                    '$set':  {
                       "users.$.exerciseTimePerDay": exercise_time_per_day,
-                      "users.$.healthStatus": health_status,
-                      "users.$.fitnessGoal": fitness_goal,
-                      "users.$.bloodType": blood_type,
                       "users.$.exerciseType": exercise_type,
-                      "users.$.notificationTime": notificationTime,
                       "users.$.enteringTime": enteringTime,
                       "users.$.totalTimeSpendOnGym": totalTimeSpendOnGym,
-                      "users.$.activityLevel": activityLevel,
+                      
                       # "users.$.profilePhoto": photo_encoded_string
                     }
                   }
                 )
 
-  if not user or request.user.is_anonymous: 
-   messages.error(request, f'Please login first to access the profile page')
-   return redirect('login')
+ 
  
   context = {
     'username': username,
@@ -570,7 +587,7 @@ def checkingProfile(request):
 
     if not age or not height or not weight or not email:
         print("❌ Age missing in Django profile.")
-        messages.error(request, 'Please fill the profile first')
+        messages.error(request, 'Please fill the basic profile atleast')
         return redirect('profilepage')  # optional
 
     # Use $elemMatch and projection to get only the matched user

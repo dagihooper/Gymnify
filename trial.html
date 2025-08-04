@@ -1,108 +1,179 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Insert Exercise Data</title>
-  <link rel="stylesheet" href="static/css/output.css">
-</head> 
-<body class="bg-gray-100 p-6">
-  <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
-    <h1 class="text-2xl font-bold mb-6 text-center text-blue-600">Add New Exercise</h1>
-    <form method="POST" action="/insert-exercise" class="space-y-6">
-      <!-- CATEGORY -->
-      <div>
-        <label class="block text-gray-700">Category (e.g., chest, back)</label>
-        <input name="category" class="w-full mt-1 p-2 border border-gray-300 rounded" required>
-      </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Insert Exercise Data</title>
+    <link rel="stylesheet" href="static/css/output.css" />
+  </head>
+  <body class="bg-gray-100 p-6">
+    <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
+      <h1 class="text-2xl font-bold mb-6 text-center text-blue-600">
+        Add New Exercise
+      </h1>
+      <form method="POST" action="/insert-exercise" class="space-y-6">
+        <!-- CATEGORY -->
+        <div>
+          <label class="block text-gray-700"
+            >Category (e.g., chest, back)</label
+          >
+          <input
+            name="category"
+            class="w-full mt-1 p-2 border border-gray-300 rounded"
+            required
+          />
+        </div>
 
-      <!-- NAME -->
-      <div>
-        <label class="block text-gray-700">Exercise Name</label>
-        <input name="name" class="w-full mt-1 p-2 border border-gray-300 rounded" required>
-      </div>
+        <!-- NAME -->
+        <div>
+          <label class="block text-gray-700">Exercise Name</label>
+          <input
+            name="name"
+            class="w-full mt-1 p-2 border border-gray-300 rounded"
+            required
+          />
+        </div>
 
-      <!-- CALORIES -->
-      <div>
-        <label class="block text-gray-700">Calories Per Rep</label>
-        <input name="caloriesPerRep" type="number" step="0.1" class="w-full mt-1 p-2 border border-gray-300 rounded" required>
-      </div>
+        <!-- CALORIES -->
+        <div>
+          <label class="block text-gray-700">Calories Per Rep</label>
+          <input
+            name="caloriesPerRep"
+            type="number"
+            step="0.1"
+            class="w-full mt-1 p-2 border border-gray-300 rounded"
+            required
+          />
+        </div>
 
-      <!-- IMAGE -->
-      <div>
-        <label class="block text-gray-700">Image Path</label>
-        <input name="image" class="w-full mt-1 p-2 border border-gray-300 rounded">
-      </div>
+        <!-- IMAGE -->
+        <div>
+          <label class="block text-gray-700">Image Path</label>
+          <input
+            name="image"
+            class="w-full mt-1 p-2 border border-gray-300 rounded"
+          />
+        </div>
 
-      <!-- VIDEO -->
-      <div>
-        <label class="block text-gray-700">Video Path</label>
-        <input name="video" class="w-full mt-1 p-2 border border-gray-300 rounded">
-      </div>
+        <!-- VIDEO -->
+        <div>
+          <label class="block text-gray-700">Video Path</label>
+          <input
+            name="video"
+            class="w-full mt-1 p-2 border border-gray-300 rounded"
+          />
+        </div>
 
-      <!-- DESCRIPTION -->
-      <div>
-        <label class="block text-gray-700">Description</label>
-        <textarea name="description" class="w-full mt-1 p-2 border border-gray-300 rounded" rows="3"></textarea>
-      </div>
+        <!-- DESCRIPTION -->
+        <div>
+          <label class="block text-gray-700">Description</label>
+          <textarea
+            name="description"
+            class="w-full mt-1 p-2 border border-gray-300 rounded"
+            rows="3"
+          ></textarea>
+        </div>
 
-      <!-- TIME TAKEN -->
-      <div>
-        <label class="block text-gray-700">Time Taken (in seconds or 'none')</label>
-        <input name="timeTaken" class="w-full mt-1 p-2 border border-gray-300 rounded">
-      </div>
+        <!-- TIME TAKEN -->
+        <div>
+          <label class="block text-gray-700"
+            >Time Taken (in seconds or 'none')</label
+          >
+          <input
+            name="timeTaken"
+            class="w-full mt-1 p-2 border border-gray-300 rounded"
+          />
+        </div>
 
-      <!-- REQUIRED KG -->
-      <div>
-        <label class="block text-gray-700">Require KG (JSON)</label>
-        <textarea name="requireKG" class="w-full mt-1 p-2 border border-gray-300 rounded" rows="3" placeholder='{"Fir": "10-20", "Sec": "20-30"}'></textarea>
-      </div>
+        <!-- REQUIRED KG -->
+        <div>
+          <label class="block text-gray-700">Require KG (JSON)</label>
+          <textarea
+            name="requireKG"
+            class="w-full mt-1 p-2 border border-gray-300 rounded"
+            rows="3"
+            placeholder='{"Fir": "10-20", "Sec": "20-30"}'
+          ></textarea>
+        </div>
 
-      <!-- EFFECTIVENESS -->
-      <div>
-        <label class="block text-gray-700">Effectiveness (%)</label>
-        <input name="effectiveness" type="number" class="w-full mt-1 p-2 border border-gray-300 rounded">
-      </div>
+        <!-- EFFECTIVENESS -->
+        <div>
+          <label class="block text-gray-700">Effectiveness (%)</label>
+          <input
+            name="effectiveness"
+            type="number"
+            class="w-full mt-1 p-2 border border-gray-300 rounded"
+          />
+        </div>
 
-      <!-- ACTIVITY LEVELS -->
-      <div>
-        <label class="block text-gray-700">Activity Levels (JSON)</label>
-        <textarea name="activityLevels" class="w-full mt-1 p-2 border border-gray-300 rounded" rows="3" placeholder='{"beginner": {"reps": 10, "sets": 3}, "intermediate": {"reps": 15, "sets": 4}}'></textarea>
-      </div>
+        <!-- ACTIVITY LEVELS -->
+        <div>
+          <label class="block text-gray-700">Activity Levels (JSON)</label>
+          <textarea
+            name="activityLevels"
+            class="w-full mt-1 p-2 border border-gray-300 rounded"
+            rows="3"
+            placeholder='{"beginner": {"reps": 10, "sets": 3}, "intermediate": {"reps": 15, "sets": 4}}'
+          ></textarea>
+        </div>
 
-      <!-- EQUIPMENT -->
-      <div>
-        <label class="block text-gray-700">Needs Equipment?</label>
-        <select name="equipment" class="w-full mt-1 p-2 border border-gray-300 rounded">
-          <option value="true">Yes</option>
-          <option value="false">No</option>
-        </select>
-      </div>
+        <!-- EQUIPMENT -->
+        <div>
+          <label class="block text-gray-700">Needs Equipment?</label>
+          <select
+            name="equipment"
+            class="w-full mt-1 p-2 border border-gray-300 rounded"
+          >
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
 
-      <!-- PRIMARY MUSCLES -->
-      <div>
-        <label class="block text-gray-700">Primary Muscles (comma-separated)</label>
-        <input name="primaryMuscles" class="w-full mt-1 p-2 border border-gray-300 rounded" placeholder="chest, shoulders">
-      </div>
+        <!-- PRIMARY MUSCLES -->
+        <div>
+          <label class="block text-gray-700"
+            >Primary Muscles (comma-separated)</label
+          >
+          <input
+            name="primaryMuscles"
+            class="w-full mt-1 p-2 border border-gray-300 rounded"
+            placeholder="chest, shoulders"
+          />
+        </div>
 
-      <!-- SECONDARY MUSCLES -->
-      <div>
-        <label class="block text-gray-700">Secondary Muscles (comma-separated)</label>
-        <input name="secondaryMuscles" class="w-full mt-1 p-2 border border-gray-300 rounded" placeholder="triceps, back">
-      </div>
+        <!-- SECONDARY MUSCLES -->
+        <div>
+          <label class="block text-gray-700"
+            >Secondary Muscles (comma-separated)</label
+          >
+          <input
+            name="secondaryMuscles"
+            class="w-full mt-1 p-2 border border-gray-300 rounded"
+            placeholder="triceps, back"
+          />
+        </div>
 
-      <!-- ALTERNATIVES -->
-      <div>
-        <label class="block text-gray-700">Alternatives (JSON Array)</label>
-        <textarea name="alternatives" class="w-full mt-1 p-2 border border-gray-300 rounded" rows="4" placeholder='[{"name": "Alt 1", "caloriesPerRep": 0.6, "description": "...", "equipment": true}]'></textarea>
-      </div>
+        <!-- ALTERNATIVES -->
+        <div>
+          <label class="block text-gray-700">Alternatives (JSON Array)</label>
+          <textarea
+            name="alternatives"
+            class="w-full mt-1 p-2 border border-gray-300 rounded"
+            rows="4"
+            placeholder='[{"name": "Alt 1", "caloriesPerRep": 0.6, "description": "...", "equipment": true}]'
+          ></textarea>
+        </div>
 
-      <!-- SUBMIT -->
-      <div id="submitBtn" class="text-center">
-        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Submit Exercise</button>
-      </div>
-    </form>
-  </div>
-
-</body>
+        <!-- SUBMIT -->
+        <div id="submitBtn" class="text-center">
+          <button
+            type="submit"
+            class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+          >
+            Submit Exercise
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
 </html>
