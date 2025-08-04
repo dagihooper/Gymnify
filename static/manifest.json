@@ -1,0 +1,30 @@
+{
+  "start_url": "/",
+  "display": "standalone",
+  "name": "Gymnify User App",
+  "short_name": "Gymnify",
+  "icons": [
+    {
+      "src": "assets/images/black-transparent.png",
+      "sizes": "158x158",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/images/background-login.png",
+      "sizes": "1365x651",
+      "type": "image/png",
+      "form_factor": "wide"
+
+    },
+    {
+      "src": "assets/images/background-login.png",
+      "sizes": "1365x651",
+      "type": "image/png"
+
+    }
+  ],
+  "background_color": "#ffffff",
+  "theme_color": "#000000"
+}
