@@ -85,6 +85,7 @@
                 {% csrf_token %}
 
                 <div
+                  id="provider_div"
                   class="flex flex-row space-x-6 bg-[EDEDED] font-poppins p-5 rounded-xl max-w-md mt-8 cursor-pointer"
                 >
                   <img
@@ -94,7 +95,7 @@
                     alt=""
                   />
                   {% load socialaccount %}
-                  <a href="{% provider_login_url 'google' %}?next=/home"
+                  <a onclick="googleRedirect()" href="{% provider_login_url 'google' %}?next=/home"
                     >Continue with Google</a
                   >
                 </div>
@@ -191,5 +192,16 @@
 
     <script src="../../static/js/message-continer.js"></script>
     <script src="../../static/js/submitting.js"></script>
+
+    <script>
+
+         function googleRedirect() {
+              providerDiv = document.getElementById('provider_div')
+
+              providerDiv.classList.add('animate-pulse',  'opacity-70', 'scale-95', 'transition-all', 'duration-1000')
+
+
+        }
+    </script>
   </body>
 </html>
