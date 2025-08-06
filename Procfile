@@ -1,3 +1,1 @@
-web: gunicorn Gymnify.wsgi --log-file -
-
-web: python manage.py migrate && gunicorn Gymnify.wsgi
+web: python manage.py migrate && gunicorn Gymnify.wsgi:application --bind 0.0.0.0:$PORT
