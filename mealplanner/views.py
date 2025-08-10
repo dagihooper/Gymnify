@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 
 @login_required
 def nutrition_planner(request):
-    profile = UserProfile.objects.filter(user=request.user).first()
+    profile = UserProfile.objects.filter(Q(user=request.user) | Q(email=request.user.email)).first()
     today = date.today()
     userfastinglog = UserFastingLog.objects.filter(user=request.user, date=today).first()
     if not userfastinglog:
