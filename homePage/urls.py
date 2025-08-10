@@ -9,7 +9,7 @@ urlpatterns = [
     path('pricingplan', views.pricingPlan, name = 'pricingplan'),
     path('profilepage/', views.profilePage, name = 'profilepage'),
     path('checking_profile/', views.checkingProfile, name = 'checking_profile'),
-
+    path('home/meal/', include('mealplanner.urls')),
     path('submitpricingplan', views.submitPricingPlan, name = 'submitpricingplan')
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

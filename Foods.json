@@ -3,211 +3,288 @@
     "breakFast": {
       "lowBudget": [
         {
-          "foodName": "Banana",
+          "foodName": "Injera",
           "macrosPerScalingType": {
-            "protein": 3.2,
-            "carbs": 20.1,
-            "fats": 0.4,
-            "calories": 96
+            "protein": 3.5,
+            "carbs": 50,
+            "fats": 1.0,
+            "calories": 220
           },
           "micronutrientsPerScalingType": {
-            "iron": 2.1,
+            "iron": 2.4,
             "calcium": 40,
-            "thiamine": 0.2
+            "thiamine": 0.3
           },
-          "period": ["breakFast", "lunch"],
+          "period": ["breakFast", "lunch", "dinner"],
+          "scalingType": "serving",
+          "combineWith": ["Doro Wat", "Shiro Wat", "Misir Wat"],
+          "notCombineWith": [],
+          "popularity": "99%",
+          "availability": "98%",
+          "ingredients": ["teff flour", "water", "starter"],
+          "description": "Traditional Ethiopian sourdough flatbread, staple food.",
+          "foodType": "grain",
+          "forGoalOf": ["maintenance", "muscle gain", "weight loss"],
+          "halal": true,
+          "fasting": true,
+          "minMaxPortion": [1, 3]
+        },
+        {
+          "foodName": "Genfo",
+          "macrosPerScalingType": {
+            "protein": 4.2,
+            "carbs": 40,
+            "fats": 3.5,
+            "calories": 250
+          },
+          "micronutrientsPerScalingType": {
+            "iron": 2.0,
+            "calcium": 50,
+            "thiamine": 0.25
+          },
+          "period": ["breakFast"],
+          "scalingType": "bowl",
+          "combineWith": ["niter kibbeh", "berbere"],
+          "notCombineWith": [],
+          "popularity": "80%",
+          "availability": "75%",
+          "ingredients": ["barley flour", "water"],
+          "description": "Traditional porridge often eaten for breakfast.",
+          "foodType": "grain",
+          "forGoalOf": ["maintenance", "weight loss"],
+          "halal": true,
+          "fasting": true,
+          "minMaxPortion": [1, 2]
+        },
+        {
+          "foodName": "Banana",
+          "macrosPerScalingType": {
+            "protein": 1.3,
+            "carbs": 27,
+            "fats": 0.3,
+            "calories": 105
+          },
+          "micronutrientsPerScalingType": {
+            "iron": 0.3,
+            "calcium": 6,
+            "thiamine": 0.04
+          },
+          "period": ["breakFast", "snack"],
           "scalingType": "count",
-          "combineWith": ["milk", "white bread"],
+          "combineWith": ["milk", "honey"],
           "notCombineWith": ["lemon"],
           "popularity": "95%",
           "availability": "90%",
-          "ingredients": ["single"],
-          "description": "Rich in potassium and easy to digest",
-          "foodType": "natural fruit",
-          "forGoalOf": ["maintenace", "muscle gain"],
+          "ingredients": ["banana fruit"],
+          "description": "Rich in potassium and easy to digest.",
+          "foodType": "fruit",
+          "forGoalOf": ["maintenance", "weight loss"],
           "halal": true,
           "fasting": true,
           "minMaxPortion": [1, 3]
         }
-        
       ],
-      "midLowBudget": [
-        
+      "mediumBudget": [
         {
-          "foodName": "Smoothie Bowl",
+          "foodName": "Ful Medames",
           "macrosPerScalingType": {
-            "protein": 8.0,
-            "carbs": 45.0,
-            "fats": 5.0,
-            "calories": 250
-          },
-          "micronutrientsPerScalingType": {
-            "iron": 1.5,
-            "calcium": 100,
-            "thiamine": 0.4
-          },
-          "period": ["breakFast"],
-          "scalingType": "bowl",
-          "combineWith": ["granola", "nuts"],
-          "notCombineWith": [],
-          "popularity": "75%",
-          "availability": "70%",
-          "ingredients": ["banana", "berries", "yogurt", "milk"],
-          "description": "Refreshing and nutrient-dense breakfast",
-          "foodType": "mixed",
-          "forGoalOf": ["maintenace", "weight loss"],
-          "halal": true,
-          "fasting": false,
-          "minMaxPortion": [1, 2]
-        }
-        
-      ],
-      "midBudget": [
-        {
-          "foodName": "Smoked Salmon Bagel",
-          "macrosPerScalingType": {
-            "protein": 20.0,
-            "carbs": 45.0,
-            "fats": 12.0,
-            "calories": 350
-          },
-          "micronutrientsPerScalingType": {
-            "iron": 1.5,
-            "calcium": 50,
-            "thiamine": 0.4
-          },
-          "period": ["breakFast", "lunch"],
-          "scalingType": "bagel",
-          "combineWith": ["cream cheese", "capers"],
-          "notCombineWith": [],
-          "popularity": "70%",
-          "availability": "65%",
-          "ingredients": ["bagel", "smoked salmon", "cream cheese", "red onion"],
-          "description": "Rich in omega-3 fatty acids",
-          "foodType": "seafood",
-          "forGoalOf": ["maintenace", "muscle gain"],
-          "halal": false,
-          "fasting": false,
-          "minMaxPortion": [1, 2]
-        },
-        {
-          "foodName": "Chia Pudding",
-          "macrosPerScalingType": {
-            "protein": 8.0,
-            "carbs": 30.0,
-            "fats": 15.0,
-            "calories": 280
-          },
-          "micronutrientsPerScalingType": {
-            "iron": 2.0,
-            "calcium": 200,
-            "thiamine": 0.3
-          },
-          "period": ["breakFast", "snack"],
-          "scalingType": "bowl",
-          "combineWith": ["berries", "nuts"],
-          "notCombineWith": [],
-          "popularity": "75%",
-          "availability": "70%",
-          "ingredients": ["chia seeds", "almond milk", "honey"],
-          "description": "High fiber and omega-3 content",
-          "foodType": "vegan",
-          "forGoalOf": ["weight loss", "maintenace"],
-          "halal": true,
-          "fasting": true,
-          "minMaxPortion": [1, 2]
-        }
-        
-      ],
-      "midHighBudget": [
-        {
-          "foodName": "Eggs Benedict",
-          "macrosPerScalingType": {
-            "protein": 25.0,
-            "carbs": 30.0,
-            "fats": 25.0,
-            "calories": 420
-          },
-          "micronutrientsPerScalingType": {
-            "iron": 2.5,
-            "calcium": 180,
-            "thiamine": 0.5
-          },
-          "period": ["breakFast", "brunch"],
-          "scalingType": "plate",
-          "combineWith": ["asparagus", "smoked salmon"],
-          "notCombineWith": [],
-          "popularity": "70%",
-          "availability": "60%",
-          "ingredients": ["english muffin", "poached eggs", "ham", "hollandaise sauce"],
-          "description": "Decadent breakfast classic",
-          "foodType": "animal product",
-          "forGoalOf": ["maintenace", "muscle gain"],
-          "halal": false,
-          "fasting": false,
-          "minMaxPortion": [1, 2]
-        }
-        
-      ],
-      "highBudget": [
-        {
-          "foodName": "Lobster Omelette",
-          "macrosPerScalingType": {
-            "protein": 30.0,
-            "carbs": 5.0,
-            "fats": 22.0,
-            "calories": 350
-          },
-          "micronutrientsPerScalingType": {
-            "iron": 3.0,
-            "calcium": 200,
-            "thiamine": 0.5
-          },
-          "period": ["breakFast", "brunch"],
-          "scalingType": "omelette",
-          "combineWith": ["asparagus", "hollandaise"],
-          "notCombineWith": [],
-          "popularity": "60%",
-          "availability": "50%",
-          "ingredients": ["lobster", "eggs", "cream", "chives"],
-          "description": "Luxury breakfast with high-quality protein",
-          "foodType": "seafood",
-          "forGoalOf": ["muscle gain", "maintenace"],
-          "halal": true,
-          "fasting": false,
-          "minMaxPortion": [1, 2]
-        },
-       
-        {
-          "foodName": "Kobe Beef Breakfast Sausage",
-          "macrosPerScalingType": {
-            "protein": 25.0,
-            "carbs": 2.0,
-            "fats": 30.0,
-            "calories": 380
+            "protein": 9,
+            "carbs": 20,
+            "fats": 4,
+            "calories": 180
           },
           "micronutrientsPerScalingType": {
             "iron": 3.5,
-            "calcium": 50,
-            "thiamine": 0.6
+            "calcium": 60,
+            "thiamine": 0.3
           },
           "period": ["breakFast"],
-          "scalingType": "serving",
-          "combineWith": ["eggs", "hash browns"],
+          "scalingType": "plate",
+          "combineWith": ["bread", "tomato", "onion"],
           "notCombineWith": [],
-          "popularity": "65%",
-          "availability": "55%",
-          "ingredients": ["kobe beef", "spices"],
-          "description": "Premium quality breakfast meat",
-          "foodType": "animal product",
-          "forGoalOf": ["muscle gain"],
-          "halal": false,
+          "popularity": "85%",
+          "availability": "85%",
+          "ingredients": ["fava beans", "spices", "olive oil"],
+          "description": "Popular fava bean dish, rich in protein.",
+          "foodType": "legume",
+          "forGoalOf": ["muscle gain", "maintenance"],
+          "halal": true,
+          "fasting": false,
+          "minMaxPortion": [1, 2]
+        },
+        {
+          "foodName": "Boiled Eggs",
+          "macrosPerScalingType": {
+            "protein": 6,
+            "carbs": 0.6,
+            "fats": 5,
+            "calories": 78
+          },
+          "micronutrientsPerScalingType": {
+            "iron": 0.9,
+            "calcium": 25,
+            "thiamine": 0.02
+          },
+          "period": ["breakFast", "snack"],
+          "scalingType": "count",
+          "combineWith": ["bread", "vegetables"],
+          "notCombineWith": [],
+          "popularity": "80%",
+          "availability": "90%",
+          "ingredients": ["egg"],
+          "description": "High-quality protein source.",
+          "foodType": "protein",
+          "forGoalOf": ["muscle gain", "maintenance"],
+          "halal": true,
           "fasting": false,
           "minMaxPortion": [1, 3]
         }
       ]
+    },
+    "lunch": {
+      "lowBudget": [
+        {
+          "foodName": "Shiro Wat",
+          "macrosPerScalingType": {
+            "protein": 10,
+            "carbs": 25,
+            "fats": 5,
+            "calories": 220
+          },
+          "micronutrientsPerScalingType": {
+            "iron": 4.5,
+            "calcium": 70,
+            "thiamine": 0.4
+          },
+          "period": ["lunch", "dinner"],
+          "scalingType": "bowl",
+          "combineWith": ["Injera"],
+          "notCombineWith": [],
+          "popularity": "90%",
+          "availability": "90%",
+          "ingredients": ["chickpea flour", "berbere", "onion", "garlic"],
+          "description": "Spiced chickpea stew, staple Ethiopian dish.",
+          "foodType": "legume",
+          "forGoalOf": ["maintenance", "muscle gain"],
+          "halal": true,
+          "fasting": false,
+          "minMaxPortion": [1, 3]
+        },
+        {
+          "foodName": "Misir Wat",
+          "macrosPerScalingType": {
+            "protein": 9,
+            "carbs": 30,
+            "fats": 4,
+            "calories": 240
+          },
+          "micronutrientsPerScalingType": {
+            "iron": 3.8,
+            "calcium": 65,
+            "thiamine": 0.35
+          },
+          "period": ["lunch", "dinner"],
+          "scalingType": "bowl",
+          "combineWith": ["Injera"],
+          "notCombineWith": [],
+          "popularity": "85%",
+          "availability": "85%",
+          "ingredients": ["red lentils", "berbere", "onion", "garlic"],
+          "description": "Red lentil stew with spicy seasoning.",
+          "foodType": "legume",
+          "forGoalOf": ["maintenance", "muscle gain"],
+          "halal": true,
+          "fasting": false,
+          "minMaxPortion": [1, 3]
+        }
+      ],
+      "mediumBudget": [
+        {
+          "foodName": "Doro Wat",
+          "macrosPerScalingType": {
+            "protein": 25,
+            "carbs": 15,
+            "fats": 10,
+            "calories": 350
+          },
+          "micronutrientsPerScalingType": {
+            "iron": 5,
+            "calcium": 80,
+            "thiamine": 0.45
+          },
+          "period": ["lunch", "dinner"],
+          "scalingType": "plate",
+          "combineWith": ["Injera"],
+          "notCombineWith": [],
+          "popularity": "95%",
+          "availability": "90%",
+          "ingredients": ["chicken", "berbere", "onion", "butter"],
+          "description": "Spicy Ethiopian chicken stew, national dish.",
+          "foodType": "protein",
+          "forGoalOf": ["muscle gain", "maintenance"],
+          "halal": true,
+          "fasting": false,
+          "minMaxPortion": [1, 2]
+        }
+      ]
+    },
+    "snack": {
+      "lowBudget": [
+        {
+          "foodName": "Avocado",
+          "macrosPerScalingType": {
+            "protein": 2,
+            "carbs": 9,
+            "fats": 15,
+            "calories": 160
+          },
+          "micronutrientsPerScalingType": {
+            "iron": 0.55,
+            "calcium": 12,
+            "thiamine": 0.07
+          },
+          "period": ["snack"],
+          "scalingType": "count",
+          "combineWith": ["salt", "lemon"],
+          "notCombineWith": [],
+          "popularity": "75%",
+          "availability": "70%",
+          "ingredients": ["avocado fruit"],
+          "description": "Rich in healthy fats and vitamins.",
+          "foodType": "fruit",
+          "forGoalOf": ["maintenance", "weight loss"],
+          "halal": true,
+          "fasting": true,
+          "minMaxPortion": [1, 2]
+        },
+        {
+          "foodName": "Roasted Chickpeas",
+          "macrosPerScalingType": {
+            "protein": 6,
+            "carbs": 20,
+            "fats": 2,
+            "calories": 130
+          },
+          "micronutrientsPerScalingType": {
+            "iron": 3,
+            "calcium": 50,
+            "thiamine": 0.2
+          },
+          "period": ["snack"],
+          "scalingType": "handful",
+          "combineWith": [],
+          "notCombineWith": [],
+          "popularity": "65%",
+          "availability": "60%",
+          "ingredients": ["chickpeas", "spices"],
+          "description": "High protein snack, common in Ethiopian markets.",
+          "foodType": "legume",
+          "forGoalOf": ["muscle gain", "maintenance"],
+          "halal": true,
+          "fasting": true,
+          "minMaxPortion": [1, 2]
+        }
+      ]
     }
-    
   }
 }
-        

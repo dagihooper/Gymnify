@@ -23,15 +23,15 @@
     >
       <div class=""></div>
       <div
-        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500"
+        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-green-400"
         onclick="navigateTo('home')"
       >
-        <i class="fas fa-home text-[20px] mb-1 text-[#9d80c1]"></i>
+        <i class="fas fa-home text-[20px] mb-1 text-green-400"></i>
         <span class="text-xs">Home</span>
       </div>
 
       <div
-        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500"
+        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-green-400"
         id="exerciseButton"
       >
         <i class="fas fa-dumbbell rotate-[30deg] text-[20px] mb-1"></i>
@@ -39,7 +39,7 @@
       </div>
 
       <div
-        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500"
+        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-green-400"
         id="nutritionBtn"
       >
         <i class="fas fa-utensils text-[20px] mb-1"></i>
@@ -47,14 +47,14 @@
       </div>
 
       <div
-        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500"
+        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-green-400"
         id="reportBtn"
       >
         <i class="fas fa-chart-pie text-[20px] mb-1"></i>
         <span class="text-xs">Report</span>
       </div>
       <div
-        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-purple-500"
+        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-green-400"
         id="profileButton"
         onclick="navigateTo('profilepage')"
       >
@@ -178,60 +178,47 @@
 
       {% endif %}
 
-      <header
-        class="flex flex-row w-full items-center justify-between padding-x mt-12 -z-30"
-      >
+          <header class="flex w-full items-center justify-between px-4 mt-6 relative z-10 mb-6">
         <div>
-          <img
-            loading="lazy"
-            class="h-12 w-auto"
-            src="../../static/assets/logo/logo.svg"
-            alt=""
-          />
+            <img
+                loading="lazy"
+                class="h-12 w-auto"
+                src="{% static 'assets/logo/logo.svg' %}"
+                alt="Gymnify Logo"
+            />
         </div>
-        <div class="group cursor-pointer">
-          <div
-            id="profile"
-            class="rounded-full cursor-pointer w-12 h-12 bg-gray-400 flex items-center justify-center text-white font-poppins relative overflow-hidden"
-          >
-            {% if profile_photo %}
+        <div class="relative group cursor-pointer">
             <div
-              class="absolute inset-0 flex justify-center items-center w-full h-full"
+                id="profile"
+                class="rounded-full w-12 h-12 bg-gray-400 flex items-center justify-center text-white font-poppins overflow-hidden"
             >
-              <img
-                loading="lazy"
-                class="object-cover object-center w-full h-full"
-                src="{{profile_photo}}"
-                alt=""
-              />
+                {% if profile.profile_photo %}
+                    <img
+                        loading="lazy"
+                        class="object-cover w-full h-full"
+                        src="{{ profile.profile_photo }}"
+                        alt="Profile Photo"
+                    />
+                {% else %}
+                    <span class="text-xl font-bold">{{ profile.full_name|slice:":1" }}</span>
+                {% endif %}
             </div>
-
-            {%else%}
-            <p>{{ full_name|slice:":1" }}</p>
-            {%endif%}
-          </div>
-
-          <div
-            class="absolute shadow-lg hidden group-hover:flex duration-1000 transition-all top-30 flex-col justify-center items-center p-8 max-md:p-4 space-y-8 rounded-lg right-0 z-[1000]"
-          >
-            <div class="flex flex-row justify-center items-center space-x-2">
-              <img
-                loading="lazy"
-                width="20"
-                height="20"
-                src="../../static/assets/logo/logout.png"
-                alt=""
-              />
-              <a
-                href="{% url 'logout' %}"
-                class="font-lato text-xl text-blue-400 hover:text-blue-300"
-              >
-                Logout
-              </a>
+            <div
+                class="absolute right-0 top-14 shadow-lg hidden group-hover:flex flex-col items-center p-4 space-y-4 rounded-lg bg-white z-50 transition-all duration-200"
+            >
+                <a href="{% url 'logout' %}" class="flex items-center space-x-2 font-lato text-lg text-blue-400 hover:text-blue-300">
+                    <img
+                        loading="lazy"
+                        width="20"
+                        height="20"
+                        src="{% static 'assets/logo/logout.png' %}"
+                        alt="Logout"
+                    />
+                    <span>Logout</span>
+                </a>
             </div>
-          </div>
         </div>
-      </header>
+    </header>
 
       <section
         id="home"
@@ -445,20 +432,8 @@
         });
 
         nutritionBtn.addEventListener("click", function () {
-          const gymnify_user_email = "{{ profile_data.email|escapejs }}";
-          const password = "{{ profile_data.user.password|escapejs }}";
-          console.log("This is the user email");
-          console.log(gymnify_user_email);
-          console.log("This is the password of the user");
-          console.log(password);
-
-          if (gymnify_user_email) {
-            localStorage.setItem("user_email", gymnify_user_email);
-            console.log("User email saved:", gymnify_user_email);
-            window.location.href = `https://gymnify-users.onrender.com/nutration/?email=${encodeURIComponent(gymnify_user_email)}`;
-          }
+          window.location.href = "meal/nutrition_planner";
         });
-
         reportBtn.addEventListener("click", function () {
           const gymnify_user_email = "{{ profile_data.email|escapejs }}";
           const password = "{{ profile_data.user.password|escapejs }}";

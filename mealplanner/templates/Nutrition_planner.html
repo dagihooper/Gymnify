@@ -1,0 +1,336 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gymnify - Nutrition Planner</title>
+  <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   <link
+      rel="icon"
+      href="../../static/assets/logo/logo_white.svg"
+      type="image/png"
+    />
+    <link rel="stylesheet" href="../../static/css/output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+</head>
+<body class="bg-gray-100 p-6 md:p-10 lg:p-16 min-h-screen flex flex-col font-poppins">
+
+    <header class="flex w-full items-center justify-between px-4 mt-6 relative z-10 mb-6">
+        <div>
+            <img
+                loading="lazy"
+                class="h-12 w-auto"
+                src="{% static 'assets/logo/logo.svg' %}"
+                alt="Gymnify Logo"
+            />
+        </div>
+        <div class="relative group cursor-pointer">
+            <div
+                id="profile"
+                class="rounded-full w-12 h-12 bg-gray-400 flex items-center justify-center text-white font-poppins overflow-hidden"
+            >
+                {% if profile.profile_photo %}
+                    <img
+                        loading="lazy"
+                        class="object-cover w-full h-full"
+                        src="{{ profile.profile_photo }}"
+                        alt="Profile Photo"
+                    />
+                {% else %}
+                    <span class="text-xl font-bold">{{ profile.full_name|slice:":1" }}</span>
+                {% endif %}
+            </div>
+            <div
+                class="absolute right-0 top-14 shadow-lg hidden group-hover:flex flex-col items-center p-4 space-y-4 rounded-lg bg-white z-50 transition-all duration-200"
+            >
+                <a href="{% url 'logout' %}" class="flex items-center space-x-2 font-lato text-lg text-blue-400 hover:text-blue-300">
+                    <img
+                        loading="lazy"
+                        width="20"
+                        height="20"
+                        src="{% static 'assets/logo/logout.png' %}"
+                        alt="Logout"
+                    />
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+  <div
+      class="fixed items-center bottom-0 w-full max-w-[94%] md:left-[50%] md:-translate-x-[50%] md:max-w-md left-[11px] bg-white flex justify-around py-3 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-[2000] rounded-t-2xl"
+    >
+      <div class=""></div>
+      <div
+        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-green-400"
+        onclick="navigateTo('home')"
+      >
+        <i class="fas fa-home text-[20px] mb-1 hover:text-green-400"></i>
+        <span class="text-xs">Home</span>
+      </div>
+
+      <div
+        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-green-400"
+        id="exerciseButton"
+      >
+        <i class="fas fa-dumbbell rotate-[30deg] text-[20px] mb-1"></i>
+        <span class="text-xs">Exercise</span>
+      </div>
+
+      <div
+        class="flex flex-col items-center cursor-pointer px-2 py-1 rounded transition-all text-green-400"
+        id="nutritionBtn"
+      >
+        <i class="fas fa-utensils text-[20px] mb-1"></i>
+        <span class="text-xs">Nutrition</span>
+      </div>
+
+      <div
+        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-green-400"
+        id="reportBtn"
+      >
+        <i class="fas fa-chart-pie text-[20px] mb-1"></i>
+        <span class="text-xs">Report</span>
+      </div>
+      <div
+        class="flex flex-col items-center cursor-pointer px-2 py-1 text-gray-500 rounded transition-all hover:text-green-400"
+        id="profileButton"
+        onclick="navigateTo('profilepage')"
+      >
+        <i class="fas fa-user text-[20px] mb-1"></i>
+        <span class="text-xs">Profile</span>
+      </div>
+    </div>
+
+
+  <main class="flex-grow max-w-5xl mx-auto w-full mt-2 mb-20">
+
+
+    <section class="bg-white shadow-md rounded-lg p-6 mb-10 relative ">
+      <h2 class="text-2xl font-semibold mb-4 text-gray-800">Daily Nutritional Targets</h2>
+      <div class="max-w-sm mx-auto mb-6">
+        <canvas id="macroChart" aria-label="Daily macronutrients chart" role="img"></canvas>
+      </div>
+
+      <ul class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-gray-700 font-medium text-lg mb-5">
+        <li class="max-w-sm flex flex-col space-y-3 text-xl px-2 py-4 bg-white shadow-md rounded-lg items-start justify-center gap-2 border-[#ff829d] border-l-4">
+            <div class="flex flex-row items-center gap-2">
+            <span class="font-montserrat font-bold text-2xl">{{ targets.calories }}</span>
+            <span class="text-base text-gray-500">kcal</span>
+            </div>
+            <div class="text-md font-semibold relative pl-2">
+            <span class="inline-block w-5 h-5 rounded-md bg-[#ff829d] mr-2 align-middle"></span>
+            Calories
+            </div>
+        </li>
+        <li class="max-w-sm flex flex-col space-y-3 text-xl px-2 py-4 bg-white shadow-md rounded-lg items-start justify-center gap-2 border-[#008000] border-l-4">
+            <div class="flex flex-row items-center gap-2">
+            <span class="font-montserrat font-bold text-2xl">{{ targets.protein }}</span>
+            <span class="text-base text-gray-500">g</span>
+            </div>
+            <div class="text-md font-semibold relative pl-2">
+            <span class="inline-block w-5 h-5 rounded-md bg-[#008000] mr-2 align-middle"></span>
+            Protein
+            </div>
+        </li>
+        <li class="max-w-sm flex flex-col space-y-3 text-xl px-2 py-4 bg-white shadow-md rounded-lg items-start justify-center gap-2 border-[#FFCE56] border-l-4">
+            <div class="flex flex-row items-center gap-2">
+            <span class="font-montserrat font-bold text-2xl">{{ targets.fats }}</span>
+            <span class="text-base text-gray-500">g</span>
+            </div>
+            <div class="text-md font-semibold relative pl-2">
+            <span class="inline-block w-5 h-5 rounded-md bg-[#FFCE56] mr-2 align-middle"></span>
+            Fats
+            </div>
+        </li>
+        <li class="max-w-sm flex flex-col space-y-3 text-xl px-2 py-4 bg-white shadow-md rounded-lg items-start justify-center gap-2 border-[#FF6384] border-l-4">
+            <div class="flex flex-row items-center gap-2">
+                <span class="font-montserrat font-bold text-2xl">{{ targets.carbs }}</span>
+                <span class="text-base text-gray-500">g</span>
+            </div>
+            <div class="text-md font-semibold relative pl-2">
+                <span class="inline-block w-5 h-5 rounded-md bg-[#FF6384] mr-2 align-middle"></span>
+                Carbs
+            </div>
+        </li>
+
+     
+      </ul>
+      <button onclick="showMoreInfo()" class="bg-green-200 p-2 max-w-sm rounded-md ">Show More </button>
+
+    </section>
+
+   
+
+    <section>
+      <h2 class="text-2xl font-semibold mb-6 text-gray-800">Suggested Foods</h2>
+
+      {% if plan %}
+        {% for period, budgets in plan.items %}
+          <article class="mb-8">
+            <h3 class="text-xl font-bold text-emerald-400 mb-4 capitalize border-b-2 border-purple-300 pb-2">{{ period }}</h3>
+
+            {% for budget, foods in budgets.items %}
+              <div class="mb-6">
+                <h4 class="text-lg font-semibold mb-3 text-gray-700">
+                  {% if budget == "lowBudget" %}Low Budget
+                  {% elif budget == "mediumBudget" %}Medium Budget
+                  {% elif budget == "highBudget" %}High Budget
+                  {% else %}Other Budget
+                  {% endif %}
+                </h4>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {% for food in foods %}
+                    <section
+                      class="bg-white p-5 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 cursor-default"
+                      tabindex="0"
+                      aria-label="Food: {{ food.food }}, Calories: {{ food.calories }}"
+                    >
+                      <h5 class="font-bold text-lg text-emerald-500 mb-1">{{ food.food }}</h5>
+                      <p class="text-sm text-gray-500 mb-1">
+                        Protein: <span class="font-medium">{{ food.protein }}g</span> |
+                        Carbs: <span class="font-medium">{{ food.carbs }}g</span> |
+                        Fats: <span class="font-medium">{{ food.fats }}g
+                      </p>
+                      <p class="text-sm text-gray-600 mb-1">
+                        Iron: <span class="font-medium">{{ food.iron }}mg</span> |
+                        Calcium: <span class="font-medium">{{ food.calcium }}mg</span> |
+                        Thiamine: <span class="font-medium">{{ food.thiamine }}mg</span>
+                      </p>
+                      <p class="text-sm font-semibold text-gray-700">
+                        Calories: {{ food.calories }}
+                      </p>
+                    </section>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          </article>
+        {% endfor %}
+      {% else %}
+        <p class="text-center text-gray-500 text-lg">No meal plan available.</p>
+      {% endif %}
+    </section>
+  </main>
+
+   <div id="more_info" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 backdrop-blur-sm z-[2999]">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full border-4  relative animate__animated animate__fadeIn">
+            <h3 class="text-2xl font-bold text-green-600 mb-6 text-center">Micronutrient Information</h3>
+            <ul class="space-y-6">
+                <li class="flex flex-col space-y-3 text-xl px-2 py-4 bg-orange-50 shadow-md rounded-lg items-start justify-center gap-2 border-l-4 border-[#FF8C00]">
+                    <div class="flex flex-row items-center gap-2">
+                        <span class="font-montserrat font-bold text-2xl text-[#FF8C00]">{{ targets.micronutrients.iron }}</span>
+                        <span class="text-base text-gray-500">mg</span>
+                    </div>
+                    <div class="text-md font-semibold relative pl-2">
+                        <span class="inline-block w-5 h-5 rounded-md bg-[#FF8C00] mr-2 align-middle"></span>
+                        Iron
+                    </div>
+                </li>
+                <li class="flex flex-col space-y-3 text-xl px-2 py-4 bg-blue-50 shadow-md rounded-lg items-start justify-center gap-2 border-l-4 border-[#3B82F6]">
+                    <div class="flex flex-row items-center gap-2">
+                        <span class="font-montserrat font-bold text-2xl text-[#3B82F6]">{{ targets.micronutrients.calcium }}</span>
+                        <span class="text-base text-gray-500">mg</span>
+                    </div>
+                    <div class="text-md font-semibold relative pl-2">
+                        <span class="inline-block w-5 h-5 rounded-md bg-[#3B82F6] mr-2 align-middle"></span>
+                        Calcium
+                    </div>
+                </li>
+                <li class="flex flex-col space-y-3 text-xl px-2 py-4 bg-purple-50 shadow-md rounded-lg items-start justify-center gap-2 border-l-4 border-[#9333EA]">
+                    <div class="flex flex-row items-center gap-2">
+                        <span class="font-montserrat font-bold text-2xl text-[#9333EA]">{{ targets.micronutrients.thiamine }}</span>
+                        <span class="text-base text-gray-500">mg</span>
+                    </div>
+                    <div class="text-md font-semibold relative pl-2">
+                        <span class="inline-block w-5 h-5 rounded-md bg-[#9333EA] mr-2 align-middle"></span>
+                        Thiamine
+                    </div>
+                </li>
+            </ul>
+            <button onclick="showMoreInfo()" class="absolute top-4 right-4 text-gray-400 hover:text-green-500 text-2xl font-bold" aria-label="Close">&times;</button>
+        </div>
+    </div>
+
+  <!-- Scripts -->
+  <script>
+    // Navigation helper
+   function showMoreInfo() {
+      const moreInfoDiv = document.getElementById("more_info");
+      moreInfoDiv.classList.toggle("hidden");
+    }
+
+    function navigateTo(page) {
+      window.location.href = `http://127.0.0.1:8000/${page}`;
+    }
+
+    // Chart.js Doughnut for Macronutrients
+    const protein = parseFloat('{{ targets.protein }}');
+    const fats = parseFloat('{{ targets.fats }}');
+    const carbs = parseFloat('{{ targets.carbs }}');
+
+    const ctx = document.getElementById('macroChart').getContext('2d');
+
+    const macroChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [protein, fats, carbs],
+        backgroundColor: [
+            'rgba(0, 128, 0, 0.8)',      
+            'rgba(255, 206, 86, 0.8)',  
+            'rgba(255, 99, 132, 0.8)'    
+            ],
+          borderColor: 'rgba(255, 255, 255, 0.8)',
+          borderWidth: 2,
+          hoverOffset: 20
+        }]
+      },
+      options: {
+        cutout: '70%',
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            
+          },
+          tooltip: {
+            enabled: true,
+            callbacks: {
+              label: context => context.label + ': ' + context.parsed + ' g'
+            }
+          }
+        }
+      }
+    });
+
+    // Bottom nav button event listeners (example)
+    const startGym = "{{ start_gym|default:'False' }}";
+    const exerciseBtn = document.getElementById("exerciseButton");
+    const nutritionBtn = document.getElementById("nutritionBtn");
+    const reportBtn = document.getElementById("reportBtn");
+
+    if (startGym === "False") {
+      [exerciseBtn, nutritionBtn, reportBtn].forEach(button => {
+        button.disabled = true;
+        button.classList.add("cursor-not-allowed", "opacity-50");
+        button.addEventListener("click", e => {
+          e.preventDefault();
+          alert("Please click the Start Gym button first to access these features.");
+        });
+      });
+    } else {
+      exerciseBtn.addEventListener("click", () => navigateTo('Exercise_Review'));
+      nutritionBtn.addEventListener("click", () => navigateTo('meal/nutrition_planner'));
+      reportBtn.addEventListener("click", () => navigateTo('report'));
+    }
+  </script>
+
+</body>
+</html>

@@ -4,7 +4,10 @@ from django.dispatch import receiver
 from pymongo import MongoClient
 from .models import Food
 from Gymnify.mongo_utils import get_foods_collection
+from userMember.models import UserProfile
+from mealplanner.utils import calculate_targets    
 
+from django.core.cache import cache 
 @receiver(post_save, sender=Food)
 def sync_food_to_mongo(sender, instance, created, **kwargs):
     print(f"\n🔔 Signal triggered for Food: {instance.food_name}")
@@ -63,3 +66,21 @@ def sync_food_to_mongo(sender, instance, created, **kwargs):
         {"$set": food_data},
         upsert=True
     )
+
+
+@receiver(post_save, sender=UserProfile)
+def update_nutrition_plan(sender, instance, created, **kwargs):
+    if created:
+        # New profile created, optionally create initial nutrition plan
+        pass
+    else:
+        targets = calculate_targets(instance)
+
+        # For demonstration: Save calculated targets in cache keyed by user id
+        cache_key = f'nutrition_targets_user_{instance.user.id}'
+        cache.set(cache_key, targets, timeout=86400)  # cache for 1 day
+
+        print(f"🔄 Nutrition targets updated for user {instance.user.username}: {targets}")
+
+        # Optionally, you could save nutrition targets into a model or trigger
+        # other downstream tasks (e.g., notify user, update frontend, etc.)

@@ -89,71 +89,7 @@
     <main
       class="w-full overflow-y-auto md:w-[600px] shadow-lg max-h-full fixed left-1/2 top-1/2 z-40 translate-x-[-50%] translate-y-[-50%]"
     >
-      <header
-        class="flex flex-row w-full items-center justify-between px-3 mt-2 mb-10 rounded-md"
-      >
-        <div>
-          <a href="{% url 'home' %}">
-            <img
-              class="h-12 w-auto"
-              src="../../static/assets/logo/logo.svg"
-              alt=""
-            />
-          </a>
-        </div>
-
-        <div
-          id="profile"
-          class="rounded-full border cursor-pointer w-12 h-12 bg-gray-400 flex items-center justify-center text-white font-poppins relative group overflow-hidden"
-        >
-          {% if profile_photo %}
-          <div
-            class="absolute inset-0 flex justify-center items-center w-full h-full"
-          >
-            <img
-              class="object-cover object-center w-full h-full"
-              src="{{profile_photo}}"
-              alt=""
-            />
-          </div>
-          {%else%}
-          <p>{{full_name|slice:":1"}}</p>
-          {%endif%}
-
-          <div
-            class="absolute shadow-lg hidden group-hover:flex duration-1000 transition-all top-10 flex-col justify-center items-center p-8 space-y-8 rounded-lg"
-          >
-            <div class="flex flex-row justify-center items-center space-x-2">
-              <img
-                width="20"
-                height="20"
-                src="../../static/assets/logo/profile.png"
-                alt=""
-              />
-              <a
-                href="{% url 'profilepage' %}"
-                class="font-lato text-xl text-blue-400 hover:text-blue-300"
-              >
-                profile
-              </a>
-            </div>
-            <div class="flex flex-row justify-center items-center space-x-2">
-              <img
-                width="20"
-                height="20"
-                src="../../static/assets/logo/logout.png"
-                alt=""
-              />
-              <a
-                href="{% url 'logout' %}"
-                class="font-lato text-xl text-blue-400 hover:text-blue-300"
-              >
-                logout
-              </a>
-            </div>
-          </div>
-        </div>
-      </header>
+      V
 
       {% csrf_token %}
 
@@ -171,7 +107,7 @@
               <img
                 id="previewImage"
                 class="object-cover object-center w-full h-full"
-                src="{% if profile_photo %}{{ profile_photo }}{% else %}../../static/assets/images/guest.png{% endif %}"
+                src="{% if profile.profile_photo %}{{ profile.profile_photo }}{% else %}../../static/assets/images/guest.png{% endif %}"
                 alt="Profile Photo"
               />
             </div>
@@ -195,7 +131,7 @@
           <div
             class="font-montserrat text-3xl flex-1 text-right max-md:text-center"
           >
-            {{full_name}}
+            {{profile.full_name}}
           </div>
         </div>
 
@@ -248,6 +184,13 @@
                   class="block text-gray-700 text-sm font-medium mb-1"
                   >Gender</label
                 >
+                <p class="border p-2 font-semibold text-black max-w-[100px] rounded-md border-md font-poppins text-md mb-2">
+                  {% if profile.gender %}
+                  {{profile.gender|capfirst}}
+                 {% else %}
+                   Not specified
+                 {% endif %}
+                </p>
                 <select
                   type="text"
                   name="gender"
@@ -269,7 +212,7 @@
                   name="age"
                   min="14"
                   class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
-                  value="{{age}}"
+                  value="{{profile.age}}"
                   required
                   placeholder="Enter your age"
                 />
@@ -285,7 +228,7 @@
                   min="30"
                   name="weight"
                   class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
-                  value="{{weight}}"
+                  value="{{profile.weight}}"
                   required
                   placeholder="Enter your weight"
                 />
@@ -301,7 +244,7 @@
                   min="1"
                   name="height"
                   class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
-                  value="{{height}}"
+                  value="{{profile.height}}"
                   required
                   placeholder="Enter your height"
                 />
@@ -368,7 +311,7 @@
                   min="1"
                   class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
                   required
-                  value="{%if health_status%}{{health_status}}{%else%}{%endif%}"
+                  value="{%if profile.health_status%}{{profile.health_status}}{%else%}{%endif%}"
                   placeholder="Enter your health status"
                 />
               </div>
@@ -385,7 +328,7 @@
                   min="1"
                   class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
                   required
-                  value="{%if blood_type%}{{blood_type}}{%else%}{%endif%}"
+                  value="{%if profile.blood_type%}{{profile.blood_type}}{%else%}{%endif%}"
                   placeholder="Enter your blood type"
                 />
               </div>
@@ -400,7 +343,7 @@
                   type="text"
                   name="fitness_goal"
                   class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
-                  value="{%if fitness_goal%}{{fitness_goal}}{%else%}{%endif%}"
+                  value="{%if profile.fitness_goal%}{{profile.fitness_goal}}{%else%}{%endif%}"
                   placeholder="Enter your fitness goal"
                 />
               </div>
@@ -484,7 +427,7 @@
                   type="time"
                   name="enteringTime"
                   class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
-                  value="{%if enteringTime%}{{enteringTime}}{%else%}{%endif%}"
+                  value="{%if profile.enteringTime%}{{profile.enteringTime}}{%else%}{%endif%}"
                   placeholder="Enter your entering time"
                 />
               </div>
@@ -501,7 +444,7 @@
                   min="1"
                   class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
                   required
-                  value="{% if exercise_type %}{{ exercise_type }}{% else %}{% endif %}"
+                  value="{% if profile.exercise_type %}{{ profile.exercise_type }}{% else %}{% endif %}"
                   placeholder="Enter your exercise type"
                 />
               </div>
@@ -516,7 +459,7 @@
                   name="exercise_time_per_day"
                   min="1"
                   class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
-                  value="{%if exercise_time_per_day%}{{exercise_time_per_day}}{%else%}{%endif%}"
+                  value="{%if profile.exercise_time_per_day %}{{profile.exercise_time_per_day}}{%else%}{%endif%}"
                   placeholder="Enter the exercise time per day"
                 />
               </div>
@@ -530,7 +473,7 @@
                   type="text"
                   name="totalTimeSpendOnGym"
                   class="input peer block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
-                  value="{%if totalTimeSpendOnGym%}{{totalTimeSpendOnGym}}{%else%}{%endif%}"
+                  value="{%if profile.totalTimeSpendOnGym %}{{profile.totalTimeSpendOnGym}}{%else%}{%endif%}"
                   placeholder="Enter your average total time in minute."
                 />
               </div>

@@ -14,7 +14,7 @@ class UserProfile(models.Model):
   profile_photo = models.ImageField(upload_to = '', null= True)
   weight = models.DecimalField(max_digits = 6, decimal_places = 2, null = True )
   height = models.CharField(max_length  = 3, null= True)
-  gender = models.CharField(max_length = 10, choices= [('M', 'Male'), ('F', 'Female')], default='M', null = True, blank = True)
+  gender = models.CharField(max_length = 10, choices= [('M', 'Male'), ('F', 'Female')],  null = True, blank = True)
   exercise_day = models.IntegerField(blank = True, null = True)
   health_status = models.CharField(max_length=50, null = True)
   exercise_type = models.CharField(max_length = 20, null = True)
@@ -33,3 +33,13 @@ class UserProfile(models.Model):
   def __str__(self):
         return f"{self.user.username}'s Profile"
       
+from django.db import models
+from django.contrib.auth.models import User
+
+class UserFastingLog(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField()
+    is_fasting = models.BooleanField(null = True)
+
+    class Meta:
+        unique_together = ('user', 'date')

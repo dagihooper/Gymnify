@@ -111,7 +111,6 @@ def home_page(request):
   
           context = {
                   'full_name': request.session['full_name'],
-                  'profile_photo': profile.profile_photo,
                   'gym_house_email': gym_house_email,
                   'gym_house_phone': gym_house_phone,
                   'gym_house_name': gym_house_name,
@@ -124,7 +123,8 @@ def home_page(request):
                   'days_left': days_left,
                   'profile_data': profile,
                   'qr_code': qr_code,
-                  'start_gym': profile.start_gym
+                  'start_gym': profile.start_gym,
+                  'profile': profile
               }
           print('below down is the context of the sart gym')
           print(context['start_gym'])
@@ -224,7 +224,6 @@ def home_page(request):
           
           context = {
             'full_name': full_name,
-            'profile_photo': profile_photo,
             'gym_house_email': gym_house_email,
             'gym_house_phone': gym_house_phone,
             'gym_house_name': gym_house_name,
@@ -236,7 +235,8 @@ def home_page(request):
             'next_payment_date': next_payment_date,
             'days_left': days_left,
             'qr_code': qr_code,
-            'start_gym': profile.start_gym
+            'start_gym': profile.start_gym,
+            'profile': profile
           }
 
           print(f'below is the start_gm value {context['start_gym']}')
@@ -453,25 +453,9 @@ def profilePage(request):
  
   context = {
     'username': username,
-    'full_name': full_name,
-    'profile_photo': profile_photo,
     'email': email,
-    'age': age,
-    'weight': weight,
-    'height': height,
-    'exercise_type': exercise_type,
-    'gender': gender,
-    'exercise_day': exercise_day,
-    'blood_type': blood_type,
-    'health_status': profile.health_status,
-    'exercise_time_per_day': exercise_time_per_day,
-    'fitness_goal': fitness_goal,
-    'notificationTime': notificationTime,
-    'enteringTime': enteringTime,
-    'totalTimeSpendOnGym': totalTimeSpendOnGym,
-    "activityLevel": activityLevel
-      
-  } 
+    'profile': profile,
+      } 
  
   return render(request, 'profilePage.html', context)
 

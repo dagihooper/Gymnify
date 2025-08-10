@@ -5,6 +5,7 @@ module.exports = {
   './userMember/templates/**/*.html',
   './userAdmin/templates/**/*.html',
   './vote/templates/**/*.js',
+  './mealplanner/templates/**/*.html',
   './validation/templates/**/*.html',
   './homePage/templates/**/*.html',
   './validation/templates/**/*.js',

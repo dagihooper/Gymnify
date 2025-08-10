@@ -1,0 +1,65 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gymnify</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+<body class="font-poppins">
+    {% if messages %}
+    <div
+      id="message-container"
+      class="absolute font-lato shadow-md text-white max-w-[80%] w-[21rem] max-md:min-w-[80%] top-4 left-8 mt-8"
+    >
+      {% for message in messages %}
+      <div
+        class="{% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %}bg-red-500 {% else %}bg-gray-500 {% endif %} px-6 py-5 rounded-md flex flex-row justify-center items-center gap-4"
+      >
+        <p class="w-full">{{ message }}</p>
+        <button
+          class="top-1 right-2 text-white"
+          onclick="this.parentElement.remove();"
+        >
+          ✖
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <main
+      class="max-h-full fixed left-[50%] top-[50%] z-40 w-full sm:w-[500px] translate-x-[-50%] translate-y-[-50%]"
+    >
+      <div class="bg-white p-8 rounded-lg shadow-lg w-96 flex flex-col">
+        <h1 class="text-2xl max-sm:text-xl font-bold text-center text-gray-800">
+          Generating your nutrition plan
+        </h1>
+        <p class="mt-4 text-sm mb-4 text-center text-gray-600">
+          We're reviewing your account to ensure everything is up to date and
+          accurate. This helps us provide you with a secure and personalized
+          nutrition plan.
+        </p>
+        <p class="text-coral-red text-sm mb-4">
+          Please wait<span class="inline-block animate-pulse">...</span>
+        </p>
+        <label class="font-semibold text-center text-gray-800 font-montserrat">Are you Fasting?</label>
+        <form method="POST" action="{% url 'additional_info' %}" class="flex items-center justify-center gap-4 mb-4 p-4 ">
+            {% csrf_token %}
+            <button value="yes" type="submit" name="is_fasting" class="bg-green-500 text-white px-4 py-2 rounded-md">
+                Yes
+            </button>
+
+            <button value="no" type="submit" name="is_fasting" class="bg-red-500 text-white px-4 py-2 rounded-md">
+                No
+            </button>
+        </form>
+        <div
+          class="w-6 h-6 border-4 block border-blue-300 border-t-blue-600 rounded-full animate-spin mx-auto mb-4"
+        ></div>
+       
+    </main>
+
+    <script src="../../static/js/message-continer.js"></script>
+
+  </body>
+</html>
