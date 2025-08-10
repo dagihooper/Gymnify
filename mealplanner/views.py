@@ -8,6 +8,7 @@ from datetime import date
 from .utils import meal_plan
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 
 
